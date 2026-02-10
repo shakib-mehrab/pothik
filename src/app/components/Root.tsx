@@ -6,7 +6,7 @@ export function Root() {
 
   const navItems = [
     { path: "/", icon: Home, label: "শুচিপত্র", englishLabel: "Home" },
-    { path: "/metro", icon: Train, label: "মেট্রো", englishLabel: "Metro" },
+    { path: "/restaurants", icon: MapPin, label: "খাই দাই", englishLabel: "Restaurants" },
     { path: "/markets", icon: ShoppingBag, label: "হাট-বাজার", englishLabel: "Markets" },
     { path: "/planner", icon: MapPin, label: "পর্যটন", englishLabel: "Planner" },
   ];
