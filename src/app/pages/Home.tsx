@@ -132,4 +132,8 @@ export function Home() {
               </p>
             </div>
           </div>
-        
+        </Card>
+      </div>
+    </div>
+  );
+}
