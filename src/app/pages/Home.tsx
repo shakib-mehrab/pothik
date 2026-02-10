@@ -1,37 +1,51 @@
 import { Link } from "react-router";
-import { Search, Train, ShoppingBag, MapPin, Building2 } from "lucide-react";
+import { Search, Train, ShoppingBag, MapPin, Building2, BookOpen } from "lucide-react";
 import { Input } from "../components/ui/input";
 import { Card } from "../components/ui/card";
 
 export function Home() {
   const quickAccessTiles = [
-    { 
-      path: "/metro", 
-      icon: Train, 
-      title: "যাতায়াত",  
-      subtitle: "কোথায় যাবো? কেমনে যাবো?", 
-      color: "bg-primary text-primary-foreground" 
+    {
+      path: "/transport",
+      icon: Train,
+      title: "যাতায়াত",
+      subtitle: "কোথায় যাবো? কেমনে যাবো?",
+      color: "bg-transport text-transport-foreground"
     },
-    { 
-      path: "/markets", 
-      icon: ShoppingBag, 
-      title: "হাট-বাজার", 
-      subtitle: "Markets & Shopping",
-      color: "bg-accent text-accent-foreground" 
+    {
+      path: "/markets",
+      icon: ShoppingBag,
+      title: "হাট-বাজার",
+      subtitle: "কোথায় গেলে কি পাবো?",
+      color: "bg-accent text-accent-foreground"
     },
-    { 
-      path: "/planner", 
-      icon: MapPin, 
-      title: "পর্যটক", 
-      subtitle: "Tour Planner",
-      color: "bg-primary text-primary-foreground" 
+    {
+      path: "/restaurants",
+      icon: MapPin,
+      title: "খাই দাই",
+      subtitle: "কোথায় কি খাওয়া যায়?",
+      color: "bg-food text-food-foreground"
     },
-    { 
-      path: "/markets", 
-      icon: Building2, 
-      title: "হোটেল তারিফ", 
-      subtitle: "Hotel Rates",
-      color: "bg-accent text-accent-foreground" 
+    {
+      path: "/planner",
+      icon: MapPin,
+      title: "ঘুরতে যাই",
+      subtitle: "চলোনা ঘুরে আসি...",
+      color: "bg-travel text-travel-foreground"
+    },
+    {
+      path: "/hotels",
+      icon: Building2,
+      title: "হোটেল / রিসোর্ট",
+      subtitle: "কই থাকা যায়?",
+      color: "bg-hotels text-hotels-foreground"
+    },
+    {
+      path: "/travel-guide",
+      icon: BookOpen,
+      title: "ভ্রমন গাইড",
+      subtitle: "জানো, বুঝো, ঘুরো!",
+      color: "bg-accent text-accent-foreground"
     },
   ];
 
@@ -64,8 +78,8 @@ export function Home() {
         <Card className="p-1 shadow-lg">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
-            <Input 
-              placeholder="Search stations, markets, hotels..." 
+            <Input
+              placeholder="Search stations, markets, hotels..."
               className="pl-10 border-0 focus-visible:ring-0 bg-transparent"
             />
           </div>
