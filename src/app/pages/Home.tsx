@@ -1,3 +1,5 @@
+import React from 'react';
+// ...existing code...
 import { Link } from "react-router";
 import { Search, Train, ShoppingBag, MapPin, Building2, BookOpen } from "lucide-react";
 import { Input } from "../components/ui/input";

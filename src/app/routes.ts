@@ -9,6 +9,8 @@ import { LocalBus } from "./pages/LocalBus";
 import { LongDistance } from "./pages/LongDistance";
 import { TrainSchedule } from "./pages/TrainSchedule";
 import { TravelGuide } from "./pages/TravelGuide";
+import { Hotels } from "./pages/Hotels";
+import { Restaurants } from "./pages/Restaurants";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +26,8 @@ export const router = createBrowserRouter([
       { path: "markets", Component: Markets },
       { path: "planner", Component: TourPlanner },
       { path: "travel-guide", Component: TravelGuide },
+      { path: "hotels", Component: Hotels },
+      { path: "restaurants", Component: Restaurants },
     ],
   },
 ]);

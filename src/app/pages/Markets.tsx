@@ -2,247 +2,458 @@ import { useState } from "react";
 import { Card } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "../components/ui/tabs";
-import { MapPin, Clock, Star, Edit, Trash2, Plus } from "lucide-react";
+import { Tabs, TabsList, TabsTrigger } from "../components/ui/tabs";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../components/ui/dialog";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { Textarea } from "../components/ui/textarea";
+import { MapPin, Clock, Star, Navigation, Plus, X, ChevronDown } from "lucide-react";
 
 interface Market {
   id: string;
   nameBangla: string;
   nameEnglish: string;
   location: string;
+  howToGo: string;
   specialty: string[];
   openingHours: string;
   priceRange: string;
   description: string;
   lastUpdated: string;
-  category: "shopping" | "wholesale" | "hotels";
+  category: "brands" | "local" | "budget" | "others";
 }
 
 export function Markets() {
-  const [activeTab, setActiveTab] = useState("shopping");
+  const [activeTab, setActiveTab] = useState<Market["category"]>("brands");
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [specialtyInput, setSpecialtyInput] = useState("");
+  const [specialties, setSpecialties] = useState<string[]>([]);
+  const [expandedCard, setExpandedCard] = useState<string | null>(null);
+
+  const [formData, setFormData] = useState({
+    nameBangla: "",
+    nameEnglish: "",
+    location: "",
+    howToGo: "",
+    openingHours: "",
+    priceRange: "",
+    description: "",
+  });
 
   const markets: Market[] = [
-    {
-      id: "new-market",
-      nameBangla: "নিউ মার্কেট",
-      nameEnglish: "New Market",
-      location: "Azimpur, Dhaka",
-      specialty: ["Clothing", "Accessories", "Shoes", "Sarees"],
-      openingHours: "10:00 AM - 9:00 PM",
-      priceRange: "৳৳",
-      description: "One of Dhaka's oldest shopping destinations for clothing and accessories",
-      lastUpdated: "Feb 2026",
-      category: "shopping"
-    },
     {
       id: "bashundhara-city",
       nameBangla: "বসুন্ধরা সিটি",
       nameEnglish: "Bashundhara City",
       location: "Panthapath, Dhaka",
-      specialty: ["Fashion", "Electronics", "Food Court", "Entertainment"],
+      howToGo: "মেট্রো: কারওয়ান বাজার স্টেশন, বাস: Panthapath",
+      specialty: ["ফ্যাশন", "ইলেকট্রনিক্স", "ফুড কোর্ট"],
       openingHours: "10:00 AM - 10:00 PM",
       priceRange: "৳৳৳",
-      description: "Largest shopping mall in South Asia with everything under one roof",
+      description: "দক্ষিণ এশিয়ার বৃহত্তম শপিং মল",
       lastUpdated: "Feb 2026",
-      category: "shopping"
+      category: "brands"
     },
     {
       id: "jamuna-future-park",
       nameBangla: "যমুনা ফিউচার পার্ক",
       nameEnglish: "Jamuna Future Park",
       location: "Baridhara, Dhaka",
-      specialty: ["International Brands", "Cinema", "Food", "Kids Zone"],
+      howToGo: "বাস: Kuril Bishwa Road, রিকশা: Baridhara থেকে",
+      specialty: ["আন্তর্জাতিক ব্র্যান্ড", "সিনেমা", "খেলার জায়গা"],
       openingHours: "10:00 AM - 10:00 PM",
       priceRange: "৳৳৳",
-      description: "Modern shopping complex with international and local brands",
+      description: "আধুনিক শপিং কমপ্লেক্স",
       lastUpdated: "Feb 2026",
-      category: "shopping"
+      category: "brands"
     },
     {
-      id: "kawran-bazar",
-      nameBangla: "কারওয়ান বাজার",
-      nameEnglish: "Kawran Bazar",
-      location: "Tejgaon, Dhaka",
-      specialty: ["Vegetables", "Fish", "Meat", "Wholesale"],
-      openingHours: "3:00 AM - 12:00 PM",
+      id: "new-market",
+      nameBangla: "নিউ মার্কেট",
+      nameEnglish: "New Market",
+      location: "Azimpur, Dhaka",
+      howToGo: "মেট্রো: শাহবাগ/ঢাকা বিশ্ববিদ্যালয়, বাস: Azimpur",
+      specialty: ["পোশাক", "জুতা", "শাড়ি"],
+      openingHours: "10:00 AM - 9:00 PM",
+      priceRange: "৳৳",
+      description: "ঢাকার পুরাতন শপিং গন্তব্য",
+      lastUpdated: "Feb 2026",
+      category: "local"
+    },
+    {
+      id: "chandni-chawk",
+      nameBangla: "চাঁদনী চক",
+      nameEnglish: "Chandni Chawk",
+      location: "Gulshan 1, Dhaka",
+      howToGo: "বাস: Gulshan 1, সিএনজি/রিকশা",
+      specialty: ["শাড়ি", "পার্টি পোশাক", "গহনা"],
+      openingHours: "10:00 AM - 9:00 PM",
+      priceRange: "৳৳",
+      description: "মহিলা পোশাক ও গহনার জন্য জনপ্রিয়",
+      lastUpdated: "Feb 2026",
+      category: "local"
+    },
+    {
+      id: "hawkers-market",
+      nameBangla: "হকার্স মার্কেট",
+      nameEnglish: "Hawkers Market (Mohakhali)",
+      location: "Mohakhali, Dhaka",
+      howToGo: "বাস: Mohakhali Bus Stand, মেট্রো আসছে শীঘ্রই",
+      specialty: ["সস্তা পোশাক", "জুতা", "ব্যাগ"],
+      openingHours: "11:00 AM - 9:00 PM",
       priceRange: "৳",
-      description: "Largest wholesale kitchen market in Dhaka",
+      description: "সাশ্রয়ী মূল্যে ফ্যাশন পণ্য",
       lastUpdated: "Feb 2026",
-      category: "wholesale"
+      category: "budget"
     },
     {
-      id: "gulshan-electronics",
-      nameBangla: "গুলশান ইলেকট্রনিক্স",
-      nameEnglish: "Multiplan Center",
+      id: "gausia-market",
+      nameBangla: "গাউসিয়া মার্কেট",
+      nameEnglish: "Gausia Market",
+      location: "New Market Area, Dhaka",
+      howToGo: "মেট্রো: শাহবাগ, হেঁটে ১০ মিনিট",
+      specialty: ["যুব ফ্যাশন", "জিন্স", "টি-শার্ট"],
+      openingHours: "10:00 AM - 9:00 PM",
+      priceRange: "৳",
+      description: "তরুণদের পছন্দের শপিং স্পট",
+      lastUpdated: "Feb 2026",
+      category: "budget"
+    },
+    {
+      id: "elephant-road",
+      nameBangla: "এলিফ্যান্ট রোড",
+      nameEnglish: "Elephant Road Market",
       location: "Elephant Road, Dhaka",
-      specialty: ["Computers", "Laptops", "Gadgets", "Accessories"],
+      howToGo: "মেট্রো: শাহবাগ, বাস: Elephant Road",
+      specialty: ["ইলেকট্রনিক্স", "কম্পিউটার", "মোবাইল"],
       openingHours: "10:00 AM - 8:00 PM",
       priceRange: "৳৳",
-      description: "Hub for electronics and computer equipment",
+      description: "ইলেকট্রনিক্স পণ্যের কেন্দ্র",
       lastUpdated: "Feb 2026",
-      category: "wholesale"
+      category: "others"
     },
     {
-      id: "hotel-61",
-      nameBangla: "হোটেল ৬১",
-      nameEnglish: "Hotel 61",
-      location: "Uttara, Sector 3",
-      specialty: ["Budget Rooms", "Restaurant", "WiFi"],
-      openingHours: "24/7",
-      priceRange: "৳1,500 - ৳3,000/night",
-      description: "Clean budget hotel in Uttara with good amenities",
+      id: "islampur",
+      nameBangla: "ইসলামপুর",
+      nameEnglish: "Islampur",
+      location: "Old Dhaka",
+      howToGo: "বাস: Sadarghat/Gulistan, রিকশা",
+      specialty: ["কাপড়", "পাইকারি বাজার", "সেলাই সামগ্রী"],
+      openingHours: "9:00 AM - 7:00 PM",
+      priceRange: "৳",
+      description: "কাপড়ের পাইকারি বাজার",
       lastUpdated: "Feb 2026",
-      category: "hotels"
+      category: "others"
     },
-    {
-      id: "hotel-sarina",
-      nameBangla: "হোটেল সারিনা",
-      nameEnglish: "Hotel Sarina",
-      location: "Banani, Dhaka",
-      specialty: ["Mid-range", "Pool", "Restaurant", "Conference"],
-      openingHours: "24/7",
-      priceRange: "৳4,500 - ৳8,000/night",
-      description: "Comfortable mid-range hotel with pool and dining",
-      lastUpdated: "Feb 2026",
-      category: "hotels"
-    },
-    {
-      id: "radisson-blu",
-      nameBangla: "র‍্যাডিসন ব্লু",
-      nameEnglish: "Radisson Blu",
-      location: "Airport Road, Dhaka",
-      specialty: ["Luxury", "Spa", "Multiple Restaurants", "Airport Transfer"],
-      openingHours: "24/7",
-      priceRange: "৳12,000 - ৳25,000/night",
-      description: "5-star luxury hotel near airport",
-      lastUpdated: "Feb 2026",
-      category: "hotels"
-    }
   ];
 
   const filteredMarkets = markets.filter(m => m.category === activeTab);
+
+  const tabConfig = [
+    { value: "brands" as const, label: "ব্র্যান্ড ও মল" },
+    { value: "local" as const, label: "স্থানীয়" },
+    { value: "budget" as const, label: "সাশ্রয়ী" },
+    { value: "others" as const, label: "অন্যান্য" },
+  ];
+
+  const toggleCard = (id: string) => {
+    setExpandedCard(expandedCard === id ? null : id);
+  };
+
+  const handleAddSpecialty = () => {
+    if (specialtyInput.trim()) {
+      setSpecialties([...specialties, specialtyInput.trim()]);
+      setSpecialtyInput("");
+    }
+  };
+
+  const handleRemoveSpecialty = (index: number) => {
+    setSpecialties(specialties.filter((_, i) => i !== index));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // TODO: Handle form submission (will connect to backend later)
+    console.log({ ...formData, specialty: specialties, category: activeTab });
+    alert("বাজার যুক্ত হয়েছে! (Backend integration pending)");
+    setIsAddDialogOpen(false);
+    // Reset form
+    setFormData({
+      nameBangla: "",
+      nameEnglish: "",
+      location: "",
+      howToGo: "",
+      openingHours: "",
+      priceRange: "",
+      description: "",
+    });
+    setSpecialties([]);
+  };
 
   return (
     <div className="min-h-screen bg-background pb-8">
       {/* Header */}
       <div className="bg-primary px-6 pt-8 pb-6 sticky top-0 z-10 shadow-sm">
         <h1 className="text-2xl font-bold text-white mb-1">হাট-বাজার</h1>
-        <p className="text-white/90 text-sm">Markets, Shopping & Hotels Directory</p>
+        <p className="text-white/90 text-sm">Markets & Shopping Directory</p>
       </div>
 
       {/* Tabs */}
-      <div className="sticky top-[120px] z-10 bg-background px-4 pt-6 pb-3">
-        <div className="flex items-center justify-between mb-3">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1">
-            <TabsList className="grid w-full grid-cols-3 bg-muted">
-              <TabsTrigger value="shopping">Shopping</TabsTrigger>
-              <TabsTrigger value="wholesale">Wholesale</TabsTrigger>
-              <TabsTrigger value="hotels">Hotels</TabsTrigger>
-            </TabsList>
-          </Tabs>
-        </div>
-        <Button 
-          size="sm" 
-          className="w-full bg-primary text-primary-foreground"
-          onClick={() => alert('Add new place (feature coming soon!)')}
-        >
-          <Plus className="w-4 h-4 mr-2" />
-          Add {activeTab === 'shopping' ? 'Shopping Center' : activeTab === 'wholesale' ? 'Wholesale Market' : 'Hotel'}
-        </Button>
+      <div className="sticky top-[104px] z-10 bg-background px-4 pt-6 pb-3">
+        <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as Market["category"])} className="w-full">
+          <TabsList className="grid w-full grid-cols-4 bg-muted h-auto">
+            {tabConfig.map((tab) => (
+              <TabsTrigger
+                key={tab.value}
+                value={tab.value}
+                className="text-xs py-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+              >
+                {tab.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </Tabs>
+
+        {/* Add Button */}
+        <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+          <DialogTrigger asChild>
+            <Button
+              size="sm"
+              className="w-full mt-3 bg-primary text-primary-foreground"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              নতুন যোগ করুন
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="max-w-[95vw] max-h-[85vh] overflow-y-auto p-4">
+            <DialogHeader>
+              <DialogTitle className="text-base">নতুন বাজার যোগ করুন</DialogTitle>
+            </DialogHeader>
+            <form onSubmit={handleSubmit} className="space-y-3 pt-2">
+              <div>
+                <Label className="text-xs font-medium">নাম (বাংলা) *</Label>
+                <Input
+                  required
+                  placeholder="যেমন: নিউ মার্কেট"
+                  value={formData.nameBangla}
+                  onChange={(e) => setFormData({ ...formData, nameBangla: e.target.value })}
+                  className="mt-1 h-9 text-sm"
+                />
+              </div>
+
+              <div>
+                <Label className="text-xs font-medium">Name (English)</Label>
+                <Input
+                  placeholder="e.g., New Market"
+                  value={formData.nameEnglish}
+                  onChange={(e) => setFormData({ ...formData, nameEnglish: e.target.value })}
+                  className="mt-1 h-9 text-sm"
+                />
+              </div>
+
+              <div>
+                <Label className="text-xs font-medium">অবস্থান *</Label>
+                <Input
+                  required
+                  placeholder="যেমন: আজিমপুর, ঢাকা"
+                  value={formData.location}
+                  onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                  className="mt-1 h-9 text-sm"
+                />
+              </div>
+
+              <div>
+                <Label className="text-xs font-medium">যেভাবে যাবেন *</Label>
+                <Textarea
+                  required
+                  placeholder="যেমন: মেট্রো: শাহবাগ স্টেশন, বাস: Azimpur"
+                  value={formData.howToGo}
+                  onChange={(e) => setFormData({ ...formData, howToGo: e.target.value })}
+                  className="mt-1 text-sm min-h-[60px]"
+                  rows={2}
+                />
+              </div>
+
+              <div>
+                <Label className="text-xs font-medium">বিশেষত্ব *</Label>
+                <div className="flex gap-2 mt-1">
+                  <Input
+                    placeholder="যেমন: পোশাক"
+                    value={specialtyInput}
+                    onChange={(e) => setSpecialtyInput(e.target.value)}
+                    onKeyPress={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        handleAddSpecialty();
+                      }
+                    }}
+                    className="h-9 text-sm"
+                  />
+                  <Button type="button" onClick={handleAddSpecialty} size="sm" className="h-9 px-3 text-xs">
+                    যোগ
+                  </Button>
+                </div>
+                {specialties.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5 mt-2">
+                    {specialties.map((spec, idx) => (
+                      <Badge key={idx} variant="secondary" className="flex items-center gap-1 text-xs px-2 py-0.5">
+                        {spec}
+                        <X
+                          className="w-3 h-3 cursor-pointer"
+                          onClick={() => handleRemoveSpecialty(idx)}
+                        />
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div>
+                <Label className="text-xs font-medium">খোলার সময়</Label>
+                <Input
+                  placeholder="যেমন: 10:00 AM - 9:00 PM"
+                  value={formData.openingHours}
+                  onChange={(e) => setFormData({ ...formData, openingHours: e.target.value })}
+                  className="mt-1 h-9 text-sm"
+                />
+              </div>
+
+              <div>
+                <Label className="text-xs font-medium">মূল্য পরিসীমা</Label>
+                <Input
+                  placeholder="যেমন: ৳৳"
+                  value={formData.priceRange}
+                  onChange={(e) => setFormData({ ...formData, priceRange: e.target.value })}
+                  className="mt-1 h-9 text-sm"
+                />
+              </div>
+
+              <div>
+                <Label className="text-xs font-medium">বিবরণ</Label>
+                <Textarea
+                  placeholder="সংক্ষিপ্ত বিবরণ..."
+                  value={formData.description}
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  className="mt-1 text-sm min-h-[60px]"
+                  rows={2}
+                />
+              </div>
+
+              <Button type="submit" className="w-full bg-primary h-9 text-sm">
+                সংরক্ষণ করুন
+              </Button>
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
 
-      {/* Content */}
+      {/* Markets Grid - 2 Columns with Collapsible Cards */}
       <div className="px-4 pt-2">
-        <div className="space-y-4">
-          {filteredMarkets.map((market) => (
-            <Card key={market.id} className="p-5 shadow-sm hover:shadow-md transition-shadow">
-              {/* Header */}
-              <div className="mb-3">
-                <div className="flex items-start justify-between mb-2">
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-lg">{market.nameBangla}</h3>
-                    <p className="text-sm text-muted-foreground">{market.nameEnglish}</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    {market.category !== "hotels" && (
-                      <Badge variant="outline" className="bg-accent/10 text-accent border-accent/30">
-                        {market.priceRange}
+        <div className="grid grid-cols-2 gap-3 items-start">
+          {filteredMarkets.map((market) => {
+            const isExpanded = expandedCard === market.id;
+
+            return (
+              <Card
+                key={market.id}
+                className="p-2.5 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+                onClick={() => toggleCard(market.id)}
+              >
+                {/* Always Visible - Header */}
+                <div className="mb-2">
+                  <h3 className="font-semibold text-sm line-clamp-1">{market.nameBangla}</h3>
+                  <p className="text-[10px] text-muted-foreground line-clamp-1">{market.nameEnglish}</p>
+                </div>
+
+                {/* Always Visible - Location */}
+                <div className="flex items-start gap-1 mb-2">
+                  <MapPin className="w-3 h-3 text-muted-foreground flex-shrink-0 mt-0.5" />
+                  <p className="text-[11px] text-muted-foreground line-clamp-1">{market.location}</p>
+                </div>
+
+                {/* Always Visible - Specialties (compact) */}
+                <div className="mb-2">
+                  <div className="flex flex-wrap gap-1">
+                    {market.specialty.slice(0, 2).map((item, idx) => (
+                      <Badge key={idx} variant="secondary" className="text-[9px] px-1.5 py-0 leading-4">
+                        {item}
+                      </Badge>
+                    ))}
+                    {market.specialty.length > 2 && (
+                      <Badge variant="secondary" className="text-[9px] px-1.5 py-0 leading-4">
+                        +{market.specialty.length - 2}
                       </Badge>
                     )}
-                    <div className="flex gap-1">
-                      <Button 
-                        size="sm" 
-                        variant="ghost" 
-                        className="h-8 w-8 p-0 text-primary hover:bg-primary/10"
-                        onClick={() => alert('Edit market details (feature coming soon!)')}
-                      >
-                        <Edit className="w-4 h-4" />
-                      </Button>
-                      <Button 
-                        size="sm" 
-                        variant="ghost" 
-                        className="h-8 w-8 p-0 text-destructive hover:bg-destructive/10"
-                        onClick={() => alert('Delete market (feature coming soon!)')}
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
+                  </div>
+                </div>
+
+                {/* Expandable Content */}
+                {isExpanded && (
+                  <div className="space-y-2 mt-2 pt-2 border-t border-border/50">
+                    {/* How to Go */}
+                    <div className="flex items-start gap-1">
+                      <Navigation className="w-3 h-3 text-primary flex-shrink-0 mt-0.5" />
+                      <p className="text-[11px] text-foreground">{market.howToGo}</p>
                     </div>
+
+                    {/* Opening Hours & Price */}
+                    <div className="flex items-center justify-between gap-2">
+                      {market.openingHours && (
+                        <div className="flex items-center gap-1">
+                          <Clock className="w-3 h-3 text-muted-foreground flex-shrink-0" />
+                          <span className="text-[10px] text-muted-foreground">{market.openingHours}</span>
+                        </div>
+                      )}
+                      {market.priceRange && (
+                        <Badge variant="outline" className="text-[10px] bg-accent/10 text-accent border-accent/30 px-1.5 py-0">
+                          {market.priceRange}
+                        </Badge>
+                      )}
+                    </div>
+
+                    {/* Description */}
+                    {market.description && (
+                      <p className="text-[11px] text-foreground/80">{market.description}</p>
+                    )}
+
+                    {/* All Specialties when expanded */}
+                    {market.specialty.length > 2 && (
+                      <div className="flex flex-wrap gap-1">
+                        {market.specialty.slice(2).map((item, idx) => (
+                          <Badge key={idx} variant="secondary" className="text-[9px] px-1.5 py-0 leading-4">
+                            {item}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Footer */}
+                <div className="flex items-center justify-between pt-2 mt-2 border-t border-border/50">
+                  <span className="text-[9px] bg-primary/10 text-primary px-1.5 py-0.5 rounded font-medium">
+                    ✓ Verified
+                  </span>
+                  <div className="flex items-center gap-1">
+                    <span className="text-[9px] text-muted-foreground">{market.lastUpdated}</span>
+                    <ChevronDown
+                      className={`w-3 h-3 text-muted-foreground transition-transform ${
+                        isExpanded ? 'rotate-180' : ''
+                      }`}
+                    />
                   </div>
                 </div>
-
-                {/* Location */}
-                <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-                  <MapPin className="w-4 h-4" />
-                  {market.location}
-                </div>
-
-                {/* Hours */}
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Clock className="w-4 h-4" />
-                  {market.openingHours}
-                </div>
-              </div>
-
-              {/* Description */}
-              <p className="text-sm mb-3 text-foreground/80">{market.description}</p>
-
-              {/* Specialties */}
-              <div className="mb-3">
-                <p className="text-xs text-muted-foreground mb-2">
-                  {market.category === "hotels" ? "Amenities:" : "Specialty:"}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {market.specialty.map((item, idx) => (
-                    <Badge key={idx} variant="secondary" className="text-xs">
-                      {item}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-
-              {/* Price Range for Hotels */}
-              {market.category === "hotels" && (
-                <div className="mb-3 p-3 bg-primary/5 rounded-lg border border-primary/10">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium">Tariff Range:</span>
-                    <span className="text-sm font-semibold text-primary">{market.priceRange}</span>
-                  </div>
-                </div>
-              )}
-
-              {/* Footer */}
-              <div className="flex items-center justify-between pt-3 border-t border-border/50">
-                <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-md font-medium">
-                  ✓ Verified by Pathik
-                </span>
-                <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                  <Clock className="w-3 h-3" />
-                  Updated: {market.lastUpdated}
-                </div>
-              </div>
-            </Card>
-          ))}
+              </Card>
+            );
+          })}
         </div>
+
+        {/* Empty State */}
+        {filteredMarkets.length === 0 && (
+          <Card className="p-8 text-center">
+            <p className="text-muted-foreground">এই বিভাগে কোনো তথ্য নেই</p>
+          </Card>
+        )}
 
         {/* User Contribution Banner */}
         <Card className="mt-6 bg-gradient-to-r from-accent/20 to-accent/10 border-accent/30 p-4">
@@ -253,7 +464,7 @@ export function Markets() {
             <div>
               <h3 className="font-semibold text-sm mb-1">Community Verified</h3>
               <p className="text-xs text-muted-foreground">
-                All prices and information are manually updated by Pathik travelers
+                All information is manually updated by Pathik travelers
               </p>
             </div>
           </div>
