@@ -298,7 +298,7 @@ export function Metro() {
   return (
     <div className="min-h-screen bg-background pb-8">
       {/* Header */}
-      <div className="bg-gradient-to-br from-primary to-primary/80 px-6 pt-6 pb-6 sticky top-0 z-10 shadow-sm relative overflow-hidden">
+      <div className="bg-gradient-to-br from-primary to-primary/80 px-6 pt-6 pb-6 sticky top-0 z-10 shadow-sm overflow-hidden">
         {/* Decorative Pattern */}
         <div className="absolute inset-0 opacity-10">
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -313,10 +313,7 @@ export function Metro() {
           </svg>
         </div>
         {/* Header Image */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-30"
-          style={{ backgroundImage: 'url(/header1.svg)' }}
-        />
+        <div className="absolute inset-0 bg-cover bg-center opacity-30 header-image-1" />
         <div className="relative flex items-center justify-between mb-2">
           <div>
             <h1 className="text-2xl font-bold text-white mb-1">মেট্রো নাম</h1>

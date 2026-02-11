@@ -218,4 +218,13 @@
     font-weight: var(--font-weight-normal);
     line-height: 1.5;
   }
+
+  /* Header background images */
+  .header-image-0 {
+    background-image: url(/header.svg);
+  }
+
+  .header-image-1 {
+    background-image: url(/header1.svg);
+  }
 }

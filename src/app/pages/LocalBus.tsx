@@ -48,10 +48,7 @@ export function LocalBus() {
           </svg>
         </div>
         {/* Header Image */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-30"
-          style={{ backgroundImage: 'url(/header1.svg)' }}
-        />
+        <div className="absolute inset-0 bg-cover bg-center opacity-30 header-image-1" />
 
         <div className="relative flex items-center justify-between mb-8">
           <div>

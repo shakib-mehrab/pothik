@@ -1,0 +1,93 @@
+{
+  "name": "Pathik - ExploreYourWay",
+  "short_name": "Pathik",
+  "description": "Your comprehensive guide to exploring Bangladesh - Metro, Restaurants, Hotels, Markets, and more",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#006A4E",
+  "theme_color": "#006A4E",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["travel", "navigation", "lifestyle"],
+  "dir": "ltr",
+  "lang": "en",
+  "scope": "/",
+  "shortcuts": [
+    {
+      "name": "Metro Stations",
+      "short_name": "Metro",
+      "description": "View metro station information",
+      "url": "/metro",
+      "icons": [{ "src": "/logo.svg", "sizes": "96x96" }]
+    },
+    {
+      "name": "Restaurants",
+      "short_name": "Food",
+      "description": "Find restaurants",
+      "url": "/restaurants",
+      "icons": [{ "src": "/logo.svg", "sizes": "96x96" }]
+    },
+    {
+      "name": "Hotels",
+      "short_name": "Hotels",
+      "description": "Find hotels",
+      "url": "/hotels",
+      "icons": [{ "src": "/logo.svg", "sizes": "96x96" }]
+    }
+  ]
+}

@@ -88,10 +88,7 @@ export function Home() {
       {/* Header with Rickshaw Art Pattern */}
       <div className="bg-gradient-to-br from-primary to-primary/80 px-6 pt-6 pb-12 relative overflow-hidden">
         {/* Header Image - Full Cover */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-60"
-          style={{ backgroundImage: 'url(/header.svg)' }}
-        />
+        <div className="absolute inset-0 bg-cover bg-center opacity-60 header-image-0" />
 
         {/* Decorative Pattern */}
         <div className="absolute inset-0 opacity-10">
