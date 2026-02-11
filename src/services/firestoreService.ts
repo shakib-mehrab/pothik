@@ -57,8 +57,7 @@ export async function submitRestaurant(
       submittedBy: userId,
       submittedByName: displayName || 'Anonymous',
       submittedAt: serverTimestamp(),
-      reviewedBy: isAdmin ? userId : undefined,
-      reviewedAt: isAdmin ? serverTimestamp() : undefined,
+      ...(isAdmin ? { reviewedBy: userId, reviewedAt: serverTimestamp() } : {}),
       lastUpdated: new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
     });
     
@@ -143,8 +142,7 @@ export async function submitHotel(
       submittedBy: userId,
       submittedByName: displayName || 'Anonymous',
       submittedAt: serverTimestamp(),
-      reviewedBy: isAdmin ? userId : undefined,
-      reviewedAt: isAdmin ? serverTimestamp() : undefined,
+      ...(isAdmin ? { reviewedBy: userId, reviewedAt: serverTimestamp() } : {}),
       lastUpdated: new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
     });
     
@@ -233,8 +231,7 @@ export async function submitMarket(
       submittedBy: userId,
       submittedByName: displayName || 'Anonymous',
       submittedAt: serverTimestamp(),
-      reviewedBy: isAdmin ? userId : undefined,
-      reviewedAt: isAdmin ? serverTimestamp() : undefined,
+      ...(isAdmin ? { reviewedBy: userId, reviewedAt: serverTimestamp() } : {}),
       lastUpdated: new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
     });
     

@@ -1,12 +1,21 @@
 {
   "name": "@figma/my-make-file",
   "private": true,
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "build": "vite build",
     "dev": "vite",
-    "generate-icons": "node scripts/generate-icons.mjs"
+    "build": "vite build",
+    "preview": "vite preview",
+    "generate-icons": "node scripts/generate-icons.mjs",
+    "deploy": "npm run build && firebase deploy --only hosting",
+    "deploy:full": "npm run build && firebase deploy",
+    "deploy:functions": "firebase deploy --only functions",
+    "deploy:rules": "firebase deploy --only firestore:rules",
+    "version:patch": "npm version patch",
+    "version:minor": "npm version minor",
+    "version:major": "npm version major",
+    "predeploy": "npm run build"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",
