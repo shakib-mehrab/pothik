@@ -22,6 +22,8 @@ import {
   RestaurantFormData,
   HotelFormData,
   MarketFormData,
+  MetroStation,
+  MetroGate,
 } from '../types';
 import { updateLeaderboardForApproval } from './leaderboardService';
 
@@ -484,6 +486,138 @@ export async function getTrainSchedules() {
   } catch (error) {
     console.error('Error fetching train schedules:', error);
     return [];
+  }
+}
+
+// ==================== Metro Stations ====================
+
+export async function getMetroStations(): Promise<MetroStation[]> {
+  try {
+    const q = query(collection(db, 'metroStations'));
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }) as MetroStation);
+  } catch (error) {
+    console.error('Error fetching metro stations:', error);
+    return [];
+  }
+}
+
+export async function submitMetroStation(
+  data: Omit<MetroStation, 'id'>,
+  userId: string
+): Promise<string> {
+  try {
+    const docRef = await addDoc(collection(db, 'metroStations'), {
+      ...data,
+      lastUpdated: new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
+    });
+    return docRef.id;
+  } catch (error) {
+    console.error('Error submitting metro station:', error);
+    throw error;
+  }
+}
+
+export async function updateMetroStation(
+  id: string,
+  data: Partial<Omit<MetroStation, 'id'>>
+): Promise<void> {
+  try {
+    const docRef = doc(db, 'metroStations', id);
+    await updateDoc(docRef, {
+      ...data,
+      lastUpdated: new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
+    });
+  } catch (error) {
+    console.error('Error updating metro station:', error);
+    throw error;
+  }
+}
+
+export async function deleteMetroStation(id: string): Promise<void> {
+  try {
+    await deleteDoc(doc(db, 'metroStations', id));
+  } catch (error) {
+    console.error('Error deleting metro station:', error);
+    throw error;
+  }
+}
+
+export async function addGateToStation(
+  stationId: string,
+  gate: MetroGate
+): Promise<void> {
+  try {
+    const docRef = doc(db, 'metroStations', stationId);
+    const docSnap = await getDoc(docRef);
+    
+    if (!docSnap.exists()) {
+      throw new Error('Station not found');
+    }
+    
+    const currentStation = docSnap.data() as MetroStation;
+    const updatedGates = [...currentStation.gates, gate];
+    
+    await updateDoc(docRef, {
+      gates: updatedGates,
+      lastUpdated: new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
+    });
+  } catch (error) {
+    console.error('Error adding gate to station:', error);
+    throw error;
+  }
+}
+
+export async function updateGateInStation(
+  stationId: string,
+  gateName: string,
+  updatedGate: MetroGate
+): Promise<void> {
+  try {
+    const docRef = doc(db, 'metroStations', stationId);
+    const docSnap = await getDoc(docRef);
+    
+    if (!docSnap.exists()) {
+      throw new Error('Station not found');
+    }
+    
+    const currentStation = docSnap.data() as MetroStation;
+    const updatedGates = currentStation.gates.map(gate => 
+      gate.name === gateName ? updatedGate : gate
+    );
+    
+    await updateDoc(docRef, {
+      gates: updatedGates,
+      lastUpdated: new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
+    });
+  } catch (error) {
+    console.error('Error updating gate in station:', error);
+    throw error;
+  }
+}
+
+export async function deleteGateFromStation(
+  stationId: string,
+  gateName: string
+): Promise<void> {
+  try {
+    const docRef = doc(db, 'metroStations', stationId);
+    const docSnap = await getDoc(docRef);
+    
+    if (!docSnap.exists()) {
+      throw new Error('Station not found');
+    }
+    
+    const currentStation = docSnap.data() as MetroStation;
+    const updatedGates = currentStation.gates.filter(gate => gate.name !== gateName);
+    
+    await updateDoc(docRef, {
+      gates: updatedGates,
+      lastUpdated: new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
+    });
+  } catch (error) {
+    console.error('Error deleting gate from station:', error);
+    throw error;
   }
 }
 

@@ -206,8 +206,13 @@ async function seedFirestore(options: SeedOptions): Promise<void> {
           }
         }
 
-        const docRef = collectionRef.doc();
-        batch.set(docRef, record);
+        // Use the id field from the record if it exists, otherwise auto-generate
+        const docId = record.id;
+        const docRef = docId ? collectionRef.doc(docId) : collectionRef.doc();
+        
+        // Remove id from the data if it exists (it should only be the document ID)
+        const { id, ...dataWithoutId } = record;
+        batch.set(docRef, dataWithoutId);
         totalSeeded++;
       }
 

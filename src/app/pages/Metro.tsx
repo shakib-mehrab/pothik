@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router";
 import { Card } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
@@ -15,21 +15,37 @@ import {
   DropdownMenuTrigger,
 } from "../components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "../components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "../components/ui/alert-dialog";
+import { Label } from "../components/ui/label";
+import { Textarea } from "../components/ui/textarea";
 import { useAuth } from "../../contexts/AuthContext";
 import { signOut } from "../../services/authService";
-
-interface MetroStation {
-  id: string;
-  nameBangla: string;
-  nameEnglish: string;
-  gates: {
-    name: string;
-    exitTo: string;
-    landmarks: string[];
-  }[];
-  fare: string;
-  lastUpdated: string;
-}
+import { MetroStation, MetroGate } from "../../types";
+import {
+  getMetroStations,
+  updateMetroStation,
+  deleteMetroStation,
+  addGateToStation,
+  updateGateInStation,
+  deleteGateFromStation,
+} from "../../services/firestoreService";
 
 export function Metro() {
   const { currentUser, userData, loading: authLoading, isAdmin } = useAuth();
@@ -50,256 +66,234 @@ export function Metro() {
 
   const [openStation, setOpenStation] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [stations, setStations] = useState<MetroStation[]>([]);
+  const [loading, setLoading] = useState(true);
+  
+  // Dialog states
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [addGateDialogOpen, setAddGateDialogOpen] = useState(false);
+  const [editGateDialogOpen, setEditGateDialogOpen] = useState(false);
+  const [deleteGateDialogOpen, setDeleteGateDialogOpen] = useState(false);
+  
+  // Selected items
+  const [selectedStation, setSelectedStation] = useState<MetroStation | null>(null);
+  const [selectedGate, setSelectedGate] = useState<MetroGate | null>(null);
+  
+  // Form data
+  const [editFormData, setEditFormData] = useState({
+    nameBangla: "",
+    nameEnglish: "",
+    fare: "",
+  });
+  
+  const [gateFormData, setGateFormData] = useState({
+    name: "",
+    exitTo: "",
+    landmarks: "",
+  });
 
-  const stations: MetroStation[] = [
-    {
-      id: "uttara-north",
-      nameBangla: "উত্তরা উত্তর",
-      nameEnglish: "Uttara North",
-      gates: [
-        {
-          name: "Gate A",
-          exitTo: "Jasimuddin Avenue",
-          landmarks: ["Rajlakshmi Complex", "Uttara Sector 3"]
-        },
-        {
-          name: "Gate B",
-          exitTo: "Airport Road",
-          landmarks: ["Uttara Market", "House Building"]
-        }
-      ],
-      fare: "৳20 - ৳100",
-      lastUpdated: "Feb 2026"
-    },
-    {
-      id: "uttara-center",
-      nameBangla: "উত্তরা কেন্দ্র",
-      nameEnglish: "Uttara Center",
-      gates: [
-        {
-          name: "Gate A",
-          exitTo: "Sonargaon Janapath",
-          landmarks: ["Mascot Plaza", "Uttara Sector 7"]
-        },
-        {
-          name: "Gate B",
-          exitTo: "Azampur Road",
-          landmarks: ["Family World", "Diabari"]
-        }
-      ],
-      fare: "৳20 - ৳100",
-      lastUpdated: "Feb 2026"
-    },
-    {
-      id: "uttara-south",
-      nameBangla: "উত্তরা দক্ষিণ",
-      nameEnglish: "Uttara South",
-      gates: [
-        {
-          name: "Gate A",
-          exitTo: "Jashimuddin Road",
-          landmarks: ["Passport Office", "Sector 13"]
-        },
-        {
-          name: "Gate B",
-          exitTo: "Airport Road",
-          landmarks: ["Radisson Blu", "Le Meridien"]
-        }
-      ],
-      fare: "৳20 - ৳100",
-      lastUpdated: "Feb 2026"
-    },
-    {
-      id: "pallabi",
-      nameBangla: "পল্লবী",
-      nameEnglish: "Pallabi",
-      gates: [
-        {
-          name: "Gate A",
-          exitTo: "Mirpur Road",
-          landmarks: ["Pallabi Bazar", "Mirpur 11"]
-        },
-        {
-          name: "Gate B",
-          exitTo: "Begum Rokeya Sarani",
-          landmarks: ["Rupnagar", "Pallabi Police Station"]
-        }
-      ],
-      fare: "৳20 - ৳100",
-      lastUpdated: "Feb 2026"
-    },
-    {
-      id: "mirpur-11",
-      nameBangla: "মিরপুর-১১",
-      nameEnglish: "Mirpur-11",
-      gates: [
-        {
-          name: "Gate A",
-          exitTo: "Mirpur Road",
-          landmarks: ["Mirpur 11 Bus Stand", "Shewrapara"]
-        },
-        {
-          name: "Gate B",
-          exitTo: "Eastern Road",
-          landmarks: ["Kazipara", "Local Market"]
-        }
-      ],
-      fare: "৳20 - ৳100",
-      lastUpdated: "Feb 2026"
-    },
-    {
-      id: "agargaon",
-      nameBangla: "আগারগাঁও",
-      nameEnglish: "Agargaon",
-      gates: [
-        {
-          name: "Gate A",
-          exitTo: "Bir Uttam Mir Shawkat Sarak",
-          landmarks: ["Sher-e-Bangla Nagar", "BTCL Bhaban"]
-        },
-        {
-          name: "Gate B",
-          exitTo: "Agargaon Road",
-          landmarks: ["Taltola Market", "Mohakhali"]
-        }
-      ],
-      fare: "৳20 - ৳100",
-      lastUpdated: "Feb 2026"
-    },
-    {
-      id: "farmgate",
-      nameBangla: "ফার্মগেট",
-      nameEnglish: "Farmgate",
-      gates: [
-        {
-          name: "Gate A",
-          exitTo: "Kazi Nazrul Islam Avenue",
-          landmarks: ["Farmgate Bazar", "Karwan Bazar"]
-        },
-        {
-          name: "Gate B",
-          exitTo: "Tejgaon Link Road",
-          landmarks: ["Tejgaon", "Mohakhali Flyover"]
-        }
-      ],
-      fare: "৳20 - ৳100",
-      lastUpdated: "Feb 2026"
-    },
-    {
-      id: "kawran-bazar",
-      nameBangla: "কারওয়ান বাজার",
-      nameEnglish: "Kawran Bazar",
-      gates: [
-        {
-          name: "Gate A",
-          exitTo: "Kawran Bazar",
-          landmarks: ["Wholesale Market", "TV Stations"]
-        },
-        {
-          name: "Gate B",
-          exitTo: "Panthapath",
-          landmarks: ["Bashundhara City", "Sonargaon Hotel"]
-        }
-      ],
-      fare: "৳20 - ৳100",
-      lastUpdated: "Feb 2026"
-    },
-    {
-      id: "shahbag",
-      nameBangla: "শাহবাগ",
-      nameEnglish: "Shahbag",
-      gates: [
-        {
-          name: "Gate A",
-          exitTo: "Shahbag Square",
-          landmarks: ["Dhaka University", "National Museum"]
-        },
-        {
-          name: "Gate B",
-          exitTo: "Elephant Road",
-          landmarks: ["Birdem Hospital", "Bangla Academy"]
-        }
-      ],
-      fare: "৳20 - ৳100",
-      lastUpdated: "Feb 2026"
-    },
-    {
-      id: "dhaka-university",
-      nameBangla: "ঢাকা বিশ্ববিদ্যালয়",
-      nameEnglish: "Dhaka University",
-      gates: [
-        {
-          name: "Gate A",
-          exitTo: "TSC Area",
-          landmarks: ["Teacher-Student Centre", "Arts Faculty"]
-        },
-        {
-          name: "Gate B",
-          exitTo: "Secretariat Road",
-          landmarks: ["Curzon Hall", "Jagannath Hall"]
-        }
-      ],
-      fare: "৳20 - ৳100",
-      lastUpdated: "Feb 2026"
-    },
-    {
-      id: "bangladesh-secretariat",
-      nameBangla: "বাংলাদেশ সচিবালয়",
-      nameEnglish: "Bangladesh Secretariat",
-      gates: [
-        {
-          name: "Gate A",
-          exitTo: "Secretariat Road",
-          landmarks: ["Government Offices", "Parliament Area"]
-        },
-        {
-          name: "Gate B",
-          exitTo: "Topkhana Road",
-          landmarks: ["High Court", "Supreme Court"]
-        }
-      ],
-      fare: "৳20 - ৳100",
-      lastUpdated: "Feb 2026"
-    },
-    {
-      id: "motijheel",
-      nameBangla: "মতিঝিল",
-      nameEnglish: "Motijheel",
-      gates: [
-        {
-          name: "Gate A",
-          exitTo: "Motijheel C/A",
-          landmarks: ["Bangladesh Bank", "Press Club"]
-        },
-        {
-          name: "Gate B",
-          exitTo: "Dilkusha",
-          landmarks: ["GPO", "Purana Paltan"]
-        }
-      ],
-      fare: "৳20 - ৳100",
-      lastUpdated: "Feb 2026"
-    },
-    {
-      id: "kamalapur",
-      nameBangla: "কমলাপুর",
-      nameEnglish: "Kamalapur",
-      gates: [
-        {
-          name: "Gate A",
-          exitTo: "Railway Station",
-          landmarks: ["Kamalapur Railway Station", "Bus Terminal"]
-        },
-        {
-          name: "Gate B",
-          exitTo: "Malibagh",
-          landmarks: ["Malibagh Chowdhurypara", "Moghbazar"]
-        }
-      ],
-      fare: "৳20 - ৳100",
-      lastUpdated: "Feb 2026"
-    }
+  // Define metro route order (Kamalapur to Uttara North)
+  const routeOrder = [
+    "kamalapur",
+    "motijheel",
+    "bangladesh-secretariat",
+    "dhaka-university",
+    "shahbag",
+    "kawran-bazar",
+    "farmgate",
+    "agargaon",
+    "mirpur-11",
+    "pallabi",
+    "uttara-south",
+    "uttara-center",
+    "uttara-north",
   ];
+
+  // Fetch stations from Firestore
+  useEffect(() => {
+    const fetchStations = async () => {
+      try {
+        const data = await getMetroStations();
+        // Sort by route order
+        const sortedData = data.sort((a, b) => {
+          const indexA = routeOrder.indexOf(a.id);
+          const indexB = routeOrder.indexOf(b.id);
+          return indexA - indexB;
+        });
+        setStations(sortedData);
+      } catch (error) {
+        console.error("Error fetching metro stations:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStations();
+  }, []);
+
+  // Handle edit station
+  const handleEditStation = (station: MetroStation) => {
+    setSelectedStation(station);
+    setEditFormData({
+      nameBangla: station.nameBangla,
+      nameEnglish: station.nameEnglish,
+      fare: station.fare,
+    });
+    setEditDialogOpen(true);
+  };
+
+  const handleSaveStation = async () => {
+    if (!selectedStation) return;
+    
+    try {
+      await updateMetroStation(selectedStation.id, editFormData);
+      
+      // Update local state
+      setStations(stations.map(s => 
+        s.id === selectedStation.id 
+          ? { ...s, ...editFormData }
+          : s
+      ));
+      
+      setEditDialogOpen(false);
+      setSelectedStation(null);
+    } catch (error) {
+      console.error("Error updating station:", error);
+      alert("Failed to update station");
+    }
+  };
+
+  // Handle delete station
+  const handleDeleteStation = (station: MetroStation) => {
+    setSelectedStation(station);
+    setDeleteDialogOpen(true);
+  };
+
+  const confirmDeleteStation = async () => {
+    if (!selectedStation) return;
+    
+    try {
+      await deleteMetroStation(selectedStation.id);
+      
+      // Update local state
+      setStations(stations.filter(s => s.id !== selectedStation.id));
+      
+      setDeleteDialogOpen(false);
+      setSelectedStation(null);
+    } catch (error) {
+      console.error("Error deleting station:", error);
+      alert("Failed to delete station");
+    }
+  };
+
+  // Handle add gate
+  const handleAddGate = (station: MetroStation) => {
+    setSelectedStation(station);
+    setGateFormData({ name: "", exitTo: "", landmarks: "" });
+    setAddGateDialogOpen(true);
+  };
+
+  const handleSaveNewGate = async () => {
+    if (!selectedStation) return;
+    
+    try {
+      const newGate: MetroGate = {
+        name: gateFormData.name,
+        exitTo: gateFormData.exitTo,
+        landmarks: gateFormData.landmarks.split(',').map(l => l.trim()),
+      };
+      
+      await addGateToStation(selectedStation.id, newGate);
+      
+      // Update local state
+      setStations(stations.map(s => 
+        s.id === selectedStation.id 
+          ? { ...s, gates: [...s.gates, newGate] }
+          : s
+      ));
+      
+      setAddGateDialogOpen(false);
+      setSelectedStation(null);
+    } catch (error) {
+      console.error("Error adding gate:", error);
+      alert("Failed to add gate");
+    }
+  };
+
+  // Handle edit gate
+  const handleEditGate = (station: MetroStation, gate: MetroGate) => {
+    setSelectedStation(station);
+    setSelectedGate(gate);
+    setGateFormData({
+      name: gate.name,
+      exitTo: gate.exitTo,
+      landmarks: gate.landmarks.join(', '),
+    });
+    setEditGateDialogOpen(true);
+  };
+
+  const handleSaveGate = async () => {
+    if (!selectedStation || !selectedGate) return;
+    
+    try {
+      const updatedGate: MetroGate = {
+        name: gateFormData.name,
+        exitTo: gateFormData.exitTo,
+        landmarks: gateFormData.landmarks.split(',').map(l => l.trim()),
+      };
+      
+      await updateGateInStation(selectedStation.id, selectedGate.name, updatedGate);
+      
+      // Update local state
+      setStations(stations.map(s => 
+        s.id === selectedStation.id 
+          ? {
+              ...s,
+              gates: s.gates.map(g => 
+                g.name === selectedGate.name ? updatedGate : g
+              )
+            }
+          : s
+      ));
+      
+      setEditGateDialogOpen(false);
+      setSelectedStation(null);
+      setSelectedGate(null);
+    } catch (error) {
+      console.error("Error updating gate:", error);
+      alert("Failed to update gate");
+    }
+  };
+
+  // Handle delete gate
+  const handleDeleteGate = (station: MetroStation, gate: MetroGate) => {
+    setSelectedStation(station);
+    setSelectedGate(gate);
+    setDeleteGateDialogOpen(true);
+  };
+
+  const confirmDeleteGate = async () => {
+    if (!selectedStation || !selectedGate) return;
+    
+    try {
+      await deleteGateFromStation(selectedStation.id, selectedGate.name);
+      
+      // Update local state
+      setStations(stations.map(s => 
+        s.id === selectedStation.id 
+          ? { ...s, gates: s.gates.filter(g => g.name !== selectedGate.name) }
+          : s
+      ));
+      
+      setDeleteGateDialogOpen(false);
+      setSelectedStation(null);
+      setSelectedGate(null);
+    } catch (error) {
+      console.error("Error deleting gate:", error);
+      alert("Failed to delete gate");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background pb-8">
@@ -374,15 +368,25 @@ export function Metro() {
 
       {/* Station List */}
       <div className="px-4 pt-2 space-y-3">
-        {stations
-          .filter((station) => {
-            const query = searchQuery.toLowerCase();
-            return (
-              station.nameBangla.toLowerCase().includes(query) ||
-              station.nameEnglish.toLowerCase().includes(query)
-            );
-          })
-          .map((station, index) => (
+        {loading ? (
+          <div className="text-center py-8">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            <p className="mt-2 text-sm text-muted-foreground">Loading stations...</p>
+          </div>
+        ) : stations.length === 0 ? (
+          <div className="text-center py-8">
+            <p className="text-muted-foreground">No metro stations found</p>
+          </div>
+        ) : (
+          stations
+            .filter((station) => {
+              const query = searchQuery.toLowerCase();
+              return (
+                station.nameBangla.toLowerCase().includes(query) ||
+                station.nameEnglish.toLowerCase().includes(query)
+              );
+            })
+            .map((station, index) => (
           <Card key={station.id} className="overflow-hidden shadow-sm hover:shadow-md transition-shadow">
             <Collapsible
               open={openStation === station.id}
@@ -414,27 +418,29 @@ export function Metro() {
 
               <CollapsibleContent>
                 <div className="px-4 pb-4 pt-2 border-t border-border/50">
-                  {/* Action Buttons */}
-                  <div className="flex gap-2 mb-4">
-                    <Button 
-                      size="sm" 
-                      variant="outline" 
-                      className="flex-1 text-primary border-primary/30 hover:bg-primary/10"
-                      onClick={() => alert('Edit station details (feature coming soon!)')}
-                    >
-                      <Edit className="w-3 h-3 mr-1" />
-                      Edit
-                    </Button>
-                    <Button 
-                      size="sm" 
-                      variant="outline" 
-                      className="flex-1 text-destructive border-destructive/30 hover:bg-destructive/10"
-                      onClick={() => alert('Delete station (feature coming soon!)')}
-                    >
-                      <Trash2 className="w-3 h-3 mr-1" />
-                      Delete
-                    </Button>
-                  </div>
+                  {/* Action Buttons - Admin Only */}
+                  {isAdmin && (
+                    <div className="flex gap-2 mb-4">
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        className="flex-1 text-primary border-primary/30 hover:bg-primary/10"
+                        onClick={() => handleEditStation(station)}
+                      >
+                        <Edit className="w-3 h-3 mr-1" />
+                        Edit
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        className="flex-1 text-destructive border-destructive/30 hover:bg-destructive/10"
+                        onClick={() => handleDeleteStation(station)}
+                      >
+                        <Trash2 className="w-3 h-3 mr-1" />
+                        Delete
+                      </Button>
+                    </div>
+                  )}
 
                   {/* Fare Info */}
                   <div className="flex items-center gap-2 mb-4 text-sm">
@@ -453,38 +459,42 @@ export function Metro() {
                       <MapPin className="w-4 h-4 text-primary" />
                       Exit Gates
                     </h4>
-                    <Button 
-                      size="sm" 
-                      variant="ghost" 
-                      className="h-7 text-xs text-primary"
-                      onClick={() => alert('Add new gate (feature coming soon!)')}
-                    >
-                      <Plus className="w-3 h-3 mr-1" />
-                      Add Gate
-                    </Button>
+                    {isAdmin && (
+                      <Button 
+                        size="sm" 
+                        variant="ghost" 
+                        className="h-7 text-xs text-primary"
+                        onClick={() => handleAddGate(station)}
+                      >
+                        <Plus className="w-3 h-3 mr-1" />
+                        Add Gate
+                      </Button>
+                    )}
                   </div>
                   
                   <div className="space-y-3">
                     {station.gates.map((gate) => (
-                      <div key={gate.name} className="bg-muted/30 rounded-lg p-3 relative group">
-                        <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
-                          <Button 
-                            size="sm" 
-                            variant="ghost" 
-                            className="h-6 w-6 p-0 text-primary hover:bg-primary/10"
-                            onClick={() => alert('Edit gate (feature coming soon!)')}
-                          >
-                            <Edit className="w-3 h-3" />
-                          </Button>
-                          <Button 
-                            size="sm" 
-                            variant="ghost" 
-                            className="h-6 w-6 p-0 text-destructive hover:bg-destructive/10"
-                            onClick={() => alert('Delete gate (feature coming soon!)')}
-                          >
-                            <Trash2 className="w-3 h-3" />
-                          </Button>
-                        </div>
+                      <div key={gate.name} className="bg-muted/30 rounded-lg p-3 relative">
+                        {isAdmin && (
+                          <div className="absolute top-2 right-2 flex gap-1">
+                            <Button 
+                              size="sm" 
+                              variant="ghost" 
+                              className="h-6 w-6 p-0 text-primary hover:bg-primary/10"
+                              onClick={() => handleEditGate(station, gate)}
+                            >
+                              <Edit className="w-3 h-3" />
+                            </Button>
+                            <Button 
+                              size="sm" 
+                              variant="ghost" 
+                              className="h-6 w-6 p-0 text-destructive hover:bg-destructive/10"
+                              onClick={() => handleDeleteGate(station, gate)}
+                            >
+                              <Trash2 className="w-3 h-3" />
+                            </Button>
+                          </div>
+                        )}
                         <div className="flex items-center gap-2 mb-2">
                           <Badge className="bg-primary text-primary-foreground text-xs">
                             {gate.name}
@@ -518,8 +528,168 @@ export function Metro() {
               </CollapsibleContent>
             </Collapsible>
           </Card>
-        ))}
+          ))
+        )}
       </div>
+
+      {/* Edit Station Dialog */}
+      <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Edit Station</DialogTitle>
+            <DialogDescription>Update the station details</DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="nameBangla">Name (Bangla)</Label>
+              <Input
+                id="nameBangla"
+                value={editFormData.nameBangla}
+                onChange={(e) => setEditFormData({ ...editFormData, nameBangla: e.target.value })}
+              />
+            </div>
+            <div>
+              <Label htmlFor="nameEnglish">Name (English)</Label>
+              <Input
+                id="nameEnglish"
+                value={editFormData.nameEnglish}
+                onChange={(e) => setEditFormData({ ...editFormData, nameEnglish: e.target.value })}
+              />
+            </div>
+            <div>
+              <Label htmlFor="fare">Fare</Label>
+              <Input
+                id="fare"
+                value={editFormData.fare}
+                onChange={(e) => setEditFormData({ ...editFormData, fare: e.target.value })}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setEditDialogOpen(false)}>Cancel</Button>
+            <Button onClick={handleSaveStation}>Save Changes</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Station Dialog */}
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Station</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete "{selectedStation?.nameEnglish}"? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDeleteStation} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* Add Gate Dialog */}
+      <Dialog open={addGateDialogOpen} onOpenChange={setAddGateDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Add New Gate</DialogTitle>
+            <DialogDescription>Add a new exit gate to {selectedStation?.nameEnglish}</DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="gateName">Gate Name</Label>
+              <Input
+                id="gateName"
+                placeholder="Gate A"
+                value={gateFormData.name}
+                onChange={(e) => setGateFormData({ ...gateFormData, name: e.target.value })}
+              />
+            </div>
+            <div>
+              <Label htmlFor="exitTo">Exit To</Label>
+              <Input
+                id="exitTo"
+                placeholder="Main Road"
+                value={gateFormData.exitTo}
+                onChange={(e) => setGateFormData({ ...gateFormData, exitTo: e.target.value })}
+              />
+            </div>
+            <div>
+              <Label htmlFor="landmarks">Landmarks (comma-separated)</Label>
+              <Textarea
+                id="landmarks"
+                placeholder="Landmark 1, Landmark 2, Landmark 3"
+                value={gateFormData.landmarks}
+                onChange={(e) => setGateFormData({ ...gateFormData, landmarks: e.target.value })}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setAddGateDialogOpen(false)}>Cancel</Button>
+            <Button onClick={handleSaveNewGate}>Add Gate</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit Gate Dialog */}
+      <Dialog open={editGateDialogOpen} onOpenChange={setEditGateDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Edit Gate</DialogTitle>
+            <DialogDescription>Update gate information</DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="editGateName">Gate Name</Label>
+              <Input
+                id="editGateName"
+                value={gateFormData.name}
+                onChange={(e) => setGateFormData({ ...gateFormData, name: e.target.value })}
+              />
+            </div>
+            <div>
+              <Label htmlFor="editExitTo">Exit To</Label>
+              <Input
+                id="editExitTo"
+                value={gateFormData.exitTo}
+                onChange={(e) => setGateFormData({ ...gateFormData, exitTo: e.target.value })}
+              />
+            </div>
+            <div>
+              <Label htmlFor="editLandmarks">Landmarks (comma-separated)</Label>
+              <Textarea
+                id="editLandmarks"
+                value={gateFormData.landmarks}
+                onChange={(e) => setGateFormData({ ...gateFormData, landmarks: e.target.value })}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setEditGateDialogOpen(false)}>Cancel</Button>
+            <Button onClick={handleSaveGate}>Save Changes</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Gate Dialog */}
+      <AlertDialog open={deleteGateDialogOpen} onOpenChange={setDeleteGateDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Gate</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete "{selectedGate?.name}" from {selectedStation?.nameEnglish}? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDeleteGate} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

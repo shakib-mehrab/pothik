@@ -187,6 +187,22 @@ export interface TrainSchedule {
   daysOfOperation: string[];
 }
 
+// ==================== Metro Types ====================
+export interface MetroGate {
+  name: string;
+  exitTo: string;
+  landmarks: string[];
+}
+
+export interface MetroStation {
+  id: string;
+  nameBangla: string;
+  nameEnglish: string;
+  gates: MetroGate[];
+  fare: string;
+  lastUpdated: string;
+}
+
 // ==================== Form Input Types ====================
 export interface RestaurantFormData {
   name: string;
