@@ -23,6 +23,7 @@ import {
   HotelFormData,
   MarketFormData,
 } from '../types';
+import { updateLeaderboardForApproval } from './leaderboardService';
 
 // ==================== Restaurants ====================
 
@@ -43,19 +44,55 @@ export async function getRestaurants(): Promise<Restaurant[]> {
 
 export async function submitRestaurant(
   data: RestaurantFormData,
-  userId: string
+  userId: string,
+  displayName?: string,
+  isAdmin?: boolean
 ): Promise<string> {
   try {
     const docRef = await addDoc(collection(db, 'restaurants'), {
       ...data,
-      status: 'pending',
+      status: isAdmin ? 'approved' : 'pending',
       submittedBy: userId,
+      submittedByName: displayName || 'Anonymous',
       submittedAt: serverTimestamp(),
+      reviewedBy: isAdmin ? userId : undefined,
+      reviewedAt: isAdmin ? serverTimestamp() : undefined,
       lastUpdated: new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
     });
+    
+    // Update leaderboard if admin auto-approved
+    if (isAdmin) {
+      await updateLeaderboardForApproval(userId, 'restaurants');
+    }
+    
     return docRef.id;
   } catch (error) {
     console.error('Error submitting restaurant:', error);
+    throw error;
+  }
+}
+
+export async function updateRestaurant(
+  id: string,
+  data: RestaurantFormData
+): Promise<void> {
+  try {
+    const docRef = doc(db, 'restaurants', id);
+    await updateDoc(docRef, {
+      ...data,
+      lastUpdated: new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
+    });
+  } catch (error) {
+    console.error('Error updating restaurant:', error);
+    throw error;
+  }
+}
+
+export async function deleteRestaurant(id: string): Promise<void> {
+  try {
+    await deleteDoc(doc(db, 'restaurants', id));
+  } catch (error) {
+    console.error('Error deleting restaurant:', error);
     throw error;
   }
 }
@@ -91,21 +128,61 @@ export async function submitHotel(
   data: HotelFormData,
   userId: string,
   category: 'hotel' | 'resort',
-  documentsNeeded: string[]
+  documentsNeeded: string[],
+  displayName?: string,
+  isAdmin?: boolean
 ): Promise<string> {
   try {
     const docRef = await addDoc(collection(db, 'hotels'), {
       ...data,
       documentsNeeded,
       category,
-      status: 'pending',
+      status: isAdmin ? 'approved' : 'pending',
       submittedBy: userId,
+      submittedByName: displayName || 'Anonymous',
       submittedAt: serverTimestamp(),
+      reviewedBy: isAdmin ? userId : undefined,
+      reviewedAt: isAdmin ? serverTimestamp() : undefined,
       lastUpdated: new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
     });
+    
+    // Update leaderboard if admin auto-approved
+    if (isAdmin) {
+      await updateLeaderboardForApproval(userId, 'hotels');
+    }
+    
     return docRef.id;
   } catch (error) {
     console.error('Error submitting hotel:', error);
+    throw error;
+  }
+}
+
+export async function updateHotel(
+  id: string,
+  data: HotelFormData,
+  category: 'hotel' | 'resort',
+  documentsNeeded: string[]
+): Promise<void> {
+  try {
+    const docRef = doc(db, 'hotels', id);
+    await updateDoc(docRef, {
+      ...data,
+      category,
+      documentsNeeded,
+      lastUpdated: new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
+    });
+  } catch (error) {
+    console.error('Error updating hotel:', error);
+    throw error;
+  }
+}
+
+export async function deleteHotel(id: string): Promise<void> {
+  try {
+    await deleteDoc(doc(db, 'hotels', id));
+  } catch (error) {
+    console.error('Error deleting hotel:', error);
     throw error;
   }
 }
@@ -141,21 +218,61 @@ export async function submitMarket(
   data: MarketFormData,
   userId: string,
   category: 'brands' | 'local' | 'budget' | 'others',
-  specialty: string[]
+  specialty: string[],
+  displayName?: string,
+  isAdmin?: boolean
 ): Promise<string> {
   try {
     const docRef = await addDoc(collection(db, 'markets'), {
       ...data,
       specialty,
       category,
-      status: 'pending',
+      status: isAdmin ? 'approved' : 'pending',
       submittedBy: userId,
+      submittedByName: displayName || 'Anonymous',
       submittedAt: serverTimestamp(),
+      reviewedBy: isAdmin ? userId : undefined,
+      reviewedAt: isAdmin ? serverTimestamp() : undefined,
       lastUpdated: new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
     });
+    
+    // Update leaderboard if admin auto-approved
+    if (isAdmin) {
+      await updateLeaderboardForApproval(userId, 'markets');
+    }
+    
     return docRef.id;
   } catch (error) {
     console.error('Error submitting market:', error);
+    throw error;
+  }
+}
+
+export async function updateMarket(
+  id: string,
+  data: MarketFormData,
+  category: 'brands' | 'local' | 'budget' | 'others',
+  specialty: string[]
+): Promise<void> {
+  try {
+    const docRef = doc(db, 'markets', id);
+    await updateDoc(docRef, {
+      ...data,
+      category,
+      specialty,
+      lastUpdated: new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
+    });
+  } catch (error) {
+    console.error('Error updating market:', error);
+    throw error;
+  }
+}
+
+export async function deleteMarket(id: string): Promise<void> {
+  try {
+    await deleteDoc(doc(db, 'markets', id));
+  } catch (error) {
+    console.error('Error deleting market:', error);
     throw error;
   }
 }

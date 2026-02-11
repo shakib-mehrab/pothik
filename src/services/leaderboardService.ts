@@ -3,10 +3,14 @@ import {
   doc,
   getDocs,
   getDoc,
+  setDoc,
+  updateDoc,
   query,
   orderBy,
   limit,
   where,
+  increment,
+  serverTimestamp,
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { LeaderboardEntry } from '../types';
@@ -119,5 +123,59 @@ export async function getLeaderboardWithUser(
       userRank: -1,
       userEntry: null,
     };
+  }
+}
+
+/**
+ * Update leaderboard when a contribution is approved
+ */
+export async function updateLeaderboardForApproval(
+  userId: string,
+  collectionName: 'restaurants' | 'hotels' | 'markets' | 'travelGuides'
+): Promise<void> {
+  try {
+    // Update user stats
+    const userRef = doc(db, 'users', userId);
+    const statField = `stats.${collectionName}Submitted`;
+    await updateDoc(userRef, {
+      [statField]: increment(1),
+      'stats.approvedSubmissions': increment(1),
+      contributionPoints: increment(10),
+      updatedAt: serverTimestamp(),
+    });
+
+    // Update leaderboard
+    const leaderboardRef = doc(db, 'leaderboard', userId);
+    const leaderboardDoc = await getDoc(leaderboardRef);
+
+    if (leaderboardDoc.exists()) {
+      // Update existing leaderboard entry
+      await updateDoc(leaderboardRef, {
+        totalPoints: increment(10),
+        [`breakdown.${collectionName}`]: increment(1),
+        updatedAt: serverTimestamp(),
+      });
+    } else {
+      // Create new leaderboard entry
+      const userDoc = await getDoc(doc(db, 'users', userId));
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        await setDoc(leaderboardRef, {
+          displayName: userData.displayName,
+          photoURL: userData.photoURL || '',
+          totalPoints: 10,
+          breakdown: {
+            restaurants: collectionName === 'restaurants' ? 1 : 0,
+            hotels: collectionName === 'hotels' ? 1 : 0,
+            markets: collectionName === 'markets' ? 1 : 0,
+            travelGuides: collectionName === 'travelGuides' ? 1 : 0,
+          },
+          updatedAt: serverTimestamp(),
+        });
+      }
+    }
+  } catch (error) {
+    console.error('Error updating leaderboard:', error);
+    throw error;
   }
 }

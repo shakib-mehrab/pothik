@@ -11,11 +11,23 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../../components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "../../components/ui/alert-dialog";
 import { CheckCircle, XCircle, Loader2, MapPin, Utensils, Hotel, ShoppingBag } from "lucide-react";
 import { getPendingSubmissions } from "../../../services/firestoreService";
+import { updateLeaderboardForApproval } from "../../../services/leaderboardService";
 import { doc, updateDoc, serverTimestamp, increment, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../../../config/firebase";
 import { useAuth } from "../../../contexts/AuthContext";
+import { toast } from "sonner";
 
 type SubmissionType = "all" | "restaurant" | "hotel" | "market";
 
@@ -37,6 +49,7 @@ export function ReviewQueue() {
   const [processing, setProcessing] = useState<string | null>(null);
   const [rejectionReason, setRejectionReason] = useState("");
   const [isRejectDialogOpen, setIsRejectDialogOpen] = useState(false);
+  const [isApproveDialogOpen, setIsApproveDialogOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<PendingItem | null>(null);
 
   useEffect(() => {
@@ -67,67 +80,46 @@ export function ReviewQueue() {
     }
   };
 
-  const handleApprove = async (item: PendingItem) => {
-    if (!currentUser) return;
+  const openApproveDialog = (item: PendingItem) => {
+    setSelectedItem(item);
+    setIsApproveDialogOpen(true);
+  };
+
+  const handleApprove = async () => {
+    if (!currentUser || !selectedItem) return;
 
     try {
-      setProcessing(item.id);
+      setProcessing(selectedItem.id);
 
       // Determine collection name
       let collectionName = "restaurants";
-      if (item.type === "hotel") collectionName = "hotels";
-      else if (item.type === "market") collectionName = "markets";
+      if (selectedItem.type === "hotel") collectionName = "hotels";
+      else if (selectedItem.type === "market") collectionName = "markets";
 
       // Update submission status
-      const itemRef = doc(db, collectionName, item.id);
+      const itemRef = doc(db, collectionName, selectedItem.id);
       await updateDoc(itemRef, {
         status: "approved",
         reviewedBy: currentUser.uid,
         reviewedAt: serverTimestamp(),
       });
 
-      // Update user stats
-      const userRef = doc(db, "users", item.submittedBy);
-      const statField = `stats.${collectionName}Submitted`;
-      await updateDoc(userRef, {
-        [statField]: increment(1),
-        "stats.approvedSubmissions": increment(1),
-        contributionPoints: increment(10),
-        updatedAt: serverTimestamp(),
-      });
+      // Update user stats and leaderboard
+      await updateLeaderboardForApproval(selectedItem.submittedBy, collectionName);
 
-      // Update leaderboard
-      const leaderboardRef = doc(db, "leaderboard", item.submittedBy);
-      await updateDoc(leaderboardRef, {
-        totalPoints: increment(10),
-        [`breakdown.${collectionName}`]: increment(1),
-        updatedAt: serverTimestamp(),
-      }).catch(async () => {
-        // If leaderboard entry doesn't exist, create it
-        const userDoc = await getDoc(doc(db, "users", item.submittedBy));
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
-          await setDoc(leaderboardRef, {
-            displayName: userData.displayName,
-            photoURL: userData.photoURL || "",
-            totalPoints: 10,
-            breakdown: {
-              restaurants: collectionName === "restaurants" ? 1 : 0,
-              hotels: collectionName === "hotels" ? 1 : 0,
-              markets: collectionName === "markets" ? 1 : 0,
-              travelGuides: 0,
-            },
-            updatedAt: serverTimestamp(),
-          });
-        }
+      toast.success("সফলভাবে অনুমোদিত হয়েছে!", {
+        description: `${selectedItem.name} অনুমোদন করা হয়েছে।`,
       });
-
-      // Refresh list
+      
+      // Close dialog and refresh list
+      setIsApproveDialogOpen(false);
+      setSelectedItem(null);
       fetchSubmissions();
-      alert("সফলভাবে অনুমোদিত হয়েছে!");
     } catch (error) {
       console.error("Error approving submission:", error);
-      alert("অনুমোদন করতে সমস্যা হয়েছে।");
+      toast.error("অনুমোদন করতে সমস্যা হয়েছে", {
+        description: "দয়া করে পুনরায় চেষ্টা করুন।",
+      });
     } finally {
       setProcessing(null);
     }
@@ -159,13 +151,19 @@ export function ReviewQueue() {
         reviewedAt: serverTimestamp(),
       });
 
-      // Refresh list
-      fetchSubmissions();
+      toast.success("প্রত্যাখ্যান করা হয়েছে", {
+        description: `${selectedItem.name} প্রত্যাখ্যান করা হয়েছে।`,
+      });
+      
+      // Close dialog and refresh list
       setIsRejectDialogOpen(false);
-      alert("প্রত্যাখ্যান করা হয়েছে।");
+      setSelectedItem(null);
+      fetchSubmissions();
     } catch (error) {
       console.error("Error rejecting submission:", error);
-      alert("প্রত্যাখ্যান করতে সমস্যা হয়েছে।");
+      toast.error("প্রত্যাখ্যান করতে সমস্যা হয়েছে", {
+        description: "দয়া করে পুনরায় চেষ্টা করুন।",
+      });
     } finally {
       setProcessing(null);
       setSelectedItem(null);
@@ -289,7 +287,7 @@ export function ReviewQueue() {
                   <Button
                     size="sm"
                     className="flex-1 bg-green-600 hover:bg-green-700"
-                    onClick={() => handleApprove(item)}
+                    onClick={() => openApproveDialog(item)}
                     disabled={processing === item.id}
                   >
                     {processing === item.id ? (
@@ -358,6 +356,33 @@ export function ReviewQueue() {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Approve Confirmation Dialog */}
+      <AlertDialog open={isApproveDialogOpen} onOpenChange={setIsApproveDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>অনুমোদন নিশ্চিত করুন</AlertDialogTitle>
+            <AlertDialogDescription>
+              আপনি কি নিশ্চিত যে আপনি "{selectedItem?.name}" অনুমোদন করতে চান? এটি অনুমোদিত হলে
+              সাবমিটকারী 10 পয়েন্ট পাবেন এবং এন্ট্রি সবার জন্য দৃশ্যমান হবে।
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={processing !== null}>বাতিল</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleApprove}
+              disabled={processing !== null}
+              className="bg-green-600 hover:bg-green-700"
+            >
+              {processing ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                "অনুমোদন করুন"
+              )}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

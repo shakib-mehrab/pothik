@@ -4,24 +4,39 @@ import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "../components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "../components/ui/alert-dialog";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Textarea } from "../components/ui/textarea";
-import { MapPin, Clock, Star, Navigation, Plus, X, ChevronDown, Loader2 } from "lucide-react";
+import { MapPin, Clock, Star, Navigation, Plus, X, ChevronDown, Loader2, Edit2, Trash2 } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
-import { getMarkets, submitMarket } from "../../services/firestoreService";
+import { getMarkets, submitMarket, updateMarket, deleteMarket } from "../../services/firestoreService";
 import { Market } from "../../types";
+import { toast } from "sonner";
 
 export function Markets() {
-  const { currentUser } = useAuth();
+  const { currentUser, userData } = useAuth();
   const [activeTab, setActiveTab] = useState<"brands" | "local" | "budget" | "others">("brands");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [specialtyInput, setSpecialtyInput] = useState("");
   const [specialties, setSpecialties] = useState<string[]>([]);
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
   const [markets, setMarkets] = useState<Market[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [editingMarket, setEditingMarket] = useState<Market | null>(null);
+  const [deletingMarket, setDeletingMarket] = useState<Market | null>(null);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -73,14 +88,18 @@ export function Markets() {
     e.preventDefault();
 
     if (!currentUser) {
-      alert("আপনাকে লগইন করতে হবে!");
+      toast.error("আপনাকে লগইন করতে হবে!");
       return;
     }
 
     try {
       setSubmitting(true);
-      await submitMarket(formData, currentUser.uid, activeTab, specialties);
-      alert("বাজার সফলভাবে জমা হয়েছে! অ্যাডমিন অনুমোদনের পর এটি তালিকায় দেখা যাবে।");
+      await submitMarket(formData, currentUser.uid, activeTab, specialties, userData?.displayName, userData?.role === 'admin');
+      toast.success("বাজার সফলভাবে জমা হয়েছে!", {
+        description: userData?.role === 'admin' 
+          ? "এটি তালিকায় যুক্ত হয়ে গেছে।" 
+          : "অ্যাডমিন অনুমোদনের পর এটি তালিকায় দেখা যাবে।",
+      });
       setIsAddDialogOpen(false);
       // Reset form
       setFormData({
@@ -92,7 +111,82 @@ export function Markets() {
       setSpecialties([]);
     } catch (error) {
       console.error("Error submitting market:", error);
-      alert("বাজার জমা দিতে সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+      toast.error("বাজার জমা দিতে সমস্যা হয়েছে।", {
+        description: "আবার চেষ্টা করুন।",
+      });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleEdit = (market: Market, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setEditingMarket(market);
+    setActiveTab(market.category);
+    setFormData({
+      name: market.name,
+      location: market.location,
+      howToGo: market.howToGo,
+      reviews: market.reviews || "",
+    });
+    setSpecialties(market.specialty || []);
+    setIsEditDialogOpen(true);
+  };
+
+  const handleUpdate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingMarket) return;
+
+    try {
+      setSubmitting(true);
+      await updateMarket(editingMarket.id, formData, activeTab, specialties);
+      toast.success("বাজার সফলভাবে আপডেট হয়েছে!");
+      setIsEditDialogOpen(false);
+      setEditingMarket(null);
+      // Refresh list
+      const data = await getMarkets();
+      setMarkets(data);
+      // Reset form
+      setFormData({
+        name: "",
+        location: "",
+        howToGo: "",
+        reviews: "",
+      });
+      setSpecialties([]);
+    } catch (error) {
+      console.error("Error updating market:", error);
+      toast.error("আপডেট করতে সমস্যা হয়েছে।", {
+        description: "আবার চেষ্টা করুন।",
+      });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleDelete = (market: Market, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setDeletingMarket(market);
+    setIsDeleteDialogOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!deletingMarket) return;
+
+    try {
+      setSubmitting(true);
+      await deleteMarket(deletingMarket.id);
+      toast.success("বাজার সফলভাবে ডিলিট হয়েছে!");
+      setIsDeleteDialogOpen(false);
+      setDeletingMarket(null);
+      // Refresh list
+      const data = await getMarkets();
+      setMarkets(data);
+    } catch (error) {
+      console.error("Error deleting market:", error);
+      toast.error("ডিলিট করতে সমস্যা হয়েছে।", {
+        description: "আবার চেষ্টা করুন।",
+      });
     } finally {
       setSubmitting(false);
     }
@@ -232,6 +326,143 @@ export function Markets() {
         </Dialog>
       </div>
 
+      {/* Edit Dialog */}
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent className="max-w-[95vw] max-h-[85vh] overflow-y-auto p-4">
+          <DialogHeader>
+            <DialogTitle className="text-base">বাজার এডিট করুন</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleUpdate} className="space-y-3 pt-2">
+            <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as typeof activeTab)}>
+              <TabsList className="grid w-full grid-cols-4 text-xs">
+                <TabsTrigger value="brands" className="text-xs">ব্র্যান্ড শপ</TabsTrigger>
+                <TabsTrigger value="local" className="text-xs">লোকাল</TabsTrigger>
+                <TabsTrigger value="budget" className="text-xs">বাজেট</TabsTrigger>
+                <TabsTrigger value="others" className="text-xs">অন্যান্য</TabsTrigger>
+              </TabsList>
+            </Tabs>
+
+            <div>
+              <Label className="text-xs font-medium">নাম *</Label>
+              <Input
+                required
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                className="mt-1 h-9 text-sm"
+              />
+            </div>
+
+            <div>
+              <Label className="text-xs font-medium">অবস্থান *</Label>
+              <Input
+                required
+                value={formData.location}
+                onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                className="mt-1 h-9 text-sm"
+              />
+            </div>
+
+            <div>
+              <Label className="text-xs font-medium">যেভাবে যাবেন *</Label>
+              <Textarea
+                required
+                value={formData.howToGo}
+                onChange={(e) => setFormData({ ...formData, howToGo: e.target.value })}
+                className="mt-1 text-sm min-h-[60px]"
+                rows={2}
+              />
+            </div>
+
+            <div>
+              <Label className="text-xs font-medium">বিশেষত্ব</Label>
+              <div className="flex gap-2 mt-1">
+                <Input
+                  value={specialtyInput}
+                  onChange={(e) => setSpecialtyInput(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddSpecialty())}
+                  placeholder="যেমন: জুতা, জামা, ইলেকট্রনিক্স"
+                  className="h-9 text-sm"
+                />
+                <Button
+                  type="button"
+                  onClick={handleAddSpecialty}
+                  size="sm"
+                  variant="outline"
+                  className="px-3"
+                >
+                  <Plus className="w-4 h-4" />
+                </Button>
+              </div>
+              <div className="flex flex-wrap gap-1 mt-2">
+                {specialties.map((spec, index) => (
+                  <Badge key={index} variant="secondary" className="text-xs px-2 py-0.5">
+                    {spec}
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveSpecialty(index)}
+                      className="ml-1 hover:text-destructive"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </Badge>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <Label className="text-xs font-medium">রিভিউ</Label>
+              <Textarea
+                value={formData.reviews}
+                onChange={(e) => setFormData({ ...formData, reviews: e.target.value })}
+                className="mt-1 text-sm min-h-[60px]"
+                rows={2}
+              />
+            </div>
+
+            <Button type="submit" className="w-full bg-primary h-9 text-sm" disabled={submitting}>
+              {submitting ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  আপডেট হচ্ছে...
+                </>
+              ) : (
+                "আপডেট করুন"
+              )}
+            </Button>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>নিশ্চিত করুন</AlertDialogTitle>
+            <AlertDialogDescription>
+              আপনি কি নিশ্চিত যে আপনি \"{deletingMarket?.name}\" ডিলিট করতে চান? 
+              এই কাজটি পূর্বাবস্থায় ফেরানো যাবে না।
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>বাতিল করুন</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={confirmDelete}
+              className="bg-destructive text-destructive-foreground"
+              disabled={submitting}
+            >
+              {submitting ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  ডিলিট হচ্ছে...
+                </>
+              ) : (
+                "ডিলিট করুন"
+              )}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
       {/* Markets Grid - 2 Columns with Collapsible Cards */}
       <div className="px-4 pt-2">
         {loading ? (
@@ -314,6 +545,30 @@ export function Markets() {
                             {item}
                           </Badge>
                         ))}
+                      </div>
+                    )}
+
+                    {/* Admin Actions */}
+                    {userData?.role === 'admin' && (
+                      <div className="flex gap-2 pt-2 border-t border-border/50">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="h-7 text-xs flex-1"
+                          onClick={(e) => handleEdit(market, e)}
+                        >
+                          <Edit2 className="w-3 h-3 mr-1" />
+                          Edit
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="destructive"
+                          className="h-7 text-xs flex-1"
+                          onClick={(e) => handleDelete(market, e)}
+                        >
+                          <Trash2 className="w-3 h-3 mr-1" />
+                          Delete
+                        </Button>
                       </div>
                     )}
                   </div>

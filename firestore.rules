@@ -148,7 +148,17 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
-   
+    // ==================== Leaderboard Collection ====================
+    match /leaderboard/{userId} {
+      // Public read for leaderboard
+      allow read: if true;
+
+      // Only admins can create and update leaderboard entries
+      allow create, update: if isAdmin();
+
+      // No deletes
+      allow delete: if false;
+    }
 
     // ==================== Settings Collection ====================
     match /settings/{document} {

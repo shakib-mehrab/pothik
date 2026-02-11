@@ -19,7 +19,9 @@ import {
   LogOut,
   CheckCircle,
   Clock,
-  XCircle
+  XCircle,
+  Calendar,
+  Users
 } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 import { updateProfile } from "firebase/auth";
@@ -27,6 +29,8 @@ import { doc, updateDoc, serverTimestamp, collection, query, where, getDocs, ord
 import { db } from "../../config/firebase";
 import { signOut } from "firebase/auth";
 import { auth } from "../../config/firebase";
+import { getUserTours } from "../../services/firestoreService";
+import { Tour } from "../../types";
 
 interface ContributionItem {
   id: string;
@@ -44,6 +48,8 @@ export function Profile() {
   const [updating, setUpdating] = useState(false);
   const [contributions, setContributions] = useState<ContributionItem[]>([]);
   const [loadingContributions, setLoadingContributions] = useState(true);
+  const [tours, setTours] = useState<Tour[]>([]);
+  const [loadingTours, setLoadingTours] = useState(true);
 
   const [formData, setFormData] = useState({
     displayName: "",
@@ -173,6 +179,27 @@ export function Profile() {
     };
 
     fetchContributions();
+  }, [currentUser]);
+
+  useEffect(() => {
+    const fetchTours = async () => {
+      if (!currentUser) {
+        setLoadingTours(false);
+        return;
+      }
+
+      try {
+        setLoadingTours(true);
+        const data = await getUserTours(currentUser.uid);
+        setTours(data);
+      } catch (error) {
+        console.error("Error fetching tours:", error);
+      } finally {
+        setLoadingTours(false);
+      }
+    };
+
+    fetchTours();
   }, [currentUser]);
 
   const handleUpdateProfile = async (e: React.FormEvent) => {
@@ -504,6 +531,79 @@ export function Profile() {
                 </div>
               </Card>
             ))}
+          </div>
+        )}
+      </div>
+
+      {/* Tour History */}
+      <div className="px-4 pb-4">
+        <h3 className="text-sm font-semibold mb-3">ট্যুর ইতিহাস</h3>
+        {loadingTours ? (
+          <div className="flex items-center justify-center py-8">
+            <Loader2 className="w-6 h-6 animate-spin text-primary" />
+          </div>
+        ) : tours.length === 0 ? (
+          <Card className="p-6 text-center">
+            <p className="text-sm text-muted-foreground">এখনো কোন ট্যুর নেই</p>
+            <Button
+              size="sm"
+              variant="outline"
+              className="mt-3"
+              onClick={() => navigate("/tour-planner")}
+            >
+              <MapPin className="w-4 h-4 mr-1" />
+              ট্যুর প্ল্যান করুন
+            </Button>
+          </Card>
+        ) : (
+          <div className="space-y-2">
+            {tours.map((tour) => {
+              const totalExpense = tour.expenses.reduce((sum, e) => sum + e.amount, 0);
+              const isActive = tour.isActive;
+              
+              return (
+                <Card
+                  key={tour.id}
+                  className="p-3 cursor-pointer hover:shadow-md transition-shadow"
+                  onClick={() => navigate("/tour-planner")}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-travel/10">
+                      <MapPin className="w-4 h-4 text-travel" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <p className="text-sm font-medium truncate">{tour.name}</p>
+                        {isActive && (
+                          <Badge variant="default" className="text-[9px] px-1.5 py-0 bg-green-100 text-green-700">
+                            Active
+                          </Badge>
+                        )}
+                        {tour.convertedToGuide && (
+                          <Badge variant="secondary" className="text-[9px] px-1.5 py-0">
+                            Shared
+                          </Badge>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
+                        <Calendar className="w-3 h-3" />
+                        <span>
+                          {tour.startDate ? new Date(tour.startDate).toLocaleDateString("bn-BD") : "—"}
+                          {" - "}
+                          {tour.endDate ? new Date(tour.endDate).toLocaleDateString("bn-BD") : "—"}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
+                        <Users className="w-3 h-3" />
+                        <span>{tour.members.length} জন</span>
+                        <span className="mx-1">•</span>
+                        <span>৳{totalExpense} খরচ</span>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              );
+            })}
           </div>
         )}
       </div>
