@@ -16,7 +16,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "../components/ui/alert-dialog";
-import { MapPin, DollarSign, Building2, Navigation, ChevronDown, Star, Plus, X, Loader2, Edit2, Trash2, LogIn, User, LogOut, Shield } from "lucide-react";
+import { MapPin, DollarSign, Building2, Navigation, ChevronDown, Star, Plus, X, Loader2, Edit2, Trash2, LogIn, User, LogOut, Shield, Search } from "lucide-react";
 import { Link, useNavigate } from "react-router";
 import { useAuth } from "../../contexts/AuthContext";
 import { signOut as firebaseSignOut } from "../../services/authService";
@@ -61,6 +61,7 @@ export function TravelGuide() {
   const [submitting, setSubmitting] = useState(false);
   const [editingGuide, setEditingGuide] = useState<TravelGuideType | null>(null);
   const [deletingGuide, setDeletingGuide] = useState<TravelGuideType | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const [placeInput, setPlaceInput] = useState("");
   const [places, setPlaces] = useState<string[]>([]);
@@ -370,8 +371,21 @@ export function TravelGuide() {
         </div>
       </div>
 
+      {/* Search Bar */}
+      <div className="px-4 pt-6 pb-3">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+          <Input
+            placeholder="Search by place name or location..."
+            className="pl-10 h-9 text-sm"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+      </div>
+
       {/* Travel Guides List */}
-      <div className="px-4 pt-6 space-y-4">
+      <div className="px-4 pt-2 space-y-4">
         {loading ? (
           <div className="flex items-center justify-center py-12">
             <Loader2 className="w-8 h-8 animate-spin text-primary" />
@@ -385,7 +399,15 @@ export function TravelGuide() {
           </Card>
         ) : (
           <>
-            {guides.map((guide) => {
+            {guides
+              .filter((guide) => {
+                const query = searchQuery.toLowerCase();
+                return (
+                  guide.place.toLowerCase().includes(query) ||
+                  guide.places.some((p) => p.toLowerCase().includes(query))
+                );
+              })
+              .map((guide) => {
           const isExpanded = expandedGuide === guide.id;
           const isBudgetExpanded = expandedBudget === guide.id;
 

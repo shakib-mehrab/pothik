@@ -18,7 +18,7 @@ import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Textarea } from "../components/ui/textarea";
 import { Checkbox } from "../components/ui/checkbox";
-import { MapPin, Star, Navigation, Plus, X, ChevronDown, Facebook, Heart, FileText, Loader2, Edit2, Trash2, LogIn, User, LogOut, Shield } from "lucide-react";
+import { MapPin, Star, Navigation, Plus, X, ChevronDown, Facebook, Heart, FileText, Loader2, Edit2, Trash2, LogIn, User, LogOut, Shield, Search } from "lucide-react";
 import { Link, useNavigate } from "react-router";
 import { useAuth } from "../../contexts/AuthContext";
 import { signOut as firebaseSignOut } from "../../services/authService";
@@ -63,6 +63,7 @@ export function Hotels() {
   const [submitting, setSubmitting] = useState(false);
   const [editingHotel, setEditingHotel] = useState<Hotel | null>(null);
   const [deletingHotel, setDeletingHotel] = useState<Hotel | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -282,8 +283,21 @@ export function Hotels() {
         </div>
       </div>
 
+      {/* Search Bar */}
+      <div className="px-4 pt-6 pb-3">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+          <Input
+            placeholder="Search by name or location..."
+            className="pl-10 h-9 text-sm"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+      </div>
+
       {/* Tabs */}
-      <div className="sticky top-[104px] z-10 bg-background px-4 pt-6 pb-3">
+      <div className="sticky top-[104px] z-10 bg-background px-4 pb-3">
         <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as Hotel["category"])} className="w-full">
           <TabsList className="grid w-full grid-cols-2 bg-muted h-auto">
             {tabConfig.map((tab) => (
@@ -602,7 +616,15 @@ export function Hotels() {
         ) : (
           <>
             <div className="grid grid-cols-2 gap-3 items-start">
-              {hotels.map((hotel) => {
+              {hotels
+                .filter((hotel) => {
+                  const query = searchQuery.toLowerCase();
+                  return (
+                    hotel.name.toLowerCase().includes(query) ||
+                    hotel.location.toLowerCase().includes(query)
+                  );
+                })
+                .map((hotel) => {
             const isExpanded = expandedCard === hotel.id;
 
             return (

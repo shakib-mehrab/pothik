@@ -3,8 +3,9 @@ import { Link, useNavigate } from "react-router";
 import { Card } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../components/ui/collapsible";
-import { ChevronDown, MapPin, Clock, Edit, Trash2, Plus, LogIn, User, LogOut, Shield } from "lucide-react";
+import { ChevronDown, MapPin, Clock, Edit, Trash2, Plus, LogIn, User, LogOut, Shield, Search } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -48,6 +49,7 @@ export function Metro() {
   };
 
   const [openStation, setOpenStation] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const stations: MetroStation[] = [
     {
@@ -357,9 +359,30 @@ export function Metro() {
         </div>
       </div>
 
+      {/* Search Bar */}
+      <div className="px-4 pt-6 pb-3">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+          <Input
+            placeholder="Search by station name..."
+            className="pl-10 h-9 text-sm"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+      </div>
+
       {/* Station List */}
-      <div className="px-4 pt-6 space-y-3">
-        {stations.map((station, index) => (
+      <div className="px-4 pt-2 space-y-3">
+        {stations
+          .filter((station) => {
+            const query = searchQuery.toLowerCase();
+            return (
+              station.nameBangla.toLowerCase().includes(query) ||
+              station.nameEnglish.toLowerCase().includes(query)
+            );
+          })
+          .map((station, index) => (
           <Card key={station.id} className="overflow-hidden shadow-sm hover:shadow-md transition-shadow">
             <Collapsible
               open={openStation === station.id}
