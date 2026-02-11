@@ -2,3 +2,16 @@ node_modules
 guidelines
 *env
 tmpclaude-5a68-cwd tmpclaude-5cda-cwd tmpclaude-7a44-cwd tmpclaude-7a98-cwd tmpclaude-7dec-cwd tmpclaude-11bf-cwd tmpclaude-36eb-cwd tmpclaude-046b-cwd tmpclaude-50c3-cwd tmpclaude-52ee-cwd tmpclaude-59cc-cwd tmpclaude-1757-cwd tmpclaude-3891-cwd tmpclaude-a59d-cwd tmpclaude-a798-cwd tmpclaude-beea-cwd tmpclaude-c847-cwd tmpclaude-d46d-cwd tmpclaude-dd09-cwd tmpclaude-e517-cwd tmpclaude-fc3f-cwd
+
+# Firebase
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+functions/node_modules/
+functions/lib/
+.firebaserc
+
+# Build
+dist/
+.vite/

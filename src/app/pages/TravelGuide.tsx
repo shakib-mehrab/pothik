@@ -1,110 +1,171 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
-import { MapPin, DollarSign, Building2, Navigation, ChevronDown, Star } from "lucide-react";
-
-interface TravelGuide {
-  id: string;
-  placeName: string;
-  description: string;
-  approximateBudget: string;
-  budgetDescription: string;
-  mustVisitPlaces: string[];
-  recommendedHotels: string[];
-  howToGo: string;
-  lastUpdated: string;
-}
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { Textarea } from "../components/ui/textarea";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../components/ui/dialog";
+import { MapPin, DollarSign, Building2, Navigation, ChevronDown, Star, Plus, X, Loader2 } from "lucide-react";
+import { useAuth } from "../../contexts/AuthContext";
+import { getTravelGuides } from "../../services/firestoreService";
+import { addDoc, collection, serverTimestamp, updateDoc, doc, increment, setDoc } from "firebase/firestore";
+import { db } from "../../config/firebase";
+import { TravelGuide as TravelGuideType } from "../../types";
 
 export function TravelGuide() {
+  const { currentUser, userData } = useAuth();
   const [expandedGuide, setExpandedGuide] = useState<string | null>(null);
   const [expandedBudget, setExpandedBudget] = useState<string | null>(null);
+  const [guides, setGuides] = useState<TravelGuideType[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  const guides: TravelGuide[] = [
-    {
-      id: "coxs-bazar",
-      placeName: "কক্সবাজার",
-      description: "বিশ্বের দীর্ঘতম প্রাকৃতিক সমুদ্র সৈকত কক্সবাজার। সূর্যোদয় ও সূর্যাস্তের অপরূপ দৃশ্য, সামুদ্রিক খাবার এবং প্রাকৃতিক সৌন্দর্যের জন্য বিখ্যাত। পরিবার ও বন্ধুদের সাথে ঘুরতে আসার জন্য আদর্শ স্থান।",
-      approximateBudget: "৳৫,০০০ - ৳১০,০০০",
-      budgetDescription: "বাস ভাড়া (রাউন্ড ট্রিপ): ৳১,৫০০, হোটেল (২ রাত): ৳৩,০০০-৫,০০০, খাবার ও অন্যান্য: ৳২,০০০-৩,৫০০। মোট খরচ ৩ দিন/২ রাতের জন্য।",
-      mustVisitPlaces: [
-        "কক্সবাজার সমুদ্র সৈকত",
-        "ইনানী সৈকত",
-        "হিমছড়ি",
-        "সোনাদিয়া দ্বীপ",
-        "রাডার স্টেশন পয়েন্ট"
-      ],
-      recommendedHotels: [
-        "লং বিচ হোটেল",
-        "সি প্যালেস",
-        "ওশান প্যারাডাইস"
-      ],
-      howToGo: "ঢাকা থেকে সরাসরি বাস। শ্যামলী, হানিফ, গ্রিন লাইন পরিবহন উপলব্ধ। যাত্রা সময় প্রায় ১০-১২ ঘন্টা। এসি/নন-এসি উভয় বাস আছে।",
-      lastUpdated: "Feb 2026"
-    },
-    {
-      id: "sajek",
-      placeName: "সাজেক ভ্যালি",
-      description: "বাংলাদেশের ছাদ খ্যাত সাজেক ভ্যালি। মেঘের রাজ্য, পাহাড়ি দৃশ্য এবং আদিবাসী সংস্কৃতির সমন্বয়। প্রকৃতি প্রেমীদের জন্য স্বর্গ। শীতকালে ভ্রমণের জন্য সবচেয়ে ভালো সময়।",
-      approximateBudget: "৳৮,০০০ - ৳১৫,০০০",
-      budgetDescription: "গাড়ি ভাড়া (শেয়ার বেসিস): ৳২,৫০০, সেনাবাহিনী পারমিট: ৳৫০০, রিসোর্ট (২ রাত): ৳৪,০০০-৯,০০০, খাবার: ৳১,০০০-৩,০০০। ৩ দিন/২ রাতের জন্য।",
-      mustVisitPlaces: [
-        "কংলাক পাহাড়",
-        "সাজেক ভিউ পয়েন্ট",
-        "রুইলুই পাড়া",
-        "হেলিপ্যাড",
-        "কমলক ঝর্ণা"
-      ],
-      recommendedHotels: [
-        "সাজেক রিসোর্ট",
-        "রুইলুই রিসোর্ট",
-        "মেঘপুঞ্জি কটেজ"
-      ],
-      howToGo: "ঢাকা/চট্টগ্রাম থেকে খাগড়াছড়ি। খাগড়াছড়ি থেকে চান্দের গাড়িতে সাজেক। সেনাবাহিনীর পারমিট প্রয়োজন। পথে দিঘীনালা বাজার দিয়ে যেতে হয়।",
-      lastUpdated: "Feb 2026"
-    },
-    {
-      id: "sundarbans",
-      placeName: "সুন্দরবন",
-      description: "বিশ্বের বৃহত্তম ম্যানগ্রোভ বন এবং রয়েল বেঙ্গল টাইগারের আবাসস্থল। প্রকৃতি ও বন্যপ্রাণী প্রেমীদের জন্য অনন্য অভিজ্ঞতা। নৌকায় ভ্রমণ করে বনের গভীরে যাওয়ার রোমাঞ্চ।",
-      approximateBudget: "৳৬,০০০ - ৳১২,০০০",
-      budgetDescription: "ঢাকা-খুলনা বাস: ৳৮০০, নৌকা ভাড়া (প্যাকেজ): ৳৪,০০০-৮,০০০, খাবার ও অন্যান্য: ৳১,২০০-৩,২০০। ২ দিন/১ রাতের প্যাকেজ।",
-      mustVisitPlaces: [
-        "করমজল",
-        "কটকা",
-        "হিরণ পয়েন্ট (নীলকমল)",
-        "দুবলার চর",
-        "মান্দারবাড়িয়া"
-      ],
-      recommendedHotels: [
-        "খুলনায় থাকুন - নৌকায় ঘুমানো বেশি রোমাঞ্চকর",
-        "হোটেল রয়্যাল ইন্টারন্যাশনাল (খুলনা)",
-        "হোটেল ক্যাসেল সালাম (খুলনা)"
-      ],
-      howToGo: "ঢাকা থেকে খুলনা বাসে। খুলনা থেকে মংলা বন্দর। সেখান থেকে নৌকায় সুন্দরবন। সাধারণত গাইড ও নৌকা প্যাকেজ নিয়ে যাওয়া ভালো।",
-      lastUpdated: "Feb 2026"
-    },
-    {
-      id: "sylhet",
-      placeName: "সিলেট",
-      description: "চা বাগান, হাওর ও পাহাড়ের সৌন্দর্যের শহর সিলেট। জাফলং, রাতারগুল, লালাখাল সহ অসংখ্য প্রাকৃতিক দর্শনীয় স্থান। বর্ষাকালে ভ্রমণের জন্য আদর্শ।",
-      approximateBudget: "৳৫,০০০ - ৳৯,০০০",
-      budgetDescription: "ঢাকা-সিলেট ট্রেন/বাস: ৳৮০০-১,২০০, হোটেল (২ রাত): ৳২,৫০০-৪,০০০, স্থানীয় ভ্রমণ: ৳১,৭০০-৩,৮০০। ৩ দিন/২ রাতের জন্য।",
-      mustVisitPlaces: [
-        "রাতারগুল সোয়াম্প ফরেস্ট",
-        "জাফলং",
-        "লালাখাল",
-        "বিছনাকান্দি",
-        "হাদারপার হাওর"
-      ],
-      recommendedHotels: [
-        "হোটেল গ্র্যান্ড সিলেট",
-        "রোজ ভিউ হোটেল",
-        "নাদিয়া রিসোর্ট"
-      ],
-      howToGo: "ঢাকা থেকে ট্রেন (পারাবত এক্সপ্রেস, উপবন এক্সপ্রেস) অথবা বাসে। যাত্রা সময় ৬-৮ ঘন্টা। সিলেট থেকে স্থানীয় সিএনজি/গাড়ি ভাড়া করে বিভিন্ন স্থান ভ্রমণ।",
-      lastUpdated: "Feb 2026"
+  const [placeInput, setPlaceInput] = useState("");
+  const [places, setPlaces] = useState<string[]>([]);
+  const [hotelInput, setHotelInput] = useState("");
+  const [hotels, setHotels] = useState<string[]>([]);
+
+  const [formData, setFormData] = useState({
+    place: "",
+    description: "",
+    budget: "",
+    howToGo: "",
+  });
+
+  // Fetch travel guides from Firestore
+  useEffect(() => {
+    const fetchGuides = async () => {
+      try {
+        setLoading(true);
+        const data = await getTravelGuides();
+        setGuides(data);
+      } catch (error) {
+        console.error("Error fetching travel guides:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchGuides();
+  }, []);
+
+  // Helper functions for managing places array
+  const handleAddPlace = () => {
+    if (placeInput.trim() && places.length < 10) {
+      setPlaces([...places, placeInput.trim()]);
+      setPlaceInput("");
     }
-  ];
+  };
+
+  const handleRemovePlace = (index: number) => {
+    setPlaces(places.filter((_, i) => i !== index));
+  };
+
+  // Helper functions for managing hotels array
+  const handleAddHotel = () => {
+    if (hotelInput.trim() && hotels.length < 10) {
+      setHotels([...hotels, hotelInput.trim()]);
+      setHotelInput("");
+    }
+  };
+
+  const handleRemoveHotel = (index: number) => {
+    setHotels(hotels.filter((_, i) => i !== index));
+  };
+
+  // Form submission handler
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!currentUser) {
+      alert("ভ্রমন গাইড তৈরি করতে আপনাকে লগইন করতে হবে!");
+      return;
+    }
+
+    if (!formData.place.trim() || !formData.description.trim()) {
+      alert("স্থানের নাম এবং বর্ণনা আবশ্যক!");
+      return;
+    }
+
+    if (places.length === 0) {
+      alert("অন্তত একটি ভ্রমণ স্থান যোগ করুন!");
+      return;
+    }
+
+    try {
+      setSubmitting(true);
+
+      await addDoc(collection(db, "travelGuides"), {
+        placeName: formData.place.trim(),
+        description: formData.description.trim(),
+        approximateBudget: formData.budget.trim() || "তথ্য নেই",
+        budgetDescription: formData.budget.trim() || "তথ্য নেই",
+        mustVisitPlaces: places,
+        recommendedHotels: hotels,
+        howToGo: formData.howToGo.trim() || "তথ্য নেই",
+        sourceType: "manual",
+        createdBy: currentUser.uid,
+        creatorName: userData?.displayName || "Anonymous",
+        status: "published",
+        lastUpdated: new Date().toLocaleDateString("en-US", { month: "short", year: "numeric" }),
+        createdAt: serverTimestamp(),
+      });
+
+      // Award points for creating a travel guide (+15 points)
+      const userRef = doc(db, "users", currentUser.uid);
+      await updateDoc(userRef, {
+        "stats.travelGuidesCreated": increment(1),
+        contributionPoints: increment(15),
+        updatedAt: serverTimestamp(),
+      });
+
+      // Update leaderboard
+      const leaderboardRef = doc(db, "leaderboard", currentUser.uid);
+      await updateDoc(leaderboardRef, {
+        totalPoints: increment(15),
+        "breakdown.travelGuides": increment(1),
+        updatedAt: serverTimestamp(),
+      }).catch(async () => {
+        // Create leaderboard entry if doesn't exist
+        await setDoc(leaderboardRef, {
+          displayName: userData?.displayName || "Anonymous",
+          photoURL: userData?.photoURL || "",
+          totalPoints: 15,
+          breakdown: {
+            restaurants: 0,
+            hotels: 0,
+            markets: 0,
+            travelGuides: 1,
+          },
+          updatedAt: serverTimestamp(),
+        });
+      });
+
+      alert("ভ্রমন গাইড সফলভাবে তৈরি হয়েছে! +15 পয়েন্ট!");
+
+      // Reset form
+      setFormData({
+        place: "",
+        description: "",
+        budget: "",
+        howToGo: "",
+      });
+      setPlaces([]);
+      setHotels([]);
+      setIsAddDialogOpen(false);
+
+      // Refresh guides
+      const data = await getTravelGuides();
+      setGuides(data);
+    } catch (error) {
+      console.error("Error creating travel guide:", error);
+      alert("ভ্রমন গাইড তৈরি করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   const toggleGuide = (id: string) => {
     setExpandedGuide(expandedGuide === id ? null : id);
@@ -125,7 +186,20 @@ export function TravelGuide() {
 
       {/* Travel Guides List */}
       <div className="px-4 pt-6 space-y-4">
-        {guides.map((guide) => {
+        {loading ? (
+          <div className="flex items-center justify-center py-12">
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          </div>
+        ) : guides.length === 0 ? (
+          <Card className="p-8 text-center">
+            <p className="text-muted-foreground mb-4">এখনো কোন ভ্রমন গাইড নেই</p>
+            {currentUser && (
+              <p className="text-sm text-muted-foreground">প্রথম গাইড তৈরি করুন!</p>
+            )}
+          </Card>
+        ) : (
+          <>
+            {guides.map((guide) => {
           const isExpanded = expandedGuide === guide.id;
           const isBudgetExpanded = expandedBudget === guide.id;
 
@@ -244,6 +318,161 @@ export function TravelGuide() {
             </Card>
           );
         })}
+          </>
+        )}
+
+        {/* Add Guide Button (floating) */}
+        {currentUser && (
+          <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+            <DialogTrigger asChild>
+              <Button
+                className="fixed bottom-6 right-6 rounded-full w-14 h-14 shadow-xl z-20"
+                size="icon"
+              >
+                <Plus className="w-6 h-6" />
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-[95vw] max-h-[90vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>নতুন ভ্রমন গাইড তৈরি করুন</DialogTitle>
+              </DialogHeader>
+              <form onSubmit={handleSubmit} className="space-y-4 pt-4">
+                {/* Place Name */}
+                <div>
+                  <Label htmlFor="place">স্থানের নাম *</Label>
+                  <Input
+                    id="place"
+                    value={formData.place}
+                    onChange={(e) => setFormData({ ...formData, place: e.target.value })}
+                    placeholder="যেমন: কক্সবাজার, সুন্দরবন"
+                    required
+                  />
+                </div>
+
+                {/* Description */}
+                <div>
+                  <Label htmlFor="description">বর্ণনা *</Label>
+                  <Textarea
+                    id="description"
+                    value={formData.description}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                    placeholder="স্থান সম্পর্কে সংক্ষিপ্ত বর্ণনা লিখুন"
+                    className="min-h-[80px]"
+                    required
+                  />
+                </div>
+
+                {/* Budget */}
+                <div>
+                  <Label htmlFor="budget">আনুমানিক বাজেট</Label>
+                  <Input
+                    id="budget"
+                    value={formData.budget}
+                    onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+                    placeholder="যেমন: ৫,০০০-১০,০০০ টাকা/জন (২-৩ দিন)"
+                  />
+                </div>
+
+                {/* Must Visit Places */}
+                <div>
+                  <Label>অবশ্যই ঘুরবেন *</Label>
+                  <div className="flex gap-2 mb-2">
+                    <Input
+                      value={placeInput}
+                      onChange={(e) => setPlaceInput(e.target.value)}
+                      placeholder="স্থানের নাম লিখুন"
+                      onKeyPress={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          handleAddPlace();
+                        }
+                      }}
+                    />
+                    <Button type="button" onClick={handleAddPlace} size="icon">
+                      <Plus className="w-4 h-4" />
+                    </Button>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {places.map((place, idx) => (
+                      <Badge key={idx} variant="secondary" className="gap-1">
+                        {place}
+                        <X
+                          className="w-3 h-3 cursor-pointer"
+                          onClick={() => handleRemovePlace(idx)}
+                        />
+                      </Badge>
+                    ))}
+                  </div>
+                  {places.length === 0 && (
+                    <p className="text-xs text-muted-foreground mt-1">
+                      অন্তত একটি স্থান যোগ করুন
+                    </p>
+                  )}
+                </div>
+
+                {/* Recommended Hotels */}
+                <div>
+                  <Label>প্রস্তাবিত হোটেল</Label>
+                  <div className="flex gap-2 mb-2">
+                    <Input
+                      value={hotelInput}
+                      onChange={(e) => setHotelInput(e.target.value)}
+                      placeholder="হোটেলের নাম লিখুন"
+                      onKeyPress={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          handleAddHotel();
+                        }
+                      }}
+                    />
+                    <Button type="button" onClick={handleAddHotel} size="icon">
+                      <Plus className="w-4 h-4" />
+                    </Button>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {hotels.map((hotel, idx) => (
+                      <Badge key={idx} variant="secondary" className="gap-1">
+                        {hotel}
+                        <X
+                          className="w-3 h-3 cursor-pointer"
+                          onClick={() => handleRemoveHotel(idx)}
+                        />
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+
+                {/* How to Go */}
+                <div>
+                  <Label htmlFor="howToGo">যেভাবে যাবেন</Label>
+                  <Textarea
+                    id="howToGo"
+                    value={formData.howToGo}
+                    onChange={(e) => setFormData({ ...formData, howToGo: e.target.value })}
+                    placeholder="ঢাকা থেকে যাতায়াতের উপায় বর্ণনা করুন"
+                    className="min-h-[80px]"
+                  />
+                </div>
+
+                {/* Submit Button */}
+                <Button
+                  type="submit"
+                  className="w-full"
+                  disabled={submitting}
+                >
+                  {submitting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      তৈরি হচ্ছে...
+                    </>
+                  ) : (
+                    "গাইড তৈরি করুন (+15 পয়েন্ট)"
+                  )}
+                </Button>
+              </form>
+            </DialogContent>
+          </Dialog>
+        )}
 
         {/* User Contribution Banner */}
         <Card className="mt-6 bg-gradient-to-r from-accent/20 to-accent/10 border-accent/30 p-4">

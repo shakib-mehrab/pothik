@@ -1,0 +1,162 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper function to check if user is admin
+    function isAdmin() {
+      return request.auth != null &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Helper function to check if user owns the document
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
+    // ==================== Users Collection ====================
+    match /users/{userId} {
+      // Anyone can read user profiles
+      allow read: if true;
+
+      // Users can create their own profile
+      allow create: if isAuthenticated() && request.auth.uid == userId;
+
+      // Users can update their own profile (but not role or points)
+      allow update: if isOwner(userId) &&
+                      !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'contributionPoints']);
+
+      // Admins can update any user
+      allow update: if isAdmin();
+
+      // No one can delete users
+      allow delete: if false;
+    }
+
+    // ==================== Restaurants Collection ====================
+    match /restaurants/{restaurantId} {
+      // Public read for approved restaurants, or users can read their own submissions
+      allow read: if resource.data.status == 'approved' || 
+                    isAdmin() || 
+                    isOwner(resource.data.submittedBy);
+
+      // Authenticated users can create (status must be 'pending')
+      allow create: if isAuthenticated() &&
+                      request.resource.data.status == 'pending' &&
+                      request.resource.data.submittedBy == request.auth.uid;
+
+      // Admins can create with any status (for seeding)
+      allow create: if isAdmin();
+
+      // Only admins can update (for approval/rejection)
+      allow update: if isAdmin();
+
+      // Only admins can delete
+      allow delete: if isAdmin();
+    }
+
+    // ==================== Hotels Collection ====================
+    match /hotels/{hotelId} {
+      // Public read for approved hotels, or users can read their own submissions
+      allow read: if resource.data.status == 'approved' || 
+                    isAdmin() || 
+                    isOwner(resource.data.submittedBy);
+
+      // Authenticated users can create (status must be 'pending')
+      allow create: if isAuthenticated() &&
+                      request.resource.data.status == 'pending' &&
+                      request.resource.data.submittedBy == request.auth.uid;
+
+      // Admins can create with any status (for seeding)
+      allow create: if isAdmin();
+
+      // Only admins can update (for approval/rejection)
+      allow update: if isAdmin();
+
+      // Only admins can delete
+      allow delete: if isAdmin();
+    }
+
+    // ==================== Markets Collection ====================
+    match /markets/{marketId} {
+      // Public read for approved markets, or users can read their own submissions
+      allow read: if resource.data.status == 'approved' || 
+                    isAdmin() || 
+                    isOwner(resource.data.submittedBy);
+
+      // Authenticated users can create (status must be 'pending')
+      allow create: if isAuthenticated() &&
+                      request.resource.data.status == 'pending' &&
+                      request.resource.data.submittedBy == request.auth.uid;
+
+      // Admins can create with any status (for seeding)
+      allow create: if isAdmin();
+
+      // Only admins can update (for approval/rejection)
+      allow update: if isAdmin();
+
+      // Only admins can delete
+      allow delete: if isAdmin();
+    }
+
+    // ==================== Travel Guides Collection ====================
+    match /travelGuides/{guideId} {
+      // Public read for published guides, or users can read their own guides
+      allow read: if resource.data.status == 'published' || 
+                    isAdmin() || 
+                    isOwner(resource.data.createdBy);
+
+      // Authenticated users can create travel guides (auto-published)
+      allow create: if isAuthenticated() &&
+                      request.resource.data.status == 'published' &&
+                      request.resource.data.createdBy == request.auth.uid;
+
+      // Admins can create with any settings
+      allow create: if isAdmin();
+
+      // Users can update their own guides, admins can update any
+      allow update: if isOwner(resource.data.createdBy) || isAdmin();
+
+      // Only admins can delete
+      allow delete: if isAdmin();
+    }
+
+    // ==================== Tours Collection ====================
+    match /tours/{tourId} {
+      // Only tour owner can read
+      allow read: if isAuthenticated() && resource.data.userId == request.auth.uid;
+
+      // Only authenticated users can create their own tours
+      allow create: if isAuthenticated() &&
+                      request.resource.data.userId == request.auth.uid;
+
+      // Only tour owner can update
+      allow update: if isAuthenticated() && resource.data.userId == request.auth.uid;
+
+      // Only tour owner can delete
+      allow delete: if isAuthenticated() && resource.data.userId == request.auth.uid;
+    }
+
+    // ==================== Submissions Collection ====================
+    match /submissions/{submissionId} {
+      // Only admins can access submissions
+      allow read: if isAdmin();
+      allow write: if isAdmin();
+    }
+
+   
+
+    // ==================== Settings Collection ====================
+    match /settings/{document} {
+      // Public read for settings
+      allow read: if true;
+
+      // Only admins can write settings
+      allow write: if isAdmin();
+    }
+  }
+}

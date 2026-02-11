@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
@@ -7,60 +7,18 @@ import { Badge } from "../components/ui/badge";
 import { Textarea } from "../components/ui/textarea";
 import { Checkbox } from "../components/ui/checkbox";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../components/ui/dialog";
-import { Plus, MapPin, DollarSign, Trash2, Calendar, Users, CheckCircle2, X, ChevronLeft, ListTodo, AlertCircle } from "lucide-react";
-
-interface TodoItem {
-  id: string;
-  text: string;
-  completed: boolean;
-}
-
-interface Expense {
-  id: string;
-  description: string;
-  amount: number;
-  paidBy: string;
-}
-
-interface Tour {
-  id: string;
-  name: string;
-  destination: string;
-  startDate: string;
-  endDate: string;
-  budget: number;
-  members: string[];
-  places: string[];
-  expenses: Expense[];
-  todos: TodoItem[];
-  isActive: boolean;
-}
+import { Plus, MapPin, DollarSign, Trash2, Calendar, Users, CheckCircle2, X, ChevronLeft, ListTodo, AlertCircle, Loader2, Share2 } from "lucide-react";
+import { useAuth } from "../../contexts/AuthContext";
+import { getUserTours, createTour as saveTour, updateTour as saveUpdateTour, deleteTour as saveDeleteTour } from "../../services/firestoreService";
+import { addDoc, collection, serverTimestamp, updateDoc, doc, increment, setDoc } from "firebase/firestore";
+import { db } from "../../config/firebase";
+import { Tour as TourType } from "../../types";
 
 export function TourPlanner() {
-  const [tours, setTours] = useState<Tour[]>([
-    {
-      id: "tour-1",
-      name: "Cox's Bazar Trip",
-      destination: "Cox's Bazar",
-      startDate: "2026-03-15",
-      endDate: "2026-03-18",
-      budget: 15000,
-      members: ["আমি", "রহিম", "করিম"],
-      places: ["Cox's Bazar Beach", "Inani Beach", "Himchari"],
-      expenses: [
-        { id: "exp-1", description: "Bus Tickets", amount: 4500, paidBy: "আমি" },
-        { id: "exp-2", description: "Hotel (3 nights)", amount: 9000, paidBy: "রহিম" }
-      ],
-      todos: [
-        { id: "todo-1", text: "Book bus tickets", completed: true },
-        { id: "todo-2", text: "Book hotel", completed: true },
-        { id: "todo-3", text: "Pack clothes", completed: false }
-      ],
-      isActive: true
-    }
-  ]);
-
-  const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
+  const { currentUser, userData } = useAuth();
+  const [tours, setTours] = useState<TourType[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedTour, setSelectedTour] = useState<TourType | null>(null);
   const [isCreatingTour, setIsCreatingTour] = useState(false);
   const [isAddingExpense, setIsAddingExpense] = useState(false);
   const [isAddingPlace, setIsAddingPlace] = useState(false);
@@ -85,32 +43,74 @@ export function TourPlanner() {
   const [newPlace, setNewPlace] = useState("");
   const [newTodo, setNewTodo] = useState("");
 
-  const createTour = () => {
+  // Fetch tours from Firestore
+  useEffect(() => {
+    const fetchTours = async () => {
+      if (!currentUser) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        const data = await getUserTours(currentUser.uid);
+        setTours(data);
+      } catch (error) {
+        console.error("Error fetching tours:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTours();
+  }, [currentUser]);
+
+  const createTour = async () => {
+    if (!currentUser) {
+      alert("ট্যুর তৈরি করতে আপনাকে লগইন করতে হবে!");
+      return;
+    }
+
     if (newTour.name && newTour.destination && newTour.budget) {
-      const tour: Tour = {
-        id: Date.now().toString(),
-        name: newTour.name,
-        destination: newTour.destination,
-        startDate: newTour.startDate,
-        endDate: newTour.endDate,
-        budget: parseFloat(newTour.budget),
-        members: newTour.members,
-        places: [],
-        expenses: [],
-        todos: [],
-        isActive: true,
-      };
-      setTours([...tours, tour]);
-      setNewTour({
-        name: "",
-        destination: "",
-        startDate: "",
-        endDate: "",
-        budget: "",
-        memberInput: "",
-        members: ["আমি"],
-      });
-      setIsCreatingTour(false);
+      try {
+        const tour: Omit<TourType, "id"> = {
+          name: newTour.name,
+          destination: newTour.destination,
+          startDate: newTour.startDate,
+          endDate: newTour.endDate,
+          budget: parseFloat(newTour.budget),
+          members: newTour.members,
+          places: [],
+          expenses: [],
+          todos: [],
+          isActive: true,
+          userId: currentUser.uid,
+          convertedToGuide: false,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        };
+
+        const tourId = await saveTour(tour);
+
+        // Refresh tours
+        const data = await getUserTours(currentUser.uid);
+        setTours(data);
+
+        setNewTour({
+          name: "",
+          destination: "",
+          startDate: "",
+          endDate: "",
+          budget: "",
+          memberInput: "",
+          members: ["আমি"],
+        });
+        setIsCreatingTour(false);
+        alert("ট্যুর সফলভাবে তৈরি হয়েছে!");
+      } catch (error) {
+        console.error("Error creating tour:", error);
+        alert("ট্যুর তৈরি করতে সমস্যা হয়েছে।");
+      }
     }
   };
 
@@ -133,107 +133,283 @@ export function TourPlanner() {
     }
   };
 
-  const addExpense = () => {
-    if (selectedTour && newExpense.description && newExpense.amount && newExpense.paidBy) {
-      const expense: Expense = {
+  const addExpense = async () => {
+    if (!currentUser || !selectedTour || !newExpense.description ||!newExpense.amount || !newExpense.paidBy) {
+      return;
+    }
+
+    try {
+      const expense = {
         id: Date.now().toString(),
         description: newExpense.description,
         amount: parseFloat(newExpense.amount),
         paidBy: newExpense.paidBy,
       };
+
       const updatedTour = {
         ...selectedTour,
         expenses: [...selectedTour.expenses, expense],
+        updatedAt: new Date(),
       };
-      setTours(tours.map((t) => (t.id === selectedTour.id ? updatedTour : t)));
-      setSelectedTour(updatedTour);
+
+      await saveUpdateTour(selectedTour.id, updatedTour);
+
+      // Refresh tours
+      const data = await getUserTours(currentUser.uid);
+      setTours(data);
+      setSelectedTour(data.find((t: TourType) => t.id === selectedTour.id) || null);
+
       setNewExpense({ description: "", amount: "", paidBy: "" });
       setIsAddingExpense(false);
+    } catch (error) {
+      console.error("Error adding expense:", error);
+      alert("খরচ যোগ করতে সমস্যা হয়েছে।");
     }
   };
 
-  const deleteExpense = (expId: string) => {
-    if (selectedTour) {
+  const deleteExpense = async (expId: string) => {
+    if (!currentUser || !selectedTour) return;
+
+    try {
       const updatedTour = {
         ...selectedTour,
         expenses: selectedTour.expenses.filter((e) => e.id !== expId),
+        updatedAt: new Date(),
       };
-      setTours(tours.map((t) => (t.id === selectedTour.id ? updatedTour : t)));
-      setSelectedTour(updatedTour);
+
+      await saveUpdateTour(selectedTour.id, updatedTour);
+
+      // Refresh tours
+      const data = await getUserTours(currentUser.uid);
+      setTours(data);
+      setSelectedTour(data.find((t: TourType) => t.id === selectedTour.id) || null);
+    } catch (error) {
+      console.error("Error deleting expense:", error);
+      alert("খরচ মুছতে সমস্যা হয়েছে।");
     }
   };
 
-  const addPlace = () => {
-    if (selectedTour && newPlace.trim()) {
+  const addPlace = async () => {
+    if (!currentUser || !selectedTour || !newPlace.trim()) return;
+
+    try {
       const updatedTour = {
         ...selectedTour,
         places: [...selectedTour.places, newPlace.trim()],
+        updatedAt: new Date(),
       };
-      setTours(tours.map((t) => (t.id === selectedTour.id ? updatedTour : t)));
-      setSelectedTour(updatedTour);
+
+      await saveUpdateTour(selectedTour.id, updatedTour);
+
+      // Refresh tours
+      const data = await getUserTours(currentUser.uid);
+      setTours(data);
+      setSelectedTour(data.find((t: TourType) => t.id === selectedTour.id) || null);
+
       setNewPlace("");
       setIsAddingPlace(false);
+    } catch (error) {
+      console.error("Error adding place:", error);
+      alert("স্থান যোগ করতে সমস্যা হয়েছে।");
     }
   };
 
-  const removePlace = (place: string) => {
-    if (selectedTour) {
+  const removePlace = async (place: string) => {
+    if (!currentUser || !selectedTour) return;
+
+    try {
       const updatedTour = {
         ...selectedTour,
         places: selectedTour.places.filter((p) => p !== place),
+        updatedAt: new Date(),
       };
-      setTours(tours.map((t) => (t.id === selectedTour.id ? updatedTour : t)));
-      setSelectedTour(updatedTour);
+
+      await saveUpdateTour(selectedTour.id, updatedTour);
+
+      // Refresh tours
+      const data = await getUserTours(currentUser.uid);
+      setTours(data);
+      setSelectedTour(data.find((t: TourType) => t.id === selectedTour.id) || null);
+    } catch (error) {
+      console.error("Error removing place:", error);
+      alert("স্থান মুছতে সমস্যা হয়েছে।");
     }
   };
 
-  const addTodo = () => {
-    if (selectedTour && newTodo.trim()) {
-      const todo: TodoItem = {
+  const addTodo = async () => {
+    if (!currentUser || !selectedTour || !newTodo.trim()) return;
+
+    try {
+      const todo = {
         id: Date.now().toString(),
         text: newTodo.trim(),
         completed: false,
       };
+
       const updatedTour = {
         ...selectedTour,
         todos: [...selectedTour.todos, todo],
+        updatedAt: new Date(),
       };
-      setTours(tours.map((t) => (t.id === selectedTour.id ? updatedTour : t)));
-      setSelectedTour(updatedTour);
+
+      await saveUpdateTour(selectedTour.id, updatedTour);
+
+      // Refresh tours
+      const data = await getUserTours(currentUser.uid);
+      setTours(data);
+      setSelectedTour(data.find((t: TourType) => t.id === selectedTour.id) || null);
+
       setNewTodo("");
       setIsAddingTodo(false);
+    } catch (error) {
+      console.error("Error adding todo:", error);
+      alert("টাস্ক যোগ করতে সমস্যা হয়েছে।");
     }
   };
 
-  const toggleTodo = (todoId: string) => {
-    if (selectedTour) {
+  const toggleTodo = async (todoId: string) => {
+    if (!currentUser || !selectedTour) return;
+
+    try {
       const updatedTour = {
         ...selectedTour,
         todos: selectedTour.todos.map((todo) =>
           todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
         ),
+        updatedAt: new Date(),
       };
-      setTours(tours.map((t) => (t.id === selectedTour.id ? updatedTour : t)));
-      setSelectedTour(updatedTour);
+
+      await saveUpdateTour(selectedTour.id, updatedTour);
+
+      // Refresh tours
+      const data = await getUserTours(currentUser.uid);
+      setTours(data);
+      setSelectedTour(data.find((t: TourType) => t.id === selectedTour.id) || null);
+    } catch (error) {
+      console.error("Error toggling todo:", error);
     }
   };
 
-  const deleteTodo = (todoId: string) => {
-    if (selectedTour) {
+  const deleteTodo = async (todoId: string) => {
+    if (!currentUser || !selectedTour) return;
+
+    try {
       const updatedTour = {
         ...selectedTour,
         todos: selectedTour.todos.filter((todo) => todo.id !== todoId),
+        updatedAt: new Date(),
       };
-      setTours(tours.map((t) => (t.id === selectedTour.id ? updatedTour : t)));
-      setSelectedTour(updatedTour);
+
+      await saveUpdateTour(selectedTour.id, updatedTour);
+
+      // Refresh tours
+      const data = await getUserTours(currentUser.uid);
+      setTours(data);
+      setSelectedTour(data.find((t: TourType) => t.id === selectedTour.id) || null);
+    } catch (error) {
+      console.error("Error deleting todo:", error);
+      alert("টাস্ক মুছতে সমস্যা হয়েছে।");
     }
   };
 
-  const endTrip = () => {
-    if (selectedTour) {
-      const updatedTour = { ...selectedTour, isActive: false };
-      setTours(tours.map((t) => (t.id === selectedTour.id ? updatedTour : t)));
+  const endTrip = async () => {
+    if (!currentUser || !selectedTour) return;
+
+    try {
+      const updatedTour = {
+        ...selectedTour,
+        isActive: false,
+        updatedAt: new Date(),
+      };
+
+      await saveUpdateTour(selectedTour.id, updatedTour);
+
+      // Refresh tours
+      const data = await getUserTours(currentUser.uid);
+      setTours(data);
       setSelectedTour(null);
+
+      alert("ট্রিপ শেষ হয়েছে!");
+    } catch (error) {
+      console.error("Error ending trip:", error);
+      alert("ট্রিপ শেষ করতে সমস্যা হয়েছে।");
+    }
+  };
+
+  const convertToGuide = async () => {
+    if (!currentUser || !userData || !selectedTour) return;
+
+    if (selectedTour.places.length === 0) {
+      alert("ভ্রমন গাইড তৈরি করতে অন্তত একটি স্থান যোগ করুন!");
+      return;
+    }
+
+    try {
+      // Create travel guide from tour data
+      await addDoc(collection(db, "travelGuides"), {
+        placeName: selectedTour.destination,
+        description: `${selectedTour.name} - ${selectedTour.members.length} জন সদস্য নিয়ে ${selectedTour.startDate ? new Date(selectedTour.startDate).toLocaleDateString("bn-BD") : ""} থেকে ${selectedTour.endDate ? new Date(selectedTour.endDate).toLocaleDateString("bn-BD") : ""} পর্যন্ত ভ্রমণ`,
+        approximateBudget: `৳${selectedTour.budget}`,
+        budgetDescription: `মোট খরচ: ৳${selectedTour.expenses.reduce((sum, e) => sum + e.amount, 0)} (${selectedTour.members.length} জন)`,
+        mustVisitPlaces: selectedTour.places,
+        recommendedHotels: [],
+        howToGo: "তথ্য নেই",
+        sourceType: "tour",
+        sourceTourId: selectedTour.id,
+        createdBy: currentUser.uid,
+        creatorName: userData.displayName || "Anonymous",
+        status: "published",
+        lastUpdated: new Date().toLocaleDateString("en-US", { month: "short", year: "numeric" }),
+        createdAt: serverTimestamp(),
+      });
+
+      // Mark tour as converted
+      const updatedTour = {
+        ...selectedTour,
+        convertedToGuide: true,
+        updatedAt: new Date(),
+      };
+      await saveUpdateTour(selectedTour.id, updatedTour);
+
+      // Award points for creating travel guide (+15 points)
+      const userRef = doc(db, "users", currentUser.uid);
+      await updateDoc(userRef, {
+        "stats.travelGuidesCreated": increment(1),
+        contributionPoints: increment(15),
+        updatedAt: serverTimestamp(),
+      });
+
+      // Update leaderboard
+      const leaderboardRef = doc(db, "leaderboard", currentUser.uid);
+      await updateDoc(leaderboardRef, {
+        totalPoints: increment(15),
+        "breakdown.travelGuides": increment(1),
+        updatedAt: serverTimestamp(),
+      }).catch(async () => {
+        // Create leaderboard entry if doesn't exist
+        await setDoc(leaderboardRef, {
+          displayName: userData.displayName || "Anonymous",
+          photoURL: userData.photoURL || "",
+          totalPoints: 15,
+          breakdown: {
+            restaurants: 0,
+            hotels: 0,
+            markets: 0,
+            travelGuides: 1,
+          },
+          updatedAt: serverTimestamp(),
+        });
+      });
+
+      alert("ভ্রমন গাইড সফলভাবে তৈরি হয়েছে! +15 পয়েন্ট!");
+
+      // Refresh tours
+      const data = await getUserTours(currentUser.uid);
+      setTours(data);
+      setSelectedTour(null);
+    } catch (error) {
+      console.error("Error converting to guide:", error);
+      alert("ভ্রমন গাইড তৈরি করতে সমস্যা হয়েছে।");
     }
   };
 
@@ -267,8 +443,23 @@ export function TourPlanner() {
           <p className="text-white/90 text-sm">Tour Planner & Expense Manager</p>
         </div>
 
-        {/* Create Tour Button */}
-        <div className="px-4 pt-6 pb-4">
+        {!currentUser ? (
+          <div className="px-4 pt-6">
+            <Card className="p-8 text-center">
+              <p className="text-muted-foreground mb-4">ট্যুর তৈরি করতে লগইন করুন</p>
+              <Button onClick={() => window.location.href = "/auth"} className="bg-travel">
+                লগইন করুন
+              </Button>
+            </Card>
+          </div>
+        ) : loading ? (
+          <div className="flex items-center justify-center py-12">
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          </div>
+        ) : (
+          <>
+            {/* Create Tour Button */}
+            <div className="px-4 pt-6 pb-4">
           <Dialog open={isCreatingTour} onOpenChange={setIsCreatingTour}>
             <DialogTrigger asChild>
               <Button className="w-full bg-travel text-travel-foreground">
@@ -455,6 +646,8 @@ export function TourPlanner() {
             </Card>
           )}
         </div>
+            </>
+        )}
       </div>
     );
   }
@@ -730,19 +923,42 @@ export function TourPlanner() {
         </div>
       </div>
 
-      {/* End Trip Button */}
+      {/* End Trip & Share as Guide Buttons */}
       {selectedTour.isActive && (
-        <div className="px-4 mb-6">
+        <div className="px-4 mb-6 space-y-3">
+          {/* Share as Guide Button */}
+          {!selectedTour.convertedToGuide && (
+            <Button
+              className="w-full bg-accent text-white"
+              onClick={() => {
+                if (confirm("এই ট্রিপ থেকে একটি ভ্রমন গাইড তৈরি করতে চান?")) {
+                  convertToGuide();
+                }
+              }}
+            >
+              <Share2 className="w-4 h-4 mr-2" />
+              ভ্রমন গাইড হিসেবে শেয়ার করুন (+15 পয়েন্ট)
+            </Button>
+          )}
+
+          {selectedTour.convertedToGuide && (
+            <div className="flex items-center gap-2 text-sm text-green-600 bg-green-50 p-3 rounded-lg">
+              <CheckCircle2 className="w-4 h-4" />
+              ভ্রমন গাইড হিসেবে শেয়ার করা হয়েছে!
+            </div>
+          )}
+
+          {/* End Trip Button */}
           <Button
             variant="destructive"
             className="w-full"
             onClick={() => {
-              if (confirm("Are you sure you want to end this trip?")) {
+              if (confirm("আপনি কি নিশ্চিত যে এই ট্রিপ শেষ করতে চান?")) {
                 endTrip();
               }
             }}
           >
-            End Trip
+            ট্রিপ শেষ করুন
           </Button>
         </div>
       )}

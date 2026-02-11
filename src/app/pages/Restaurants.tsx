@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
@@ -6,21 +6,18 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Textarea } from "../components/ui/textarea";
-import { MapPin, Star, Navigation, Plus, ChevronDown, Utensils } from "lucide-react";
-
-interface Restaurant {
-  id: string;
-  name: string;
-  location: string;
-  howToGo: string;
-  bestItem: string;
-  reviews: string;
-  lastUpdated: string;
-}
+import { MapPin, Star, Navigation, Plus, ChevronDown, Utensils, Loader2 } from "lucide-react";
+import { useAuth } from "../../contexts/AuthContext";
+import { getRestaurants, submitRestaurant } from "../../services/firestoreService";
+import { Restaurant } from "../../types";
 
 export function Restaurants() {
+  const { currentUser } = useAuth();
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
+  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -30,81 +27,54 @@ export function Restaurants() {
     reviews: "",
   });
 
-  const restaurants: Restaurant[] = [
-    {
-      id: "sultans-dine",
-      name: "সুলতানস ডাইন",
-      location: "ধানমন্ডি ২, ঢাকা",
-      howToGo: "মেট্রো: শাহবাগ, রিকশা/উবার",
-      bestItem: "কাচ্চি বিরিয়ানি, টেহারি",
-      reviews: "ভালো মানের কাচ্চি। দাম একটু বেশি কিন্তু স্বাদ ভালো।",
-      lastUpdated: "Feb 2026"
-    },
-    {
-      id: "haji-biryani",
-      name: "হাজী বিরিয়ানি",
-      location: "নাজিরাবাজার, পুরান ঢাকা",
-      howToGo: "বাস: গুলিস্তান, রিকশা",
-      bestItem: "মটন বিরিয়ানি, বোরহানি",
-      reviews: "পুরান ঢাকার বিখ্যাত বিরিয়ানি। লাইন থাকে প্রায়ই।",
-      lastUpdated: "Feb 2026"
-    },
-    {
-      id: "star-kabab",
-      name: "স্টার কাবাব",
-      location: "ধানমন্ডি, ঢাকা",
-      howToGo: "মেট্রো: শাহবাগ স্টেশন",
-      bestItem: "বিফ কাবাব, নান, চিকেন রোস্ট",
-      reviews: "সাশ্রয়ী মূল্যে ভালো খাবার। পরিচ্ছন্ন পরিবেশ।",
-      lastUpdated: "Feb 2026"
-    },
-    {
-      id: "khanas",
-      name: "খানাস",
-      location: "গুলশান ১, ঢাকা",
-      howToGo: "বাস: গুলশান, সিএনজি",
-      bestItem: "মোগলাই পরোটা, খিচুড়ি, চিকেন রেজালা",
-      reviews: "বাঙালি খাবারের জন্য দুর্দান্ত। পরিবার বান্ধব।",
-      lastUpdated: "Feb 2026"
-    },
-    {
-      id: "fakruddin",
-      name: "ফখরুদ্দিন",
-      location: "ঢাকা-চট্টগ্রাম হাইওয়ে, কাঞ্চন ব্রিজ",
-      howToGo: "চট্টগ্রাম যাওয়ার পথে কাঞ্চন ব্রিজ",
-      bestItem: "বিরিয়ানি, চিকেন ফ্রাই",
-      reviews: "হাইওয়েতে খাওয়ার জন্য ভালো। দ্রুত সার্ভিস।",
-      lastUpdated: "Feb 2026"
-    },
-    {
-      id: "spaghetti-jazz",
-      name: "স্প্যাগেটি জ্যাজ",
-      location: "উত্তরা, সেক্টর ৭, ঢাকা",
-      howToGo: "মেট্রো: উত্তরা সাউথ স্টেশন",
-      bestItem: "পাস্তা, পিজা, ক্যাফে লাতে",
-      reviews: "ইতালিয়ান খাবারের জন্য ভালো। আরামদায়ক পরিবেশ।",
-      lastUpdated: "Feb 2026"
-    }
-  ];
+  // Fetch restaurants from Firestore
+  useEffect(() => {
+    const fetchRestaurants = async () => {
+      try {
+        setLoading(true);
+        const data = await getRestaurants();
+        setRestaurants(data);
+      } catch (error) {
+        console.error("Error fetching restaurants:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRestaurants();
+  }, []);
 
   const toggleCard = (id: string) => {
     setExpandedCard(expandedCard === id ? null : id);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Handle form submission (will connect to backend later)
-    console.log(formData);
-    alert("রেস্টুরেন্ট যুক্ত হয়েছে! (Backend integration pending)");
-    setIsAddDialogOpen(false);
-    // Reset form
-    setFormData({
-      name: "",
-      location: "",
-      howToGo: "",
-      bestItem: "",
-      reviews: "",
-    });
+
+    if (!currentUser) {
+      alert("আপনাকে লগইন করতে হবে!");
+      return;
+    }
+
+    try {
+      setSubmitting(true);
+      await submitRestaurant(formData, currentUser.uid);
+      alert("রেস্টুরেন্ট সফলভাবে জমা হয়েছে! অ্যাডমিন অনুমোদনের পর এটি তালিকায় দেখা যাবে।");
+      setIsAddDialogOpen(false);
+      // Reset form
+      setFormData({
+        name: "",
+        location: "",
+        howToGo: "",
+        bestItem: "",
+        reviews: "",
+      });
+    } catch (error) {
+      console.error("Error submitting restaurant:", error);
+      alert("রেস্টুরেন্ট জমা দিতে সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -187,8 +157,15 @@ export function Restaurants() {
                 />
               </div>
 
-              <Button type="submit" className="w-full bg-food text-food-foreground h-9 text-sm">
-                সংরক্ষণ করুন
+              <Button type="submit" className="w-full bg-food text-food-foreground h-9 text-sm" disabled={submitting}>
+                {submitting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    জমা দিচ্ছি...
+                  </>
+                ) : (
+                  "সংরক্ষণ করুন"
+                )}
               </Button>
             </form>
           </DialogContent>
@@ -197,8 +174,13 @@ export function Restaurants() {
 
       {/* Restaurants Grid - 2 Columns with Collapsible Cards */}
       <div className="px-4 pt-2">
-        <div className="grid grid-cols-2 gap-3 items-start">
-          {restaurants.map((restaurant) => {
+        {loading ? (
+          <div className="flex items-center justify-center py-12">
+            <Loader2 className="w-8 h-8 animate-spin text-food" />
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-2 gap-3 items-start">{restaurants.map((restaurant) => {
             const isExpanded = expandedCard === restaurant.id;
 
             return (
@@ -297,6 +279,8 @@ export function Restaurants() {
             </div>
           </div>
         </Card>
+          </>
+        )}
       </div>
     </div>
   );

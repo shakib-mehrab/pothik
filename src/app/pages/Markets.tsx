@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
@@ -7,147 +7,45 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Textarea } from "../components/ui/textarea";
-import { MapPin, Clock, Star, Navigation, Plus, X, ChevronDown } from "lucide-react";
-
-interface Market {
-  id: string;
-  nameBangla: string;
-  nameEnglish: string;
-  location: string;
-  howToGo: string;
-  specialty: string[];
-  openingHours: string;
-  priceRange: string;
-  description: string;
-  lastUpdated: string;
-  category: "brands" | "local" | "budget" | "others";
-}
+import { MapPin, Clock, Star, Navigation, Plus, X, ChevronDown, Loader2 } from "lucide-react";
+import { useAuth } from "../../contexts/AuthContext";
+import { getMarkets, submitMarket } from "../../services/firestoreService";
+import { Market } from "../../types";
 
 export function Markets() {
-  const [activeTab, setActiveTab] = useState<Market["category"]>("brands");
+  const { currentUser } = useAuth();
+  const [activeTab, setActiveTab] = useState<"brands" | "local" | "budget" | "others">("brands");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [specialtyInput, setSpecialtyInput] = useState("");
   const [specialties, setSpecialties] = useState<string[]>([]);
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
+  const [markets, setMarkets] = useState<Market[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
-    nameBangla: "",
-    nameEnglish: "",
+    name: "",
     location: "",
     howToGo: "",
-    openingHours: "",
-    priceRange: "",
-    description: "",
+    reviews: "",
   });
 
-  const markets: Market[] = [
-    {
-      id: "bashundhara-city",
-      nameBangla: "বসুন্ধরা সিটি",
-      nameEnglish: "Bashundhara City",
-      location: "Panthapath, Dhaka",
-      howToGo: "মেট্রো: কারওয়ান বাজার স্টেশন, বাস: Panthapath",
-      specialty: ["ফ্যাশন", "ইলেকট্রনিক্স", "ফুড কোর্ট"],
-      openingHours: "10:00 AM - 10:00 PM",
-      priceRange: "৳৳৳",
-      description: "দক্ষিণ এশিয়ার বৃহত্তম শপিং মল",
-      lastUpdated: "Feb 2026",
-      category: "brands"
-    },
-    {
-      id: "jamuna-future-park",
-      nameBangla: "যমুনা ফিউচার পার্ক",
-      nameEnglish: "Jamuna Future Park",
-      location: "Baridhara, Dhaka",
-      howToGo: "বাস: Kuril Bishwa Road, রিকশা: Baridhara থেকে",
-      specialty: ["আন্তর্জাতিক ব্র্যান্ড", "সিনেমা", "খেলার জায়গা"],
-      openingHours: "10:00 AM - 10:00 PM",
-      priceRange: "৳৳৳",
-      description: "আধুনিক শপিং কমপ্লেক্স",
-      lastUpdated: "Feb 2026",
-      category: "brands"
-    },
-    {
-      id: "new-market",
-      nameBangla: "নিউ মার্কেট",
-      nameEnglish: "New Market",
-      location: "Azimpur, Dhaka",
-      howToGo: "মেট্রো: শাহবাগ/ঢাকা বিশ্ববিদ্যালয়, বাস: Azimpur",
-      specialty: ["পোশাক", "জুতা", "শাড়ি"],
-      openingHours: "10:00 AM - 9:00 PM",
-      priceRange: "৳৳",
-      description: "ঢাকার পুরাতন শপিং গন্তব্য",
-      lastUpdated: "Feb 2026",
-      category: "local"
-    },
-    {
-      id: "chandni-chawk",
-      nameBangla: "চাঁদনী চক",
-      nameEnglish: "Chandni Chawk",
-      location: "Gulshan 1, Dhaka",
-      howToGo: "বাস: Gulshan 1, সিএনজি/রিকশা",
-      specialty: ["শাড়ি", "পার্টি পোশাক", "গহনা"],
-      openingHours: "10:00 AM - 9:00 PM",
-      priceRange: "৳৳",
-      description: "মহিলা পোশাক ও গহনার জন্য জনপ্রিয়",
-      lastUpdated: "Feb 2026",
-      category: "local"
-    },
-    {
-      id: "hawkers-market",
-      nameBangla: "হকার্স মার্কেট",
-      nameEnglish: "Hawkers Market (Mohakhali)",
-      location: "Mohakhali, Dhaka",
-      howToGo: "বাস: Mohakhali Bus Stand, মেট্রো আসছে শীঘ্রই",
-      specialty: ["সস্তা পোশাক", "জুতা", "ব্যাগ"],
-      openingHours: "11:00 AM - 9:00 PM",
-      priceRange: "৳",
-      description: "সাশ্রয়ী মূল্যে ফ্যাশন পণ্য",
-      lastUpdated: "Feb 2026",
-      category: "budget"
-    },
-    {
-      id: "gausia-market",
-      nameBangla: "গাউসিয়া মার্কেট",
-      nameEnglish: "Gausia Market",
-      location: "New Market Area, Dhaka",
-      howToGo: "মেট্রো: শাহবাগ, হেঁটে ১০ মিনিট",
-      specialty: ["যুব ফ্যাশন", "জিন্স", "টি-শার্ট"],
-      openingHours: "10:00 AM - 9:00 PM",
-      priceRange: "৳",
-      description: "তরুণদের পছন্দের শপিং স্পট",
-      lastUpdated: "Feb 2026",
-      category: "budget"
-    },
-    {
-      id: "elephant-road",
-      nameBangla: "এলিফ্যান্ট রোড",
-      nameEnglish: "Elephant Road Market",
-      location: "Elephant Road, Dhaka",
-      howToGo: "মেট্রো: শাহবাগ, বাস: Elephant Road",
-      specialty: ["ইলেকট্রনিক্স", "কম্পিউটার", "মোবাইল"],
-      openingHours: "10:00 AM - 8:00 PM",
-      priceRange: "৳৳",
-      description: "ইলেকট্রনিক্স পণ্যের কেন্দ্র",
-      lastUpdated: "Feb 2026",
-      category: "others"
-    },
-    {
-      id: "islampur",
-      nameBangla: "ইসলামপুর",
-      nameEnglish: "Islampur",
-      location: "Old Dhaka",
-      howToGo: "বাস: Sadarghat/Gulistan, রিকশা",
-      specialty: ["কাপড়", "পাইকারি বাজার", "সেলাই সামগ্রী"],
-      openingHours: "9:00 AM - 7:00 PM",
-      priceRange: "৳",
-      description: "কাপড়ের পাইকারি বাজার",
-      lastUpdated: "Feb 2026",
-      category: "others"
-    },
-  ];
+  // Fetch markets from Firestore
+  useEffect(() => {
+    const fetchMarkets = async () => {
+      try {
+        setLoading(true);
+        const data = await getMarkets(activeTab);
+        setMarkets(data);
+      } catch (error) {
+        console.error("Error fetching markets:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const filteredMarkets = markets.filter(m => m.category === activeTab);
+    fetchMarkets();
+  }, [activeTab]);
 
   const tabConfig = [
     { value: "brands" as const, label: "ব্র্যান্ড ও মল" },
@@ -171,23 +69,33 @@ export function Markets() {
     setSpecialties(specialties.filter((_, i) => i !== index));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Handle form submission (will connect to backend later)
-    console.log({ ...formData, specialty: specialties, category: activeTab });
-    alert("বাজার যুক্ত হয়েছে! (Backend integration pending)");
-    setIsAddDialogOpen(false);
-    // Reset form
-    setFormData({
-      nameBangla: "",
-      nameEnglish: "",
-      location: "",
-      howToGo: "",
-      openingHours: "",
-      priceRange: "",
-      description: "",
-    });
-    setSpecialties([]);
+
+    if (!currentUser) {
+      alert("আপনাকে লগইন করতে হবে!");
+      return;
+    }
+
+    try {
+      setSubmitting(true);
+      await submitMarket(formData, currentUser.uid, activeTab, specialties);
+      alert("বাজার সফলভাবে জমা হয়েছে! অ্যাডমিন অনুমোদনের পর এটি তালিকায় দেখা যাবে।");
+      setIsAddDialogOpen(false);
+      // Reset form
+      setFormData({
+        name: "",
+        location: "",
+        howToGo: "",
+        reviews: "",
+      });
+      setSpecialties([]);
+    } catch (error) {
+      console.error("Error submitting market:", error);
+      alert("বাজার জমা দিতে সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -231,22 +139,12 @@ export function Markets() {
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-3 pt-2">
               <div>
-                <Label className="text-xs font-medium">নাম (বাংলা) *</Label>
+                <Label className="text-xs font-medium">নাম *</Label>
                 <Input
                   required
                   placeholder="যেমন: নিউ মার্কেট"
-                  value={formData.nameBangla}
-                  onChange={(e) => setFormData({ ...formData, nameBangla: e.target.value })}
-                  className="mt-1 h-9 text-sm"
-                />
-              </div>
-
-              <div>
-                <Label className="text-xs font-medium">Name (English)</Label>
-                <Input
-                  placeholder="e.g., New Market"
-                  value={formData.nameEnglish}
-                  onChange={(e) => setFormData({ ...formData, nameEnglish: e.target.value })}
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="mt-1 h-9 text-sm"
                 />
               </div>
@@ -309,38 +207,25 @@ export function Markets() {
               </div>
 
               <div>
-                <Label className="text-xs font-medium">খোলার সময়</Label>
-                <Input
-                  placeholder="যেমন: 10:00 AM - 9:00 PM"
-                  value={formData.openingHours}
-                  onChange={(e) => setFormData({ ...formData, openingHours: e.target.value })}
-                  className="mt-1 h-9 text-sm"
-                />
-              </div>
-
-              <div>
-                <Label className="text-xs font-medium">মূল্য পরিসীমা</Label>
-                <Input
-                  placeholder="যেমন: ৳৳"
-                  value={formData.priceRange}
-                  onChange={(e) => setFormData({ ...formData, priceRange: e.target.value })}
-                  className="mt-1 h-9 text-sm"
-                />
-              </div>
-
-              <div>
-                <Label className="text-xs font-medium">বিবরণ</Label>
+                <Label className="text-xs font-medium">রিভিউ</Label>
                 <Textarea
-                  placeholder="সংক্ষিপ্ত বিবরণ..."
-                  value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  placeholder="আপনার অভিজ্ঞতা লিখুন..."
+                  value={formData.reviews}
+                  onChange={(e) => setFormData({ ...formData, reviews: e.target.value })}
                   className="mt-1 text-sm min-h-[60px]"
                   rows={2}
                 />
               </div>
 
-              <Button type="submit" className="w-full bg-primary h-9 text-sm">
-                সংরক্ষণ করুন
+              <Button type="submit" className="w-full bg-primary h-9 text-sm" disabled={submitting}>
+                {submitting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    জমা দিচ্ছি...
+                  </>
+                ) : (
+                  "সংরক্ষণ করুন"
+                )}
               </Button>
             </form>
           </DialogContent>
@@ -349,8 +234,14 @@ export function Markets() {
 
       {/* Markets Grid - 2 Columns with Collapsible Cards */}
       <div className="px-4 pt-2">
-        <div className="grid grid-cols-2 gap-3 items-start">
-          {filteredMarkets.map((market) => {
+        {loading ? (
+          <div className="flex items-center justify-center py-12">
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-2 gap-3 items-start">
+              {markets.map((market) => {
             const isExpanded = expandedCard === market.id;
 
             return (
@@ -361,8 +252,7 @@ export function Markets() {
               >
                 {/* Always Visible - Header */}
                 <div className="mb-2">
-                  <h3 className="font-semibold text-sm line-clamp-1">{market.nameBangla}</h3>
-                  <p className="text-[10px] text-muted-foreground line-clamp-1">{market.nameEnglish}</p>
+                  <h3 className="font-semibold text-sm line-clamp-1">{market.name}</h3>
                 </div>
 
                 {/* Always Visible - Location */}
@@ -449,7 +339,7 @@ export function Markets() {
         </div>
 
         {/* Empty State */}
-        {filteredMarkets.length === 0 && (
+        {markets.length === 0 && (
           <Card className="p-8 text-center">
             <p className="text-muted-foreground">এই বিভাগে কোনো তথ্য নেই</p>
           </Card>
@@ -469,6 +359,8 @@ export function Markets() {
             </div>
           </div>
         </Card>
+          </>
+        )}
       </div>
     </div>
   );

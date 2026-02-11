@@ -11,6 +11,12 @@ import { TrainSchedule } from "./pages/TrainSchedule";
 import { TravelGuide } from "./pages/TravelGuide";
 import { Hotels } from "./pages/Hotels";
 import { Restaurants } from "./pages/Restaurants";
+import { Auth } from "./pages/Auth";
+import { Profile } from "./pages/Profile";
+import { AdminDashboard } from "./pages/admin/Dashboard";
+import { ReviewQueue } from "./pages/admin/ReviewQueue";
+import { SeedData } from "./pages/admin/SeedData";
+import { withAdminRoute } from "../components/AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +24,8 @@ export const router = createBrowserRouter([
     Component: Root,
     children: [
       { index: true, Component: Home },
+      { path: "auth", Component: Auth },
+      { path: "profile", Component: Profile },
       { path: "transport", Component: Transport },
       { path: "metro", Component: Metro },
       { path: "local-bus", Component: LocalBus },
@@ -28,6 +36,9 @@ export const router = createBrowserRouter([
       { path: "travel-guide", Component: TravelGuide },
       { path: "hotels", Component: Hotels },
       { path: "restaurants", Component: Restaurants },
+      { path: "admin", Component: withAdminRoute(AdminDashboard) },
+      { path: "admin/review-queue", Component: withAdminRoute(ReviewQueue) },
+      { path: "admin/seed-data", Component: withAdminRoute(SeedData) },
     ],
   },
 ]);

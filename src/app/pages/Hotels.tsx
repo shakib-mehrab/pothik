@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
@@ -8,27 +8,21 @@ import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Textarea } from "../components/ui/textarea";
 import { Checkbox } from "../components/ui/checkbox";
-import { MapPin, Star, Navigation, Plus, X, ChevronDown, Facebook, Heart, FileText } from "lucide-react";
-
-interface Hotel {
-  id: string;
-  name: string;
-  location: string;
-  howToGo: string;
-  coupleFriendly: boolean;
-  documentsNeeded: string[];
-  facebookPage: string;
-  reviews: string;
-  lastUpdated: string;
-  category: "hotel" | "resort";
-}
+import { MapPin, Star, Navigation, Plus, X, ChevronDown, Facebook, Heart, FileText, Loader2 } from "lucide-react";
+import { useAuth } from "../../contexts/AuthContext";
+import { getHotels, submitHotel } from "../../services/firestoreService";
+import { Hotel } from "../../types";
 
 export function Hotels() {
+  const { currentUser } = useAuth();
   const [activeTab, setActiveTab] = useState<Hotel["category"]>("hotel");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
   const [documentInput, setDocumentInput] = useState("");
   const [documents, setDocuments] = useState<string[]>(["এনআইডি"]);
+  const [hotels, setHotels] = useState<Hotel[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -39,82 +33,22 @@ export function Hotels() {
     reviews: "",
   });
 
-  const hotels: Hotel[] = [
-    {
-      id: "hotel-61",
-      name: "হোটেল ৬১",
-      location: "উত্তরা, সেক্টর ৩, ঢাকা",
-      howToGo: "মেট্রো: উত্তরা সেন্টার স্টেশন, হেঁটে ৫ মিনিট",
-      coupleFriendly: true,
-      documentsNeeded: ["এনআইডি"],
-      facebookPage: "facebook.com/hotel61",
-      reviews: "পরিষ্কার রুম, ভালো সার্ভিস। বাজেট হোটেলের জন্য দুর্দান্ত।",
-      lastUpdated: "Feb 2026",
-      category: "hotel"
-    },
-    {
-      id: "hotel-sarina",
-      name: "হোটেল সারিনা",
-      location: "বনানী, ঢাকা",
-      howToGo: "বাস: বনানী, সিএনজি/রিকশা",
-      coupleFriendly: true,
-      documentsNeeded: ["এনআইডি", "বিবাহ সনদ"],
-      facebookPage: "facebook.com/hotelsarina",
-      reviews: "মিড-রেঞ্জ হোটেল, পুল এবং রেস্টুরেন্ট আছে।",
-      lastUpdated: "Feb 2026",
-      category: "hotel"
-    },
-    {
-      id: "hotel-71",
-      name: "হোটেল ৭১",
-      location: "গুলশান ২, ঢাকা",
-      howToGo: "বাস: গুলশান ২, সিএনজি",
-      coupleFriendly: false,
-      documentsNeeded: ["এনআইডি", "পাসপোর্ট"],
-      facebookPage: "facebook.com/hotel71",
-      reviews: "ব্যবসায়িক সফরের জন্য ভালো। শুধুমাত্র পুরুষ গেস্ট।",
-      lastUpdated: "Feb 2026",
-      category: "hotel"
-    },
-    {
-      id: "long-beach-resort",
-      name: "লং বিচ রিসোর্ট",
-      location: "কক্সবাজার",
-      howToGo: "বাস: কক্সবাজার বাসস্ট্যান্ড, রিকশা/সিএনজি সমুদ্র সৈকতে",
-      coupleFriendly: true,
-      documentsNeeded: ["এনআইডি", "বিবাহ সনদ (দম্পতির জন্য)"],
-      facebookPage: "facebook.com/longbeachresort",
-      reviews: "সমুদ্র দেখা যায়, পরিবার বান্ধব। খাবার ভালো।",
-      lastUpdated: "Feb 2026",
-      category: "resort"
-    },
-    {
-      id: "sajek-valley-resort",
-      name: "সাজেক ভ্যালি রিসোর্ট",
-      location: "সাজেক, রাঙামাটি",
-      howToGo: "চট্টগ্রাম থেকে বাস/গাড়ি, খাগড়াছড়ি হয়ে সাজেক",
-      coupleFriendly: true,
-      documentsNeeded: ["এনআইডি", "সেনাবাহিনী অনুমতি"],
-      facebookPage: "facebook.com/sajekvalley",
-      reviews: "পাহাড়ি দৃশ্য অসাধারণ। প্রকৃতি প্রেমীদের জন্য উপযুক্ত।",
-      lastUpdated: "Feb 2026",
-      category: "resort"
-    },
-    {
-      id: "kuakata-paradise",
-      name: "কুয়াকাটা প্যারাডাইস রিসোর্ট",
-      location: "কুয়াকাটা, পটুয়াখালী",
-      howToGo: "বাস: ঢাকা থেকে কুয়াকাটা সরাসরি বাস",
-      coupleFriendly: true,
-      documentsNeeded: ["এনআইডি"],
-      facebookPage: "facebook.com/kuakataparadise",
-      reviews: "সূর্যোদয় ও সূর্যাস্ত দুটোই দেখা যায়। সমুদ্র সৈকতের পাশে।",
-      lastUpdated: "Feb 2026",
-      category: "resort"
-    },
-  ];
+  // Fetch hotels from Firestore
+  useEffect(() => {
+    const fetchHotels = async () => {
+      try {
+        setLoading(true);
+        const data = await getHotels(activeTab);
+        setHotels(data);
+      } catch (error) {
+        console.error("Error fetching hotels:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const filteredHotels = hotels.filter(h => h.category === activeTab);
+    fetchHotels();
+  }, [activeTab]);
 
   const tabConfig = [
     { value: "hotel" as const, label: "হোটেল" },
@@ -136,22 +70,35 @@ export function Hotels() {
     setDocuments(documents.filter((_, i) => i !== index));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Handle form submission (will connect to backend later)
-    console.log({ ...formData, documentsNeeded: documents, category: activeTab });
-    alert("হোটেল/রিসোর্ট যুক্ত হয়েছে! (Backend integration pending)");
-    setIsAddDialogOpen(false);
-    // Reset form
-    setFormData({
-      name: "",
-      location: "",
-      howToGo: "",
-      coupleFriendly: false,
-      facebookPage: "",
-      reviews: "",
-    });
-    setDocuments(["এনআইডি"]);
+
+    if (!currentUser) {
+      alert("আপনাকে লগইন করতে হবে!");
+      return;
+    }
+
+    try {
+      setSubmitting(true);
+      await submitHotel(formData, currentUser.uid, activeTab, documents);
+      alert("হোটেল/রিসোর্ট সফলভাবে জমা হয় েছে! অ্যাডমিন অনুমোদনের পর এটি তালিকায় দেখা যাবে।");
+      setIsAddDialogOpen(false);
+      // Reset form
+      setFormData({
+        name: "",
+        location: "",
+        howToGo: "",
+        coupleFriendly: false,
+        facebookPage: "",
+        reviews: "",
+      });
+      setDocuments(["এনআইডি"]);
+    } catch (error) {
+      console.error("Error submitting hotel:", error);
+      alert("হোটেল/রিসোর্ট জমা দিতে সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -296,8 +243,15 @@ export function Hotels() {
                 />
               </div>
 
-              <Button type="submit" className="w-full bg-hotels text-hotels-foreground h-9 text-sm">
-                সংরক্ষণ করুন
+              <Button type="submit" className="w-full bg-hotels text-hotels-foreground h-9 text-sm" disabled={submitting}>
+                {submitting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    জমা দিচ্ছি...
+                  </>
+                ) : (
+                  "সংরক্ষণ করুন"
+                )}
               </Button>
             </form>
           </DialogContent>
@@ -306,8 +260,14 @@ export function Hotels() {
 
       {/* Hotels/Resorts Grid - 2 Columns with Collapsible Cards */}
       <div className="px-4 pt-2">
-        <div className="grid grid-cols-2 gap-3 items-start">
-          {filteredHotels.map((hotel) => {
+        {loading ? (
+          <div className="flex items-center justify-center py-12">
+            <Loader2 className="w-8 h-8 animate-spin text-hotels" />
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-2 gap-3 items-start">
+              {hotels.map((hotel) => {
             const isExpanded = expandedCard === hotel.id;
 
             return (
@@ -422,7 +382,7 @@ export function Hotels() {
         </div>
 
         {/* Empty State */}
-        {filteredHotels.length === 0 && (
+        {hotels.length === 0 && (
           <Card className="p-8 text-center">
             <p className="text-muted-foreground">এই বিভাগে কোনো তথ্য নেই</p>
           </Card>
@@ -442,6 +402,8 @@ export function Hotels() {
             </div>
           </div>
         </Card>
+          </>
+        )}
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import { Outlet, useLocation, Link } from "react-router";
-import { Home, Train, ShoppingBag, MapPin } from "lucide-react";
+import { Home, Train, ShoppingBag, MapPin, User } from "lucide-react";
+import { Header } from "./Header";
 
 export function Root() {
   const location = useLocation();
@@ -8,11 +9,14 @@ export function Root() {
     { path: "/", icon: Home, label: "শুচিপত্র", englishLabel: "Home" },
     { path: "/restaurants", icon: MapPin, label: "খাই দাই", englishLabel: "Restaurants" },
     { path: "/markets", icon: ShoppingBag, label: "হাট-বাজার", englishLabel: "Markets" },
-    { path: "/planner", icon: MapPin, label: "পর্যটন", englishLabel: "Planner" },
+    { path: "/profile", icon: User, label: "প্রোফাইল", englishLabel: "Profile" },
   ];
 
   return (
     <div className="min-h-screen bg-background flex flex-col max-w-md mx-auto relative">
+      {/* Header */}
+      <Header />
+
       {/* Main Content */}
       <main className="flex-1 pb-20 overflow-y-auto">
         <Outlet />
