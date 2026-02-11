@@ -33,7 +33,7 @@ export function LocalBus() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-gradient-to-br from-transport to-transport/80 px-6 pt-8 pb-12 relative overflow-hidden">
+      <div className="bg-gradient-to-br from-transport to-transport/80 px-6 pt-6 pb-12 relative overflow-hidden">
         {/* Decorative Pattern */}
         <div className="absolute inset-0 opacity-10">
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -48,9 +48,57 @@ export function LocalBus() {
           </svg>
         </div>
 
-        <div className="relative">
-          <h1 className="text-2xl font-bold text-white mb-1">লোকাল বাস</h1>
-          <p className="text-white/90 text-sm">City Bus Routes & Services</p>
+        <div className="relative flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-2xl font-bold text-white mb-1">লোকাল বাস</h1>
+            <p className="text-white/90 text-sm">City Bus Routes & Services</p>
+          </div>
+          
+          <div className="flex items-center gap-2">
+            {authLoading ? (
+              <div className="w-10 h-10 rounded-full bg-white/20 animate-pulse" />
+            ) : currentUser && userData ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="relative h-10 w-10 rounded-full hover:bg-white/20">
+                    <Avatar className="h-10 w-10 border-2 border-white/30">
+                      <AvatarImage src={userData.photoURL || ""} alt={userData.displayName} />
+                      <AvatarFallback className="bg-white/90 text-transport">{getInitials(userData.displayName)}</AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="end" forceMount>
+                  <DropdownMenuLabel className="font-normal">
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium leading-none">{userData.displayName}</p>
+                      <p className="text-xs leading-none text-muted-foreground">{userData.email}</p>
+                      <div className="flex items-center gap-1 mt-2">
+                        <span className="text-xs text-muted-foreground">Points:</span>
+                        <span className="text-xs font-semibold text-primary">{userData.contributionPoints}</span>
+                      </div>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link to="/profile" className="cursor-pointer"><User className="mr-2 h-4 w-4" /><span>প্রোফাইল</span></Link>
+                  </DropdownMenuItem>
+                  {isAdmin && (
+                    <DropdownMenuItem asChild>
+                      <Link to="/admin" className="cursor-pointer"><Shield className="mr-2 h-4 w-4" /><span>Admin Dashboard</span></Link>
+                    </DropdownMenuItem>
+                  )}
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem className="cursor-pointer text-destructive" onClick={handleSignOut}>
+                    <LogOut className="mr-2 h-4 w-4" /><span>লগ আউট</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button asChild size="sm" className="bg-white text-transport hover:bg-white/90 shadow-md">
+                <Link to="/auth"><LogIn className="mr-2 h-4 w-4" />লগইন</Link>
+              </Button>
+            )}
+          </div>
         </div>
       </div>
 

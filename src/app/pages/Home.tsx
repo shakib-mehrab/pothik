@@ -1,11 +1,43 @@
 import React from 'react';
-// ...existing code...
-import { Link } from "react-router";
-import { Search, Train, ShoppingBag, MapPin, Building2, BookOpen } from "lucide-react";
+import { Link, useNavigate } from "react-router";
+import { Search, Train, ShoppingBag, MapPin, Building2, BookOpen, LogIn, User, LogOut, Shield } from "lucide-react";
 import { Input } from "../components/ui/input";
 import { Card } from "../components/ui/card";
+import { Button } from "../components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
+import { useAuth } from "../../contexts/AuthContext";
+import { signOut } from "../../services/authService";
 
 export function Home() {
+  const { currentUser, userData, loading, isAdmin } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      navigate("/");
+    } catch (error) {
+      console.error("Sign out error:", error);
+    }
+  };
+
+  const getInitials = (name: string) => {
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
   const quickAccessTiles = [
     {
       path: "/transport",
@@ -54,7 +86,7 @@ export function Home() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header with Rickshaw Art Pattern */}
-      <div className="bg-gradient-to-br from-primary to-primary/80 px-6 pt-8 pb-12 relative overflow-hidden">
+      <div className="bg-gradient-to-br from-primary to-primary/80 px-6 pt-6 pb-12 relative overflow-hidden">
         {/* Decorative Pattern */}
         <div className="absolute inset-0 opacity-10">
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -69,9 +101,84 @@ export function Home() {
           </svg>
         </div>
 
-        <div className="relative">
-          <h1 className="text-3xl font-bold text-white mb-2">পথিক</h1>
-          <p className="text-white/90 text-sm">Your Bangladesh Travel Companion</p>
+        <div className="relative flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-3xl font-bold text-white mb-2">পথিক</h1>
+            <p className="text-white/90 text-sm">Your Bangladesh Travel Companion</p>
+          </div>
+          
+          {/* Auth Button/Avatar */}
+          <div className="flex items-center gap-2">
+            {loading ? (
+              <div className="w-10 h-10 rounded-full bg-white/20 animate-pulse" />
+            ) : currentUser && userData ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="relative h-10 w-10 rounded-full hover:bg-white/20">
+                    <Avatar className="h-10 w-10 border-2 border-white/30">
+                      <AvatarImage
+                        src={userData.photoURL || ""}
+                        alt={userData.displayName}
+                      />
+                      <AvatarFallback className="bg-white/90 text-primary">
+                        {getInitials(userData.displayName)}
+                      </AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="end" forceMount>
+                  <DropdownMenuLabel className="font-normal">
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium leading-none">
+                        {userData.displayName}
+                      </p>
+                      <p className="text-xs leading-none text-muted-foreground">
+                        {userData.email}
+                      </p>
+                      <div className="flex items-center gap-1 mt-2">
+                        <span className="text-xs text-muted-foreground">
+                          Points:
+                        </span>
+                        <span className="text-xs font-semibold text-primary">
+                          {userData.contributionPoints}
+                        </span>
+                      </div>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link to="/profile" className="cursor-pointer">
+                      <User className="mr-2 h-4 w-4" />
+                      <span>প্রোফাইল</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  {isAdmin && (
+                    <DropdownMenuItem asChild>
+                      <Link to="/admin" className="cursor-pointer">
+                        <Shield className="mr-2 h-4 w-4" />
+                        <span>Admin Dashboard</span>
+                      </Link>
+                    </DropdownMenuItem>
+                  )}
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    className="cursor-pointer text-destructive"
+                    onClick={handleSignOut}
+                  >
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>লগ আউট</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button asChild size="sm" className="bg-white text-primary hover:bg-white/90 shadow-md">
+                <Link to="/auth">
+                  <LogIn className="mr-2 h-4 w-4" />
+                  লগইন
+                </Link>
+              </Button>
+            )}
+          </div>
         </div>
       </div>
 

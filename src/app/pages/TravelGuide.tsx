@@ -16,8 +16,19 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "../components/ui/alert-dialog";
-import { MapPin, DollarSign, Building2, Navigation, ChevronDown, Star, Plus, X, Loader2, Edit2, Trash2 } from "lucide-react";
+import { MapPin, DollarSign, Building2, Navigation, ChevronDown, Star, Plus, X, Loader2, Edit2, Trash2, LogIn, User, LogOut, Shield } from "lucide-react";
+import { Link, useNavigate } from "react-router";
 import { useAuth } from "../../contexts/AuthContext";
+import { signOut as firebaseSignOut } from "../../services/authService";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { getTravelGuides, updateTravelGuide, deleteTravelGuide } from "../../services/firestoreService";
 import { addDoc, collection, serverTimestamp, updateDoc, doc, increment, setDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";
@@ -25,7 +36,21 @@ import { TravelGuide as TravelGuideType } from "../../types";
 import { toast } from "sonner";
 
 export function TravelGuide() {
-  const { currentUser, userData } = useAuth();
+  const { currentUser, userData, loading: authLoading, isAdmin } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    try {
+      await firebaseSignOut();
+      navigate("/");
+    } catch (error) {
+      console.error("Sign out error:", error);
+    }
+  };
+
+  const getInitials = (name: string) => {
+    return name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2);
+  };
   const [expandedGuide, setExpandedGuide] = useState<string | null>(null);
   const [expandedBudget, setExpandedBudget] = useState<string | null>(null);
   const [guides, setGuides] = useState<TravelGuideType[]>([]);
@@ -290,9 +315,59 @@ export function TravelGuide() {
   return (
     <div className="min-h-screen bg-background pb-8">
       {/* Header */}
-      <div className="bg-gradient-to-br from-accent to-accent/80 px-6 pt-8 pb-6 sticky top-0 z-10 shadow-sm">
-        <h1 className="text-2xl font-bold text-white mb-1">ভ্রমন গাইড</h1>
-        <p className="text-white/90 text-sm">Travel Guide for Bangladesh</p>
+      <div className="bg-gradient-to-br from-accent to-accent/80 px-6 pt-6 pb-6 sticky top-0 z-10 shadow-sm">
+        <div className="flex items-center justify-between mb-2">
+          <div>
+            <h1 className="text-2xl font-bold text-white mb-1">ভ্রমন গাইড</h1>
+            <p className="text-white/90 text-sm">Travel Guide for Bangladesh</p>
+          </div>
+          
+          <div className="flex items-center gap-2">
+            {authLoading ? (
+              <div className="w-10 h-10 rounded-full bg-white/20 animate-pulse" />
+            ) : currentUser && userData ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="relative h-10 w-10 rounded-full hover:bg-white/20">
+                    <Avatar className="h-10 w-10 border-2 border-white/30">
+                      <AvatarImage src={userData.photoURL || ""} alt={userData.displayName} />
+                      <AvatarFallback className="bg-white/90 text-accent">{getInitials(userData.displayName)}</AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="end" forceMount>
+                  <DropdownMenuLabel className="font-normal">
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium leading-none">{userData.displayName}</p>
+                      <p className="text-xs leading-none text-muted-foreground">{userData.email}</p>
+                      <div className="flex items-center gap-1 mt-2">
+                        <span className="text-xs text-muted-foreground">Points:</span>
+                        <span className="text-xs font-semibold text-primary">{userData.contributionPoints}</span>
+                      </div>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link to="/profile" className="cursor-pointer"><User className="mr-2 h-4 w-4" /><span>প্রোফাইল</span></Link>
+                  </DropdownMenuItem>
+                  {isAdmin && (
+                    <DropdownMenuItem asChild>
+                      <Link to="/admin" className="cursor-pointer"><Shield className="mr-2 h-4 w-4" /><span>Admin Dashboard</span></Link>
+                    </DropdownMenuItem>
+                  )}
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem className="cursor-pointer text-destructive" onClick={handleSignOut}>
+                    <LogOut className="mr-2 h-4 w-4" /><span>লগ আউট</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button asChild size="sm" className="bg-white text-accent hover:bg-white/90 shadow-md">
+                <Link to="/auth"><LogIn className="mr-2 h-4 w-4" />লগইন</Link>
+              </Button>
+            )}
+          </div>
+        </div>
       </div>
 
       {/* Travel Guides List */}

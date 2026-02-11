@@ -346,9 +346,16 @@ export function Profile() {
   if (!currentUser) {
     return (
       <div className="min-h-screen bg-background pb-8">
-        <div className="bg-gradient-to-br from-primary to-primary/80 px-6 pt-8 pb-6">
-          <h1 className="text-2xl font-bold text-white mb-1">প্রোফাইল</h1>
-          <p className="text-white/90 text-sm">Profile</p>
+        <div className="bg-gradient-to-br from-primary to-primary/80 px-6 pt-6 pb-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-bold text-white mb-1">প্রোফাইল</h1>
+              <p className="text-white/90 text-sm">Profile</p>
+            </div>
+            <Button asChild size="sm" className="bg-white text-primary hover:bg-white/90 shadow-md">
+              <button onClick={() => navigate("/")}>হোম</button>
+            </Button>
+          </div>
         </div>
 
         <div className="px-4 pt-6">
@@ -367,9 +374,16 @@ export function Profile() {
   return (
     <div className="min-h-screen bg-background pb-8">
       {/* Header */}
-      <div className="bg-gradient-to-br from-primary to-primary/80 px-6 pt-8 pb-6">
-        <h1 className="text-2xl font-bold text-white mb-1">প্রোফাইল</h1>
-        <p className="text-white/90 text-sm">Profile</p>
+      <div className="bg-gradient-to-br from-primary to-primary/80 px-6 pt-6 pb-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-white mb-1">প্রোফাইল</h1>
+            <p className="text-white/90 text-sm">Profile</p>
+          </div>
+          <Button asChild size="sm" className="bg-white text-primary hover:bg-white/90 shadow-md">
+            <button onClick={() => navigate("/")}>হোম</button>
+          </Button>
+        </div>
       </div>
 
       {/* Profile Card */}
