@@ -1,14 +1,47 @@
 import { Card } from "../components/ui/card";
-import { Bus, Phone, MapPin, Clock, Navigation, Search } from "lucide-react";
+import { Bus, Phone, MapPin, Clock, Navigation, Search, User, Shield, LogOut, LogIn } from "lucide-react";
 import { Input } from "../components/ui/input";
+import { Button } from "../components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../components/ui/dropdown-menu";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import { signOut } from "firebase/auth";
+import { auth } from "../../config/firebase";
 import { getLongDistanceBuses } from "../../services/firestoreService";
 import type { LongDistanceBus } from "../../types";
 
+function getInitials(name: string | undefined | null): string {
+  if (!name) return "?";
+  return name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+}
+
 export function LongDistance() {
+  const { currentUser, userData, loading: authLoading, isAdmin } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
   const [buses, setBuses] = useState<LongDistanceBus[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
 
   useEffect(() => {
     async function fetchBuses() {

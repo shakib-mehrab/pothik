@@ -140,8 +140,10 @@ export function TravelGuide() {
 
       await addDoc(collection(db, "travelGuides"), {
         placeName: formData.place.trim(),
+        place: formData.place.trim(), // Backward compatibility
         description: formData.description.trim(),
         approximateBudget: formData.budget.trim() || "তথ্য নেই",
+        budget: formData.budget.trim() || "তথ্য নেই", // Backward compatibility
         budgetDescription: formData.budget.trim() || "তথ্য নেই",
         mustVisitPlaces: places,
         recommendedHotels: hotels,
@@ -418,8 +420,8 @@ export function TravelGuide() {
               .filter((guide) => {
                 const query = searchQuery.toLowerCase();
                 return (
-                  guide.place.toLowerCase().includes(query) ||
-                  guide.places.some((p) => p.toLowerCase().includes(query))
+                  guide.placeName?.toLowerCase().includes(query) ||
+                  guide.mustVisitPlaces?.some((p) => p?.toLowerCase().includes(query))
                 );
               })
               .map((guide) => {

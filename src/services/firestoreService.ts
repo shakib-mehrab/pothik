@@ -297,8 +297,10 @@ export async function updateTravelGuide(
   id: string,
   data: {
     placeName: string;
+    place?: string; // Backward compatibility
     description: string;
     approximateBudget: string;
+    budget?: string; // Backward compatibility
     budgetDescription?: string;
     howToGo: string;
     mustVisitPlaces: string[];
@@ -307,10 +309,14 @@ export async function updateTravelGuide(
 ): Promise<void> {
   try {
     const docRef = doc(db, 'travelGuides', id);
-    await updateDoc(docRef, {
+    // Include backward compatibility properties
+    const updateData = {
       ...data,
+      place: data.placeName, // Ensure backward compatibility
+      budget: data.approximateBudget, // Ensure backward compatibility
       lastUpdated: new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
-    });
+    };
+    await updateDoc(docRef, updateData);
   } catch (error) {
     console.error('Error updating travel guide:', error);
     throw error;

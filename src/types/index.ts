@@ -75,9 +75,12 @@ export interface Market {
 // ==================== Travel Guide Types ====================
 export interface TravelGuide {
   id: string;
-  place: string;
+  place: string; // Main place name (for backward compatibility)
+  placeName: string; // Display name
   description: string;
-  budget: string;
+  budget: string; // Simple budget (for backward compatibility)
+  approximateBudget: string; // Budget amount/range
+  budgetDescription?: string; // Detailed budget breakdown
   mustVisitPlaces: string[];
   recommendedHotels: string[];
   howToGo: string;
@@ -86,6 +89,7 @@ export interface TravelGuide {
   createdBy: string;
   creatorName?: string;
   createdAt: Date;
+  lastUpdated: string;
   status: 'published';
 }
 

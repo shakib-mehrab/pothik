@@ -394,13 +394,15 @@ export function TourPlanner() {
       // Create travel guide from tour data
       await addDoc(collection(db, "travelGuides"), {
         placeName: selectedTour.destination,
+        place: selectedTour.destination, // Backward compatibility
         description: `${selectedTour.name} - ${selectedTour.members.length} জন সদস্য নিয়ে ${selectedTour.startDate ? new Date(selectedTour.startDate).toLocaleDateString("bn-BD") : ""} থেকে ${selectedTour.endDate ? new Date(selectedTour.endDate).toLocaleDateString("bn-BD") : ""} পর্যন্ত ভ্রমণ`,
         approximateBudget: `৳${selectedTour.budget}`,
+        budget: `৳${selectedTour.budget}`, // Backward compatibility
         budgetDescription: convertFormData.budgetDescription,
         mustVisitPlaces: selectedTour.places,
         recommendedHotels: [],
         howToGo: convertFormData.howToGo,
-        sourceType: "tour",
+        sourceType: "tour_conversion",
         sourceTourId: selectedTour.id,
         createdBy: currentUser.uid,
         creatorName: userData.displayName || "Anonymous",
