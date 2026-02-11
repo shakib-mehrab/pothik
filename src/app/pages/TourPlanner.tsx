@@ -23,6 +23,11 @@ export function TourPlanner() {
   const [isAddingExpense, setIsAddingExpense] = useState(false);
   const [isAddingPlace, setIsAddingPlace] = useState(false);
   const [isAddingTodo, setIsAddingTodo] = useState(false);
+  const [isConvertDialogOpen, setIsConvertDialogOpen] = useState(false);
+  const [convertFormData, setConvertFormData] = useState({
+    howToGo: "",
+    budgetDescription: "",
+  });
 
   const [newTour, setNewTour] = useState({
     name: "",
@@ -344,16 +349,32 @@ export function TourPlanner() {
       return;
     }
 
+    // Open dialog to collect missing information
+    setConvertFormData({
+      howToGo: "",
+      budgetDescription: `মোট খরচ: ৳${selectedTour.expenses.reduce((sum, e) => sum + e.amount, 0)} (${selectedTour.members.length} জন)`,
+    });
+    setIsConvertDialogOpen(true);
+  };
+
+  const handleConvertToGuide = async () => {
+    if (!currentUser || !userData || !selectedTour) return;
+
+    if (!convertFormData.howToGo.trim()) {
+      alert("দয়া করে 'যেভাবে যাবেন' তথ্য দিন!");
+      return;
+    }
+
     try {
       // Create travel guide from tour data
       await addDoc(collection(db, "travelGuides"), {
         placeName: selectedTour.destination,
         description: `${selectedTour.name} - ${selectedTour.members.length} জন সদস্য নিয়ে ${selectedTour.startDate ? new Date(selectedTour.startDate).toLocaleDateString("bn-BD") : ""} থেকে ${selectedTour.endDate ? new Date(selectedTour.endDate).toLocaleDateString("bn-BD") : ""} পর্যন্ত ভ্রমণ`,
         approximateBudget: `৳${selectedTour.budget}`,
-        budgetDescription: `মোট খরচ: ৳${selectedTour.expenses.reduce((sum, e) => sum + e.amount, 0)} (${selectedTour.members.length} জন)`,
+        budgetDescription: convertFormData.budgetDescription,
         mustVisitPlaces: selectedTour.places,
         recommendedHotels: [],
-        howToGo: "তথ্য নেই",
+        howToGo: convertFormData.howToGo,
         sourceType: "tour",
         sourceTourId: selectedTour.id,
         createdBy: currentUser.uid,
@@ -403,7 +424,9 @@ export function TourPlanner() {
 
       alert("ভ্রমন গাইড সফলভাবে তৈরি হয়েছে! +15 পয়েন্ট!");
 
-      // Refresh tours
+      // Close dialog and refresh tours
+      setIsConvertDialogOpen(false);
+      setConvertFormData({ howToGo: "", budgetDescription: "" });
       const data = await getUserTours(currentUser.uid);
       setTours(data);
       setSelectedTour(null);
@@ -930,11 +953,7 @@ export function TourPlanner() {
           {!selectedTour.convertedToGuide && (
             <Button
               className="w-full bg-accent text-white"
-              onClick={() => {
-                if (confirm("এই ট্রিপ থেকে একটি ভ্রমন গাইড তৈরি করতে চান?")) {
-                  convertToGuide();
-                }
-              }}
+              onClick={convertToGuide}
             >
               <Share2 className="w-4 h-4 mr-2" />
               ভ্রমন গাইড হিসেবে শেয়ার করুন (+15 পয়েন্ট)
@@ -962,6 +981,51 @@ export function TourPlanner() {
           </Button>
         </div>
       )}
+
+      {/* Convert to Guide Dialog */}
+      <Dialog open={isConvertDialogOpen} onOpenChange={setIsConvertDialogOpen}>
+        <DialogContent className="max-w-[95vw] max-h-[85vh] overflow-y-auto p-4">
+          <DialogHeader>
+            <DialogTitle className="text-base">ভ্রমন গাইড হিসেবে শেয়ার করুন</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-3 pt-2">
+            <p className="text-sm text-muted-foreground">
+              দয়া করে অনুপস্থিত তথ্য দিন:
+            </p>
+
+            <div>
+              <Label className="text-xs font-medium">যেভাবে যাবেন *</Label>
+              <Textarea
+                required
+                placeholder="যেমন: মেট্রো: শাহবাগ স্টেশন থেকে হেঁটে ৫ মিনিট..."
+                value={convertFormData.howToGo}
+                onChange={(e) => setConvertFormData({ ...convertFormData, howToGo: e.target.value })}
+                className="mt-1 text-sm min-h-[80px]"
+                rows={3}
+              />
+            </div>
+
+            <div>
+              <Label className="text-xs font-medium">বাজেটের বিবরণ</Label>
+              <Textarea
+                placeholder="খরচের বিস্তারিত বিবরণ..."
+                value={convertFormData.budgetDescription}
+                onChange={(e) => setConvertFormData({ ...convertFormData, budgetDescription: e.target.value })}
+                className="mt-1 text-sm min-h-[60px]"
+                rows={2}
+              />
+            </div>
+
+            <Button 
+              onClick={handleConvertToGuide}
+              className="w-full bg-accent text-white"
+            >
+              <Share2 className="w-4 h-4 mr-2" />
+              শেয়ার করুন (+15 পয়েন্ট)
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

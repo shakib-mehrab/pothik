@@ -6,12 +6,23 @@ import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Textarea } from "../components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../components/ui/dialog";
-import { MapPin, DollarSign, Building2, Navigation, ChevronDown, Star, Plus, X, Loader2 } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "../components/ui/alert-dialog";
+import { MapPin, DollarSign, Building2, Navigation, ChevronDown, Star, Plus, X, Loader2, Edit2, Trash2 } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
-import { getTravelGuides } from "../../services/firestoreService";
+import { getTravelGuides, updateTravelGuide, deleteTravelGuide } from "../../services/firestoreService";
 import { addDoc, collection, serverTimestamp, updateDoc, doc, increment, setDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { TravelGuide as TravelGuideType } from "../../types";
+import { toast } from "sonner";
 
 export function TravelGuide() {
   const { currentUser, userData } = useAuth();
@@ -20,7 +31,11 @@ export function TravelGuide() {
   const [guides, setGuides] = useState<TravelGuideType[]>([]);
   const [loading, setLoading] = useState(true);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [editingGuide, setEditingGuide] = useState<TravelGuideType | null>(null);
+  const [deletingGuide, setDeletingGuide] = useState<TravelGuideType | null>(null);
 
   const [placeInput, setPlaceInput] = useState("");
   const [places, setPlaces] = useState<string[]>([]);
@@ -162,6 +177,102 @@ export function TravelGuide() {
     } catch (error) {
       console.error("Error creating travel guide:", error);
       alert("ভ্রমন গাইড তৈরি করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleEdit = (guide: TravelGuideType, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setEditingGuide(guide);
+    setFormData({
+      place: guide.placeName,
+      description: guide.description,
+      budget: guide.approximateBudget,
+      howToGo: guide.howToGo,
+    });
+    setPlaces(guide.mustVisitPlaces || []);
+    setHotels(guide.recommendedHotels || []);
+    setIsEditDialogOpen(true);
+  };
+
+  const handleUpdate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingGuide) return;
+
+    if (!formData.place.trim() || !formData.description.trim()) {
+      toast.error("স্থানের নাম এবং বর্ণনা আবশ্যক!");
+      return;
+    }
+
+    if (places.length === 0) {
+      toast.error("অন্তত একটি ভ্রমণ স্থান যোগ করুন!");
+      return;
+    }
+
+    try {
+      setSubmitting(true);
+      await updateTravelGuide(editingGuide.id, {
+        placeName: formData.place.trim(),
+        description: formData.description.trim(),
+        approximateBudget: formData.budget.trim() || "তথ্য নেই",
+        budgetDescription: editingGuide.budgetDescription,
+        mustVisitPlaces: places,
+        recommendedHotels: hotels,
+        howToGo: formData.howToGo.trim() || "তথ্য নেই",
+      });
+
+      toast.success("ভ্রমন গাইড সফলভাবে আপডেট হয়েছে!");
+      setIsEditDialogOpen(false);
+      setEditingGuide(null);
+
+      // Reset form
+      setFormData({
+        place: "",
+        description: "",
+        budget: "",
+        howToGo: "",
+      });
+      setPlaces([]);
+      setHotels([]);
+
+      // Refresh guides
+      const data = await getTravelGuides();
+      setGuides(data);
+    } catch (error) {
+      console.error("Error updating travel guide:", error);
+      toast.error("আপডেট করতে সমস্যা হয়েছে।", {
+        description: "আবার চেষ্টা করুন।",
+      });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleDelete = (guide: TravelGuideType, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setDeletingGuide(guide);
+    setIsDeleteDialogOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!deletingGuide) return;
+
+    try {
+      setSubmitting(true);
+      await deleteTravelGuide(deletingGuide.id);
+      toast.success("ভ্রমন গাইড সফলভাবে ডিলিট হয়েছে!");
+      setIsDeleteDialogOpen(false);
+      setDeletingGuide(null);
+
+      // Refresh guides
+      const data = await getTravelGuides();
+      setGuides(data);
+    } catch (error) {
+      console.error("Error deleting travel guide:", error);
+      toast.error("ডিলিট করতে সমস্যা হয়েছে।", {
+        description: "আবার চেষ্টা করুন।",
+      });
     } finally {
       setSubmitting(false);
     }
@@ -313,6 +424,30 @@ export function TravelGuide() {
                       Last updated: {guide.lastUpdated}
                     </span>
                   </div>
+
+                  {/* Creator/Admin Actions */}
+                  {(userData?.role === 'admin' || (guide as any).createdBy === currentUser?.uid) && (
+                    <div className="flex gap-2 pt-3 border-t border-border/50">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="h-8 text-xs flex-1"
+                        onClick={(e) => handleEdit(guide, e)}
+                      >
+                        <Edit2 className="w-3 h-3 mr-1" />
+                        Edit
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="destructive"
+                        className="h-8 text-xs flex-1"
+                        onClick={(e) => handleDelete(guide, e)}
+                      >
+                        <Trash2 className="w-3 h-3 mr-1" />
+                        Delete
+                      </Button>
+                    </div>
+                  )}
                 </div>
               )}
             </Card>
@@ -473,6 +608,172 @@ export function TravelGuide() {
             </DialogContent>
           </Dialog>
         )}
+
+        {/* Edit Dialog */}
+        <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+          <DialogContent className="max-w-[95vw] max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>ভ্রমন গাইড এডিট করুন</DialogTitle>
+            </DialogHeader>
+            <form onSubmit={handleUpdate} className="space-y-4 pt-4">
+              {/* Place Name */}
+              <div>
+                <Label htmlFor="edit-place">স্থানের নাম *</Label>
+                <Input
+                  id="edit-place"
+                  required
+                  value={formData.place}
+                  onChange={(e) => setFormData({ ...formData, place: e.target.value })}
+                  placeholder="যেমন: কক্সবাজার, সুন্দরবন"
+                />
+              </div>
+
+              {/* Description */}
+              <div>
+                <Label htmlFor="edit-description">বর্ণনা *</Label>
+                <Textarea
+                  id="edit-description"
+                  required
+                  value={formData.description}
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  placeholder="স্থান সম্পর্কে বিস্তারিত বর্ণনা দিন"
+                  className="min-h-[100px]"
+                />
+              </div>
+
+              {/* Budget */}
+              <div>
+                <Label htmlFor="edit-budget">আনুমানিক বাজেট</Label>
+                <Input
+                  id="edit-budget"
+                  value={formData.budget}
+                  onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+                  placeholder="যেমন: ৳15,000 - ৳20,000"
+                />
+              </div>
+
+              {/* Must Visit Places */}
+              <div>
+                <Label>ভ্রমণীয় স্থান * (অন্তত ১টি)</Label>
+                <div className="flex gap-2 mt-2">
+                  <Input
+                    value={placeInput}
+                    onChange={(e) => setPlaceInput(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddPlace())}
+                    placeholder="যেমন: ইনানী বিচ, সেন্ট মার্টিন"
+                  />
+                  <Button type="button" onClick={handleAddPlace} size="icon">
+                    <Plus className="w-4 h-4" />
+                  </Button>
+                </div>
+                <div className="flex flex-wrap gap-2 mt-3">
+                  {places.map((place, idx) => (
+                    <Badge key={idx} variant="secondary" className="pl-2 pr-1">
+                      {place}
+                      <button
+                        type="button"
+                        onClick={() => handleRemovePlace(idx)}
+                        className="ml-1 hover:text-destructive"
+                        aria-label="Remove place"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              {/* Recommended Hotels */}
+              <div>
+                <Label>রেকমেন্ডেড হোটেল (ঐচ্ছিক)</Label>
+                <div className="flex gap-2 mt-2">
+                  <Input
+                    value={hotelInput}
+                    onChange={(e) => setHotelInput(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddHotel())}
+                    placeholder="যেমন: সী শেল রিসোর্ট"
+                  />
+                  <Button type="button" onClick={handleAddHotel} size="icon">
+                    <Plus className="w-4 h-4" />
+                  </Button>
+                </div>
+                <div className="flex flex-wrap gap-2 mt-3">
+                  {hotels.map((hotel, idx) => (
+                    <Badge key={idx} variant="secondary" className="pl-2 pr-1">
+                      {hotel}
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveHotel(idx)}
+                        className="ml-1 hover:text-destructive"
+                        aria-label="Remove hotel"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              {/* How to Go */}
+              <div>
+                <Label htmlFor="edit-howToGo">যেভাবে যাবেন</Label>
+                <Textarea
+                  id="edit-howToGo"
+                  value={formData.howToGo}
+                  onChange={(e) => setFormData({ ...formData, howToGo: e.target.value })}
+                  placeholder="ঢাকা থেকে যাতায়াতের উপায় বর্ণনা করুন"
+                  className="min-h-[80px]"
+                />
+              </div>
+
+              {/* Submit Button */}
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={submitting}
+              >
+                {submitting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    আপডেট হচ্ছে...
+                  </>
+                ) : (
+                  "আপডেট করুন"
+                )}
+              </Button>
+            </form>
+          </DialogContent>
+        </Dialog>
+
+        {/* Delete Confirmation Dialog */}
+        <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>নিশ্চিত করুন</AlertDialogTitle>
+              <AlertDialogDescription>
+                আপনি কি নিশ্চিত যে আপনি "{deletingGuide?.placeName}" ভ্রমন গাইড ডিলিট করতে চান? 
+                এই কাজটি পূর্বাবস্থায় ফেরানো যাবে না।
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>বাতিল করুন</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={confirmDelete}
+                className="bg-destructive text-destructive-foreground"
+                disabled={submitting}
+              >
+                {submitting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    ডিলিট হচ্ছে...
+                  </>
+                ) : (
+                  "ডিলিট করুন"
+                )}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
 
         {/* User Contribution Banner */}
         <Card className="mt-6 bg-gradient-to-r from-accent/20 to-accent/10 border-accent/30 p-4">

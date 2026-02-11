@@ -294,6 +294,39 @@ export async function getTravelGuides(): Promise<TravelGuide[]> {
   }
 }
 
+export async function updateTravelGuide(
+  id: string,
+  data: {
+    placeName: string;
+    description: string;
+    approximateBudget: string;
+    budgetDescription?: string;
+    howToGo: string;
+    mustVisitPlaces: string[];
+    recommendedHotels: string[];
+  }
+): Promise<void> {
+  try {
+    const docRef = doc(db, 'travelGuides', id);
+    await updateDoc(docRef, {
+      ...data,
+      lastUpdated: new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
+    });
+  } catch (error) {
+    console.error('Error updating travel guide:', error);
+    throw error;
+  }
+}
+
+export async function deleteTravelGuide(id: string): Promise<void> {
+  try {
+    await deleteDoc(doc(db, 'travelGuides', id));
+  } catch (error) {
+    console.error('Error deleting travel guide:', error);
+    throw error;
+  }
+}
+
 // ==================== Tours ====================
 
 export async function getUserTours(userId: string): Promise<Tour[]> {

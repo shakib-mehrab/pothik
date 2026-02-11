@@ -110,9 +110,8 @@ service cloud.firestore {
                     isAdmin() || 
                     isOwner(resource.data.createdBy);
 
-      // Authenticated users can create travel guides (auto-published)
+      // Authenticated users can create travel guides
       allow create: if isAuthenticated() &&
-                      request.resource.data.status == 'published' &&
                       request.resource.data.createdBy == request.auth.uid;
 
       // Admins can create with any settings
