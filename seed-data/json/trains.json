@@ -1,0 +1,932 @@
+[
+  {
+    "trainName": "Subarna Express",
+    "trainNumber": "701/702",
+    "route": {
+      "from": "Dhaka",
+      "to": "Chittagong"
+    },
+    "departureTime": "3:00 PM",
+    "arrivalTime": "9:45 PM",
+    "fare": "৳450 - ৳1540",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun [39",
+      "46]"
+    ]
+  },
+  {
+    "trainName": "Sonar Bangla",
+    "trainNumber": "787/788",
+    "route": {
+      "from": "Dhaka",
+      "to": "Chittagong"
+    },
+    "departureTime": "7:00 AM",
+    "arrivalTime": "12:20 PM",
+    "fare": "৳600 - ৳1600",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Mon",
+      "Tue",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun [46",
+      "47]"
+    ]
+  },
+  {
+    "trainName": "Parabat Express",
+    "trainNumber": "709/710",
+    "route": {
+      "from": "Dhaka",
+      "to": "Sylhet"
+    },
+    "departureTime": "6:40 AM",
+    "arrivalTime": "1:35 PM",
+    "fare": "৳300 - ৳1100",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Mon",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun [39]"
+    ]
+  },
+  {
+    "trainName": "Jayantika Exp",
+    "trainNumber": "717/718",
+    "route": {
+      "from": "Dhaka",
+      "to": "Sylhet"
+    },
+    "departureTime": "12:00 PM",
+    "arrivalTime": "7:50 PM",
+    "fare": "৳300 - ৳1100",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Daily [39]"
+    ]
+  },
+  {
+    "trainName": "Silk City Exp",
+    "trainNumber": "753/754",
+    "route": {
+      "from": "Dhaka",
+      "to": "Rajshahi"
+    },
+    "departureTime": "2:40 PM",
+    "arrivalTime": "9:05 PM",
+    "fare": "৳350 - ৳1200",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat [39]"
+    ]
+  },
+  {
+    "trainName": "Dhumketu Exp",
+    "trainNumber": "769/770",
+    "route": {
+      "from": "Dhaka",
+      "to": "Rajshahi"
+    },
+    "departureTime": "6:00 AM",
+    "arrivalTime": "11:50 AM",
+    "fare": "৳350 - ৳1200",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Mon",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun [39]"
+    ]
+  },
+  {
+    "trainName": "Sundarban Exp",
+    "trainNumber": "725/726",
+    "route": {
+      "from": "Dhaka",
+      "to": "Khulna"
+    },
+    "departureTime": "6:20 AM",
+    "arrivalTime": "4:20 PM",
+    "fare": "৳400 - ৳1500",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri [39]"
+    ]
+  },
+  {
+    "trainName": "Chitra Express",
+    "trainNumber": "763/764",
+    "route": {
+      "from": "Dhaka",
+      "to": "Khulna"
+    },
+    "departureTime": "7:00 PM",
+    "arrivalTime": "5:10 AM",
+    "fare": "৳400 - ৳1500",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun [39]"
+    ]
+  },
+  {
+    "trainName": "Ekota Express",
+    "trainNumber": "705/706",
+    "route": {
+      "from": "Dhaka",
+      "to": "Dinajpur"
+    },
+    "departureTime": "10:00 AM",
+    "arrivalTime": "7:40 PM",
+    "fare": "৳450 - ৳1600",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Mon",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun [39",
+      "46]"
+    ]
+  },
+  {
+    "trainName": "Rangpur Exp",
+    "trainNumber": "771/772",
+    "route": {
+      "from": "Dhaka",
+      "to": "Rangpur"
+    },
+    "departureTime": "9:00 AM",
+    "arrivalTime": "7:00 PM",
+    "fare": "৳450 - ৳1600",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat [39",
+      "46]"
+    ]
+  },
+  {
+    "trainName": "Upaban Express",
+    "trainNumber": "739/740",
+    "route": {
+      "from": "Dhaka",
+      "to": "Sylhet"
+    },
+    "departureTime": "9:50 PM",
+    "arrivalTime": "5:30 AM",
+    "fare": "৳300 - ৳1100",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Mon",
+      "Tue",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun [39",
+      "46]"
+    ]
+  },
+  {
+    "trainName": "Turna Express",
+    "trainNumber": "741/742",
+    "route": {
+      "from": "Dhaka",
+      "to": "Chittagong"
+    },
+    "departureTime": "11:30 PM",
+    "arrivalTime": "7:10 AM",
+    "fare": "৳450 - ৳1540",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Daily [39",
+      "46]"
+    ]
+  },
+  {
+    "trainName": "Kalani Express",
+    "trainNumber": "773/774",
+    "route": {
+      "from": "Dhaka",
+      "to": "Sylhet"
+    },
+    "departureTime": "4:00 PM",
+    "arrivalTime": "10:45 PM",
+    "fare": "৳300 - ৳1100",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Sat",
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu [39",
+      "46]"
+    ]
+  },
+  {
+    "trainName": "Mahanagar Prov",
+    "trainNumber": "703/704",
+    "route": {
+      "from": "Dhaka",
+      "to": "Chittagong"
+    },
+    "departureTime": "7:40 AM",
+    "arrivalTime": "3:15 PM",
+    "fare": "৳450 - ৳1540",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Daily [39",
+      "46]"
+    ]
+  },
+  {
+    "trainName": "Egarosindhur Pr",
+    "trainNumber": "737/738",
+    "route": {
+      "from": "Dhaka",
+      "to": "Kishorganj"
+    },
+    "departureTime": "8:10 AM",
+    "arrivalTime": "12:15 PM",
+    "fare": "৳200 - ৳800",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Mon",
+      "Tue",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun [39",
+      "46]"
+    ]
+  },
+  {
+    "trainName": "Tista Express",
+    "trainNumber": "707/708",
+    "route": {
+      "from": "Dhaka",
+      "to": "Dewangonge"
+    },
+    "departureTime": "7:20 AM",
+    "arrivalTime": "12:55 PM",
+    "fare": "৳250 - ৳900",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun [39]"
+    ]
+  },
+  {
+    "trainName": "Jamuna Express",
+    "trainNumber": "745/746",
+    "route": {
+      "from": "Dhaka",
+      "to": "Tarakandi"
+    },
+    "departureTime": "4:40 PM",
+    "arrivalTime": "12:10 AM",
+    "fare": "৳250 - ৳900",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Daily [39",
+      "46]"
+    ]
+  },
+  {
+    "trainName": "Lalmoni Exp",
+    "trainNumber": "751/752",
+    "route": {
+      "from": "Dhaka",
+      "to": "Lalmonirhat"
+    },
+    "departureTime": "10:10 PM",
+    "arrivalTime": "8:20 AM",
+    "fare": "৳450 - ৳1600",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Sat",
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu [39",
+      "46]"
+    ]
+  },
+  {
+    "trainName": "Padma Express",
+    "trainNumber": "759/760",
+    "route": {
+      "from": "Dhaka",
+      "to": "Rajshahi"
+    },
+    "departureTime": "11:10 PM",
+    "arrivalTime": "4:50 AM",
+    "fare": "৳350 - ৳1200",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Mon",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun [39]"
+    ]
+  },
+  {
+    "trainName": "Haore Express",
+    "trainNumber": "777/778",
+    "route": {
+      "from": "Dhaka",
+      "to": "Mohangonj"
+    },
+    "departureTime": "11:50 PM",
+    "arrivalTime": "6:10 AM",
+    "fare": "৳250 - ৳900",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun",
+      "Mon",
+      "Tue [39",
+      "46]"
+    ]
+  },
+  {
+    "trainName": "Agnibina Exp",
+    "trainNumber": "735/736",
+    "route": {
+      "from": "Dhaka",
+      "to": "Tarakandi"
+    },
+    "departureTime": "9:45 AM",
+    "arrivalTime": "3:20 PM",
+    "fare": "৳250 - ৳900",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Daily [39",
+      "46]"
+    ]
+  },
+  {
+    "trainName": "Upakul Express",
+    "trainNumber": "711/712",
+    "route": {
+      "from": "Dhaka",
+      "to": "Noakhali"
+    },
+    "departureTime": "4:20 PM",
+    "arrivalTime": "10:35 PM",
+    "fare": "৳250 - ৳1000",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Mon",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun [39]"
+    ]
+  },
+  {
+    "trainName": "Sirajgonj Exp",
+    "trainNumber": "775/776",
+    "route": {
+      "from": "Dhaka",
+      "to": "Ishurdi"
+    },
+    "departureTime": "5:00 PM",
+    "arrivalTime": "12:00 AM",
+    "fare": "৳250 - ৳800",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri [39]"
+    ]
+  },
+  {
+    "trainName": "Bhrammaputra",
+    "trainNumber": "743/744",
+    "route": {
+      "from": "Dhaka",
+      "to": "Dewangonge"
+    },
+    "departureTime": "6:00 PM",
+    "arrivalTime": "12:10 AM",
+    "fare": "৳250 - ৳900",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Daily [39",
+      "46]"
+    ]
+  },
+  {
+    "trainName": "Egarosindhur Go",
+    "trainNumber": "749/750",
+    "route": {
+      "from": "Dhaka",
+      "to": "Kishorganj"
+    },
+    "departureTime": "6:30 PM",
+    "arrivalTime": "11:10 PM",
+    "fare": "৳200 - ৳800",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Daily [39",
+      "46]"
+    ]
+  },
+  {
+    "trainName": "Drutajan Exp",
+    "trainNumber": "757/758",
+    "route": {
+      "from": "Dhaka",
+      "to": "Dinajpur"
+    },
+    "departureTime": "7:40 PM",
+    "arrivalTime": "5:30 AM",
+    "fare": "৳450 - ৳1600",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Mon",
+      "Tue",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun [39",
+      "46]"
+    ]
+  },
+  {
+    "trainName": "Parjotak Exp",
+    "trainNumber": "815/816",
+    "route": {
+      "from": "Dhaka",
+      "to": "Cox's Bazar"
+    },
+    "departureTime": "6:15 AM",
+    "arrivalTime": "3:00 PM",
+    "fare": "৳600 - ৳1800",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat [47]"
+    ]
+  },
+  {
+    "trainName": "Cox's Bazar Exp",
+    "trainNumber": "813/814",
+    "route": {
+      "from": "Dhaka",
+      "to": "Cox's Bazar"
+    },
+    "departureTime": "10:30 PM",
+    "arrivalTime": "7:20 AM",
+    "fare": "৳600 - ৳1800",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun [47]"
+    ]
+  },
+  {
+    "trainName": "Paharika Exp",
+    "trainNumber": "719/720",
+    "route": {
+      "from": "Chittagong",
+      "to": "Sylhet"
+    },
+    "departureTime": "9:00 AM",
+    "arrivalTime": "5:50 PM",
+    "fare": "৳300 - ৳1200",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun [46]"
+    ]
+  },
+  {
+    "trainName": "Udayan Exp",
+    "trainNumber": "723/724",
+    "route": {
+      "from": "Chittagong",
+      "to": "Sylhet"
+    },
+    "departureTime": "9:45 PM",
+    "arrivalTime": "6:20 AM",
+    "fare": "৳300 - ৳1200",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri [46]"
+    ]
+  },
+  {
+    "trainName": "Meghna Exp",
+    "trainNumber": "729/730",
+    "route": {
+      "from": "Chittagong",
+      "to": "Chandpur"
+    },
+    "departureTime": "5:15 PM",
+    "arrivalTime": "9:40 PM",
+    "fare": "৳200 - ৳600",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Daily [46]"
+    ]
+  },
+  {
+    "trainName": "Dolonchapa Exp",
+    "trainNumber": "767/768",
+    "route": {
+      "from": "Santahar",
+      "to": "Dinajpur"
+    },
+    "departureTime": "1:30 PM",
+    "arrivalTime": "8:20 PM",
+    "fare": "৳200 - ৳600",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Daily [46]"
+    ]
+  },
+  {
+    "trainName": "Kishorgonj Exp",
+    "trainNumber": "781/782",
+    "route": {
+      "from": "Dhaka",
+      "to": "Kishorgonj"
+    },
+    "departureTime": "10:35 AM",
+    "arrivalTime": "2:20 PM",
+    "fare": "৳200 - ৳800",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Sat",
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu [46]"
+    ]
+  },
+  {
+    "trainName": "Bijoy Express",
+    "trainNumber": "785/786",
+    "route": {
+      "from": "Chittagong",
+      "to": "Mymensingh"
+    },
+    "departureTime": "7:20 AM",
+    "arrivalTime": "3:45 PM",
+    "fare": "৳300 - ৳1200",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Sun",
+      "Mon",
+      "Tue",
+      "Thu",
+      "Fri",
+      "Sat [46]"
+    ]
+  },
+  {
+    "trainName": "Mohangonj Exp",
+    "trainNumber": "789/790",
+    "route": {
+      "from": "Dhaka",
+      "to": "Mohangonj"
+    },
+    "departureTime": "2:20 PM",
+    "arrivalTime": "8:10 PM",
+    "fare": "৳250 - ৳900",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun [46]"
+    ]
+  },
+  {
+    "trainName": "Kapotaskh Exp",
+    "trainNumber": "715/716",
+    "route": {
+      "from": "Khulna",
+      "to": "Rajshahi"
+    },
+    "departureTime": "6:30 AM",
+    "arrivalTime": "12:20 PM",
+    "fare": "৳250 - ৳800",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri [46]"
+    ]
+  },
+  {
+    "trainName": "Mohanagar Godhuli",
+    "trainNumber": "703",
+    "route": {
+      "from": "Chittagong",
+      "to": "Dhaka"
+    },
+    "departureTime": "3:00 PM",
+    "arrivalTime": "9:10 PM",
+    "fare": "৳450 - ৳1540",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Daily [46]"
+    ]
+  },
+  {
+    "trainName": "Maitree Express",
+    "trainNumber": "13107/13108",
+    "route": {
+      "from": "Dhaka",
+      "to": "Kolkata"
+    },
+    "departureTime": "8:15 AM",
+    "arrivalTime": "4:10 PM",
+    "fare": "৳2500 - ৳4500",
+    "trainType": "International",
+    "daysOfOperation": [
+      "Tue",
+      "Fri",
+      "Sun [47]"
+    ]
+  },
+  {
+    "trainName": "Bandhan Express",
+    "trainNumber": "13129/13130",
+    "route": {
+      "from": "Khulna",
+      "to": "Kolkata"
+    },
+    "departureTime": "11:00 AM",
+    "arrivalTime": "6:00 PM",
+    "fare": "৳2000 - ৳4000",
+    "trainType": "International",
+    "daysOfOperation": [
+      "Thu",
+      "Sun [47]"
+    ]
+  },
+  {
+    "trainName": "Mitali Express",
+    "trainNumber": "13131/13132",
+    "route": {
+      "from": "Dhaka",
+      "to": "Siliguri"
+    },
+    "departureTime": "9:50 PM",
+    "arrivalTime": "7:15 AM",
+    "fare": "৳3000 - ৳5000",
+    "trainType": "International",
+    "daysOfOperation": [
+      "Mon",
+      "Thu [47]"
+    ]
+  },
+  {
+    "trainName": "Simanta Exp",
+    "trainNumber": "747/748",
+    "route": {
+      "from": "Khulna",
+      "to": "Chilahati"
+    },
+    "departureTime": "9:15 PM",
+    "arrivalTime": "6:00 AM",
+    "fare": "৳300 - ৳1200",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Daily [46]"
+    ]
+  },
+  {
+    "trainName": "Rupsha Exp",
+    "trainNumber": "727/728",
+    "route": {
+      "from": "Khulna",
+      "to": "Chilahati"
+    },
+    "departureTime": "7:25 AM",
+    "arrivalTime": "5:10 PM",
+    "fare": "৳300 - ৳1200",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Daily [46]"
+    ]
+  },
+  {
+    "trainName": "Barendra Exp",
+    "trainNumber": "731/732",
+    "route": {
+      "from": "Rajshahi",
+      "to": "Chilahati"
+    },
+    "departureTime": "3:00 PM",
+    "arrivalTime": "9:50 PM",
+    "fare": "৳300 - ৳1200",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Daily [46]"
+    ]
+  },
+  {
+    "trainName": "Titumir Exp",
+    "trainNumber": "733/734",
+    "route": {
+      "from": "Rajshahi",
+      "to": "Chilahati"
+    },
+    "departureTime": "6:20 AM",
+    "arrivalTime": "1:20 PM",
+    "fare": "৳300 - ৳1200",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Mon",
+      "Tue",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun [46]"
+    ]
+  },
+  {
+    "trainName": "Modhumoti Exp",
+    "trainNumber": "755/756",
+    "route": {
+      "from": "Rajshahi",
+      "to": "Goalanda"
+    },
+    "departureTime": "7:40 AM",
+    "arrivalTime": "1:20 PM",
+    "fare": "৳250 - ৳900",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Fri",
+      "Sat [46]"
+    ]
+  },
+  {
+    "trainName": "Sagordari Exp",
+    "trainNumber": "761/762",
+    "route": {
+      "from": "Khulna",
+      "to": "Rajshahi"
+    },
+    "departureTime": "4:00 PM",
+    "arrivalTime": "9:50 PM",
+    "fare": "৳250 - ৳800",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun [46]"
+    ]
+  },
+  {
+    "trainName": "Mahananda Exp",
+    "trainNumber": "15/16",
+    "route": {
+      "from": "Khulna",
+      "to": "Chapai"
+    },
+    "departureTime": "11:30 AM",
+    "arrivalTime": "9:45 PM",
+    "fare": "৳150 - ৳500",
+    "trainType": "Mail/Exp",
+    "daysOfOperation": [
+      "Daily [46]"
+    ]
+  },
+  {
+    "trainName": "Rocket Exp",
+    "trainNumber": "1/2",
+    "route": {
+      "from": "Khulna",
+      "to": "Goalanda"
+    },
+    "departureTime": "9:30 AM",
+    "arrivalTime": "6:10 PM",
+    "fare": "৳150 - ৳500",
+    "trainType": "Mail/Exp",
+    "daysOfOperation": [
+      "Daily [46]"
+    ]
+  },
+  {
+    "trainName": "Chilahati Exp",
+    "trainNumber": "805/806",
+    "route": {
+      "from": "Dhaka",
+      "to": "Chilahati"
+    },
+    "departureTime": "8:00 AM",
+    "arrivalTime": "6:00 PM",
+    "fare": "৳400 - ৳1600",
+    "trainType": "Intercity",
+    "daysOfOperation": [
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri [47]"
+    ]
+  },
+  {
+    "trainName": "Chattala Exp",
+    "trainNumber": "801/802",
+    "route": {
+      "from": "Dhaka",
+      "to": "Chittagong"
+    },
+    "departureTime": "1:45 PM",
+    "arrivalTime": "8:10 PM",
+    "fare": "৳400 - ৳800",
+    "trainType": "Express",
+    "daysOfOperation": [
+      "Mon",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun [47]"
+    ]
+  }
+]

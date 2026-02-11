@@ -1,0 +1,27 @@
+# Service Account Key (NEVER COMMIT THIS!)
+serviceAccountKey.json
+
+# Seeding scripts with sensitive data
+seed-all.bat
+seed-all.sh
+
+# Node modules
+node_modules/
+
+# Build output
+dist/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

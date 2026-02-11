@@ -167,5 +167,41 @@ service cloud.firestore {
       // Only admins can write settings
       allow write: if isAdmin();
     }
+
+    // ==================== Metro Stations Collection ====================
+    match /metroStations/{stationId} {
+      // Public read for all metro station data
+      allow read: if true;
+
+      // Only admins can create, update, or delete
+      allow write: if isAdmin();
+    }
+
+    // ==================== Local Buses Collection ====================
+    match /localBuses/{busId} {
+      // Public read for all local bus data
+      allow read: if true;
+
+      // Only admins can create, update, or delete
+      allow write: if isAdmin();
+    }
+
+    // ==================== Long Distance Buses Collection ====================
+    match /longDistanceBuses/{busId} {
+      // Public read for all long distance bus data
+      allow read: if true;
+
+      // Only admins can create, update, or delete
+      allow write: if isAdmin();
+    }
+
+    // ==================== Train Schedules Collection ====================
+    match /trainSchedules/{trainId} {
+      // Public read for all train schedule data
+      allow read: if true;
+
+      // Only admins can create, update, or delete
+      allow write: if isAdmin();
+    }
   }
 }

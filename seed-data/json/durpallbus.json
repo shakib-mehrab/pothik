@@ -1,0 +1,552 @@
+[
+  {
+    "company": "Green Line",
+    "route": {
+      "from": "Dhaka",
+      "to": "Chittagong"
+    },
+    "fare": "৳900 - ৳1150",
+    "contactNumber": "02-7192300",
+    "schedule": "Every 1 hour",
+    "counterLocation": "Rajarbag, Arambag [40]"
+  },
+  {
+    "company": "Green Line",
+    "route": {
+      "from": "Dhaka",
+      "to": "Cox's Bazar"
+    },
+    "fare": "৳900 - ৳1800",
+    "contactNumber": "02-7191900",
+    "schedule": "Night Coaches",
+    "counterLocation": "Rajarbag [40, 41]"
+  },
+  {
+    "company": "Green Line",
+    "route": {
+      "from": "Dhaka",
+      "to": "Sylhet"
+    },
+    "fare": "৳850 - ৳1100",
+    "contactNumber": "01730-060080",
+    "schedule": "Every 2 hours",
+    "counterLocation": "Arambag [40]"
+  },
+  {
+    "company": "Green Line",
+    "route": {
+      "from": "Dhaka",
+      "to": "Kolkata"
+    },
+    "fare": "৳1500",
+    "contactNumber": "02-7192300",
+    "schedule": "7:00 AM",
+    "counterLocation": "Fakirapool [40, 41]"
+  },
+  {
+    "company": "Ena Transport",
+    "route": {
+      "from": "Dhaka",
+      "to": "Sylhet"
+    },
+    "fare": "৳1100",
+    "contactNumber": "01713-402670",
+    "schedule": "24/7 service",
+    "counterLocation": "Mohakhali [38, 41]"
+  },
+  {
+    "company": "Ena Transport",
+    "route": {
+      "from": "Dhaka",
+      "to": "Chittagong"
+    },
+    "fare": "৳600",
+    "contactNumber": "01713-402671",
+    "schedule": "Every 30 mins",
+    "counterLocation": "Mohakhali [38, 41]"
+  },
+  {
+    "company": "Ena Transport",
+    "route": {
+      "from": "Dhaka",
+      "to": "Cox's Bazar"
+    },
+    "fare": "৳1000",
+    "contactNumber": "01713-402673",
+    "schedule": "Night focus",
+    "counterLocation": "Mohakhali [38, 41]"
+  },
+  {
+    "company": "Ena Transport",
+    "route": {
+      "from": "Dhaka",
+      "to": "Rangpur"
+    },
+    "fare": "৳500",
+    "contactNumber": "01713-402670",
+    "schedule": "Hourly",
+    "counterLocation": "Mohakhali [38, 41]"
+  },
+  {
+    "company": "S Alam Service",
+    "route": {
+      "from": "Dhaka",
+      "to": "Chittagong"
+    },
+    "fare": "৳480",
+    "contactNumber": "02-9002702",
+    "schedule": "Morning start",
+    "counterLocation": "Sayedabad, Gabtoli [40, 41]"
+  },
+  {
+    "company": "S Alam Service",
+    "route": {
+      "from": "Dhaka",
+      "to": "Cox's Bazar"
+    },
+    "fare": "৳800",
+    "contactNumber": "01813-329394",
+    "schedule": "Night service",
+    "counterLocation": "Sayedabad [40, 41]"
+  },
+  {
+    "company": "S Alam Service",
+    "route": {
+      "from": "Dhaka",
+      "to": "Bandarban"
+    },
+    "fare": "৳630",
+    "contactNumber": "01819-539601",
+    "schedule": "7:00 AM, 11:00 PM",
+    "counterLocation": "Fakirapul [40, 41]"
+  },
+  {
+    "company": "Shyamoli Paribahan",
+    "route": {
+      "from": "Dhaka",
+      "to": "Cox's Bazar"
+    },
+    "fare": "৳1150",
+    "contactNumber": "02-900331",
+    "schedule": "Night coach",
+    "counterLocation": "Kollyanpur, Panthapath [40, 41]"
+  },
+  {
+    "company": "Shyamoli Paribahan",
+    "route": {
+      "from": "Dhaka",
+      "to": "Rangamati"
+    },
+    "fare": "৳540",
+    "contactNumber": "02-8034275",
+    "schedule": "Morning start",
+    "counterLocation": "Kollyanpur [40, 41]"
+  },
+  {
+    "company": "Shyamoli Paribahan",
+    "route": {
+      "from": "Dhaka",
+      "to": "Naogaon"
+    },
+    "fare": "৳420",
+    "contactNumber": "02-8360241",
+    "schedule": "Night coach",
+    "counterLocation": "Kamlapur [40, 41]"
+  },
+  {
+    "company": "Hanif Enterprise",
+    "route": {
+      "from": "Dhaka",
+      "to": "Rajshahi"
+    },
+    "fare": "৳600",
+    "contactNumber": "01713-402663",
+    "schedule": "Every 30 mins",
+    "counterLocation": "Gabtoli [40, 41]"
+  },
+  {
+    "company": "Hanif Enterprise",
+    "route": {
+      "from": "Dhaka",
+      "to": "Rangpur"
+    },
+    "fare": "৳500",
+    "contactNumber": "01713-402665",
+    "schedule": "Hourly",
+    "counterLocation": "Gabtoli [40, 41]"
+  },
+  {
+    "company": "Shohag Paribahan",
+    "route": {
+      "from": "Dhaka",
+      "to": "Khulna"
+    },
+    "fare": "৳500",
+    "contactNumber": "02-9344477",
+    "schedule": "Morning/Night",
+    "counterLocation": "Malibagh [41]"
+  },
+  {
+    "company": "Shohag Paribahan",
+    "route": {
+      "from": "Dhaka",
+      "to": "Benapole"
+    },
+    "fare": "৳450",
+    "contactNumber": "02-7166643",
+    "schedule": "Morning start",
+    "counterLocation": "Johnson Road [41]"
+  },
+  {
+    "company": "Shohag Paribahan",
+    "route": {
+      "from": "Dhaka",
+      "to": "Cox's Bazar"
+    },
+    "fare": "৳1525",
+    "contactNumber": "02-9132360",
+    "schedule": "Night focus",
+    "counterLocation": "Panthapath [41]"
+  },
+  {
+    "company": "Saudia",
+    "route": {
+      "from": "Dhaka",
+      "to": "Chittagong"
+    },
+    "fare": "৳125",
+    "contactNumber": "9346478",
+    "schedule": "Every hour",
+    "counterLocation": "Fakirapool [42]"
+  },
+  {
+    "company": "Saudia",
+    "route": {
+      "from": "Dhaka",
+      "to": "Cox's Bazar"
+    },
+    "fare": "৳1000+",
+    "contactNumber": "938512",
+    "schedule": "Night coach",
+    "counterLocation": "Kamlapur [42]"
+  },
+  {
+    "company": "Unique Service",
+    "route": {
+      "from": "Dhaka",
+      "to": "Chittagong"
+    },
+    "fare": "৳125",
+    "contactNumber": "9002710",
+    "schedule": "5:15 AM",
+    "counterLocation": "Gabtoli [42]"
+  },
+  {
+    "company": "Challenger",
+    "route": {
+      "from": "Dhaka",
+      "to": "Chittagong"
+    },
+    "fare": "৳125",
+    "contactNumber": "8018445",
+    "schedule": "4:30 AM",
+    "counterLocation": "Gabtoli [42]"
+  },
+  {
+    "company": "Evergreen",
+    "route": {
+      "from": "Dhaka",
+      "to": "Rajshahi"
+    },
+    "fare": "Dual AC",
+    "contactNumber": "01894-708199",
+    "schedule": "Daily",
+    "counterLocation": "Multiple [43]"
+  },
+  {
+    "company": "Bangla Star",
+    "route": {
+      "from": "Dhaka",
+      "to": "Pabna"
+    },
+    "fare": "৳500",
+    "contactNumber": "02-9132360",
+    "schedule": "Hourly",
+    "counterLocation": "Kollyanpur [44]"
+  },
+  {
+    "company": "Shohoz",
+    "route": {
+      "from": "National",
+      "to": "All Routes"
+    },
+    "fare": "Agency",
+    "contactNumber": "16374",
+    "schedule": "Online booking",
+    "counterLocation": "Digital [45]"
+  },
+  {
+    "company": "Dream Line",
+    "route": {
+      "from": "Dhaka",
+      "to": "Mymensingh"
+    },
+    "fare": "৳300",
+    "contactNumber": "02-900331",
+    "schedule": "Regular",
+    "counterLocation": "Mohakhali [40]"
+  },
+  {
+    "company": "Keya Paribahan",
+    "route": {
+      "from": "Dhaka",
+      "to": "Khulna"
+    },
+    "fare": "৳450",
+    "contactNumber": "02-9132360",
+    "schedule": "Night coach",
+    "counterLocation": "Kollyanpur [40]"
+  },
+  {
+    "company": "Pabna Express",
+    "route": {
+      "from": "Dhaka",
+      "to": "Pabna"
+    },
+    "fare": "৳500",
+    "contactNumber": "02-9132360",
+    "schedule": "Regular",
+    "counterLocation": "Kollyanpur [40]"
+  },
+  {
+    "company": "Silk Line",
+    "route": {
+      "from": "Dhaka",
+      "to": "Rajshahi"
+    },
+    "fare": "৳800",
+    "contactNumber": "02-900331",
+    "schedule": "AC Service",
+    "counterLocation": "Gabtoli [40]"
+  },
+  {
+    "company": "Hanif",
+    "route": {
+      "from": "Dhaka",
+      "to": "Chittagong"
+    },
+    "fare": "৳600",
+    "contactNumber": "01713-402663",
+    "schedule": "Every hour",
+    "counterLocation": "Sayedabad [41]"
+  },
+  {
+    "company": "Green Line",
+    "route": {
+      "from": "Dhaka",
+      "to": "Rangpur"
+    },
+    "fare": "৳600",
+    "contactNumber": "02-7192300",
+    "schedule": "7:00 AM",
+    "counterLocation": "Kollyanpur [40]"
+  },
+  {
+    "company": "Green Line",
+    "route": {
+      "from": "Dhaka",
+      "to": "Bogra"
+    },
+    "fare": "৳550",
+    "contactNumber": "02-7191900",
+    "schedule": "Regular",
+    "counterLocation": "Kollyanpur [40]"
+  },
+  {
+    "company": "S Alam",
+    "route": {
+      "from": "Dhaka",
+      "to": "Rangamati"
+    },
+    "fare": "৳620",
+    "contactNumber": "01813-329394",
+    "schedule": "Night coach",
+    "counterLocation": "Sayedabad [41]"
+  },
+  {
+    "company": "S Alam",
+    "route": {
+      "from": "Dhaka",
+      "to": "Benapol"
+    },
+    "fare": "৳550",
+    "contactNumber": "01813-329394",
+    "schedule": "Morning start",
+    "counterLocation": "Gabtoli [41]"
+  },
+  {
+    "company": "Shyamoli",
+    "route": {
+      "from": "Dhaka",
+      "to": "Kolkata"
+    },
+    "fare": "৳1500",
+    "contactNumber": "02-8034275",
+    "schedule": "Daily",
+    "counterLocation": "Kollyanpur [41]"
+  },
+  {
+    "company": "Shyamoli",
+    "route": {
+      "from": "Dhaka",
+      "to": "Shiliguri"
+    },
+    "fare": "৳1800",
+    "contactNumber": "02-8360241",
+    "schedule": "Regular",
+    "counterLocation": "Kollyanpur [41]"
+  },
+  {
+    "company": "Ena",
+    "route": {
+      "from": "Dhaka",
+      "to": "Mymensingh"
+    },
+    "fare": "৳220",
+    "contactNumber": "01713-402670",
+    "schedule": "Every 30 mins",
+    "counterLocation": "Mohakhali [38]"
+  },
+  {
+    "company": "Ena",
+    "route": {
+      "from": "Dhaka",
+      "to": "Noakhali"
+    },
+    "fare": "৳450",
+    "contactNumber": "01713-402670",
+    "schedule": "Regular",
+    "counterLocation": "Sayedabad [38]"
+  },
+  {
+    "company": "Shohag",
+    "route": {
+      "from": "Dhaka",
+      "to": "Shatkhira"
+    },
+    "fare": "৳400",
+    "contactNumber": "01711-612433",
+    "schedule": "Night coach",
+    "counterLocation": "Malibagh [41]"
+  },
+  {
+    "company": "Shohag",
+    "route": {
+      "from": "Dhaka",
+      "to": "Benapole"
+    },
+    "fare": "৳1270",
+    "contactNumber": "01711-624390",
+    "schedule": "AC Volvo",
+    "counterLocation": "Abdullahpur [41]"
+  },
+  {
+    "company": "Hanif",
+    "route": {
+      "from": "Dhaka",
+      "to": "Cox's Bazar"
+    },
+    "fare": "৳1000",
+    "contactNumber": "01713-402663",
+    "schedule": "Night coach",
+    "counterLocation": "Sayedabad [41]"
+  },
+  {
+    "company": "Ena",
+    "route": {
+      "from": "Dhaka",
+      "to": "Bogura"
+    },
+    "fare": "৳400",
+    "contactNumber": "01713-402670",
+    "schedule": "Hourly",
+    "counterLocation": "Mohakhali [38]"
+  },
+  {
+    "company": "Ena",
+    "route": {
+      "from": "Dhaka",
+      "to": "Sunamganj"
+    },
+    "fare": "৳600",
+    "contactNumber": "01713-402670",
+    "schedule": "Regular",
+    "counterLocation": "Mohakhali [38]"
+  },
+  {
+    "company": "Green Line",
+    "route": {
+      "from": "Dhaka",
+      "to": "Khulna"
+    },
+    "fare": "৳950",
+    "contactNumber": "02-7192300",
+    "schedule": "AC Volvo",
+    "counterLocation": "Rajarbag [40]"
+  },
+  {
+    "company": "S Alam",
+    "route": {
+      "from": "Dhaka",
+      "to": "Chittagong"
+    },
+    "fare": "৳480",
+    "contactNumber": "01813-329394",
+    "schedule": "Hourly",
+    "counterLocation": "Sayedabad [40]"
+  },
+  {
+    "company": "Shyamoli",
+    "route": {
+      "from": "Dhaka",
+      "to": "Chittagong"
+    },
+    "fare": "৳750",
+    "contactNumber": "02-8034275",
+    "schedule": "AC Coach",
+    "counterLocation": "Panthapath [41]"
+  },
+  {
+    "company": "Shohag",
+    "route": {
+      "from": "Dhaka",
+      "to": "Jessore"
+    },
+    "fare": "৳450",
+    "contactNumber": "01711-612433",
+    "schedule": "Morning start",
+    "counterLocation": "Malibagh [41]"
+  },
+  {
+    "company": "Ena",
+    "route": {
+      "from": "Dhaka",
+      "to": "Saidpur"
+    },
+    "fare": "৳550",
+    "contactNumber": "01713-402670",
+    "schedule": "Regular",
+    "counterLocation": "Mohakhali [38]"
+  },
+  {
+    "company": "Green Line",
+    "route": {
+      "from": "Dhaka",
+      "to": "Rajshahi"
+    },
+    "fare": "৳650",
+    "contactNumber": "01730-060080",
+    "schedule": "7:00 AM",
+    "counterLocation": "Kollyanpur [40]"
+  }
+]

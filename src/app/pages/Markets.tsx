@@ -401,6 +401,7 @@ export function Markets() {
                       type="button"
                       onClick={() => handleRemoveSpecialty(index)}
                       className="ml-1 hover:text-destructive"
+                      aria-label="Remove specialty"
                     >
                       <X className="w-3 h-3" />
                     </button>
@@ -517,25 +518,7 @@ export function Markets() {
                       <p className="text-[11px] text-foreground">{market.howToGo}</p>
                     </div>
 
-                    {/* Opening Hours & Price */}
-                    <div className="flex items-center justify-between gap-2">
-                      {market.openingHours && (
-                        <div className="flex items-center gap-1">
-                          <Clock className="w-3 h-3 text-muted-foreground flex-shrink-0" />
-                          <span className="text-[10px] text-muted-foreground">{market.openingHours}</span>
-                        </div>
-                      )}
-                      {market.priceRange && (
-                        <Badge variant="outline" className="text-[10px] bg-accent/10 text-accent border-accent/30 px-1.5 py-0">
-                          {market.priceRange}
-                        </Badge>
-                      )}
-                    </div>
-
-                    {/* Description */}
-                    {market.description && (
-                      <p className="text-[11px] text-foreground/80">{market.description}</p>
-                    )}
+                    {/* Specialties Preview */}
 
                     {/* All Specialties when expanded */}
                     {market.specialty.length > 2 && (

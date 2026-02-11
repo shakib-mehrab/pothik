@@ -148,6 +148,45 @@ export interface LeaderboardEntry {
   updatedAt: Date;
 }
 
+// ==================== Transport Types ====================
+export interface LocalBus {
+  id: string;
+  name: string;
+  fromStation: string;
+  toStation: string;
+  route: string[];
+  hours: string;
+  type: 'Semi-Seating' | 'Seating';
+}
+
+export interface LongDistanceBus {
+  id: string;
+  company: string;
+  route: {
+    from: string;
+    to: string;
+  };
+  fare: string;
+  contactNumber: string;
+  schedule: string;
+  counterLocation: string;
+}
+
+export interface TrainSchedule {
+  id: string;
+  trainName: string;
+  trainNumber: string;
+  route: {
+    from: string;
+    to: string;
+  };
+  departureTime: string;
+  arrivalTime: string;
+  fare: string;
+  trainType: string;
+  daysOfOperation: string[];
+}
+
 // ==================== Form Input Types ====================
 export interface RestaurantFormData {
   name: string;

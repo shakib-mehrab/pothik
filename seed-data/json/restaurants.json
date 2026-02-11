@@ -1,0 +1,752 @@
+[
+  {
+    "name": "Hazir Biriyani",
+    "location": "Nazirabazar, Old Dhaka",
+    "howToGo": "Near Nazirabazar Mor, rickshaw from Gulistan",
+    "bestItem": "Mutton Biryani",
+    "reviews": "Most famous Biryani in Bangladesh with unique taste [9]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 664000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Sultan's Dine",
+    "location": "Dhanmondi, Dhaka",
+    "howToGo": "Near Shimanto Square, Jigatola",
+    "bestItem": "Kacchi Biryani",
+    "reviews": "Premium Kacchi with excellent reviews and high demand",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 694000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Star Hotel & Kabab",
+    "location": "Dhanmondi, Dhaka",
+    "howToGo": "Road 2, near City College",
+    "bestItem": "Mutton Leg Roast",
+    "reviews": "Iconic Dhaka chain known for consistent quality and kebabs",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 694000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Kacchi Bhai",
+    "location": "Old Dhaka",
+    "howToGo": "Near Nazirabazar",
+    "bestItem": "Mutton Kacchi",
+    "reviews": "Traditional Old Dhaka taste with high volume sales [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 694000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Salam's Kitchen",
+    "location": "Banani, Dhaka",
+    "howToGo": "Road 11, Banani",
+    "bestItem": "Morog Polau",
+    "reviews": "High-quality ingredients and modern dining environment",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 694000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Jhunur Polao",
+    "location": "Narinda, Dhaka",
+    "howToGo": "Near Narinda Mor",
+    "bestItem": "Beef Polao",
+    "reviews": "Historic establishment known for authentic local flavors [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 694000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Cookers 71",
+    "location": "Karwan Bazar, Dhaka",
+    "howToGo": "Opposite Titash Gas",
+    "bestItem": "Vuna Khichuri",
+    "reviews": "Popular lunch spot for office workers in central Dhaka [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 694000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "HeeraJhil",
+    "location": "Motijheel, Dhaka",
+    "howToGo": "Near Bank Colony",
+    "bestItem": "Vuna Khichuri",
+    "reviews": "A legendary spot for commercial area diners [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 694000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Dokhina Kitchen",
+    "location": "Khilgaon, Dhaka",
+    "howToGo": "Tilpapara area",
+    "bestItem": "Vuna Khichuri",
+    "reviews": "Popular Khilgaon food street outlet with good variety [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 694000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Al-Kaderia",
+    "location": "Rampura, Dhaka",
+    "howToGo": "Near Rampura Bajar",
+    "bestItem": "Letka Khichuri",
+    "reviews": "Famous for late-night meals and spicy khichuri [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 694000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Nowabi Biriyani House",
+    "location": "Uttara, Dhaka",
+    "howToGo": "Sector 7, near Mascot Plaza",
+    "bestItem": "Letka Khichuri",
+    "reviews": "Excellent quality and clean environment for families [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 694000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Lalbag Biriyani",
+    "location": "Dhanmondi 15, Dhaka",
+    "howToGo": "Near Shankar bus stand",
+    "bestItem": "Vuna Khichuri",
+    "reviews": "Inexpensive yet flavorful traditional meals [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 695000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Abesh",
+    "location": "Mirpur 2, Dhaka",
+    "howToGo": "Near Mirpur Stadium",
+    "bestItem": "Vuna Khichuri",
+    "reviews": "Solid local choice for Mirpur residents [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 695000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Durbin Bangla",
+    "location": "Mohakhali, Dhaka",
+    "howToGo": "Near Wireless Gate",
+    "bestItem": "Bhat Bhorta",
+    "reviews": "Specialized in traditional deshi breakfast and lunch [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 695000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Oshtobenjon",
+    "location": "Panthapath, Dhaka",
+    "howToGo": "Near Bashundhara City",
+    "bestItem": "64 Items Bhorta",
+    "reviews": "The premier destination for diverse bhorta varieties [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 695000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Bangaliana Bhoj",
+    "location": "Panthapath, Dhaka",
+    "howToGo": "Near Samorita Hospital",
+    "bestItem": "Bengali Thali",
+    "reviews": "Authentic traditional Bengali meal experience [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 695000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Robbani",
+    "location": "Mirpur 10, Dhaka",
+    "howToGo": "Near Mirpur 10 Circle",
+    "bestItem": "Bhat Bhorta",
+    "reviews": "A local favorite for fresh bhorta and dal [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 695000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Shoro Ritu",
+    "location": "Uttara, Dhaka",
+    "howToGo": "Sector 3",
+    "bestItem": "Bhat Bhorta",
+    "reviews": "Traditional setting with seasonal specialties [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 695000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Bhorta Bari",
+    "location": "Dhanmondi, Dhaka",
+    "howToGo": "Near Dhanmondi 15",
+    "bestItem": "Bhorta Platter",
+    "reviews": "Casual dining focused on authentic mashes [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 695000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Sobhanbag Tehari Ghor",
+    "location": "Dhanmondi, Dhaka",
+    "howToGo": "Near Sobhanbag Mosque",
+    "bestItem": "Beef Tehari",
+    "reviews": "Authentic mustard oil flavor with great aroma [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 695000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Nurani Tehari",
+    "location": "Hajaribag, Dhaka",
+    "howToGo": "Near Tannery Mor",
+    "bestItem": "Beef Tehari",
+    "reviews": "Local favorite known for spicy and greasy tehari [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 695000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Maruf Biriyani",
+    "location": "Hajaribag, Dhaka",
+    "howToGo": "Near Hajaribag",
+    "bestItem": "Beef Tehari",
+    "reviews": "Excellent taste at a very affordable price [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 695000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Noyon Biriyani",
+    "location": "Badda, Dhaka",
+    "howToGo": "Badda-Gulshan link road",
+    "bestItem": "Beef Tehari",
+    "reviews": "Popular spot for commuters and locals [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 695000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "House of Tehari",
+    "location": "Banani, Dhaka",
+    "howToGo": "Road 11",
+    "bestItem": "Beef Tehari",
+    "reviews": "Modernized tehari shop with premium quality [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 695000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Allahr Dan Biriyani",
+    "location": "Rampura, Dhaka",
+    "howToGo": "Rampura Bajar",
+    "bestItem": "Beef Tehari",
+    "reviews": "Reliable taste and good portion size [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 695000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Kholil Beef Hotel",
+    "location": "Banasree, Dhaka",
+    "howToGo": "Near Farazy Hospital",
+    "bestItem": "Kima Biriyani",
+    "reviews": "Highly sought after for unique beef preparations [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 695000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Muktar Biriyani",
+    "location": "Khilgaon, Dhaka",
+    "howToGo": "Tilpapara",
+    "bestItem": "Chap Polao",
+    "reviews": "Well-known in Khilgaon's thriving food street [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 695000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Green Olive",
+    "location": "Green Road, Dhaka",
+    "howToGo": "Near Panthapath",
+    "bestItem": "Grilled Chicken",
+    "reviews": "Exceptional spice mix and perfectly grilled chicken [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 695000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Beresta",
+    "location": "Rampura, Dhaka",
+    "howToGo": "Rampura Bajar",
+    "bestItem": "Grilled Chicken",
+    "reviews": "Popular for breakfast and late-night snacks [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 696000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Nadim Biriyani",
+    "location": "Mohammadpur, Dhaka",
+    "howToGo": "Townhall",
+    "bestItem": "Grilled Chicken",
+    "reviews": "Large portions and iconic taste in the area [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 696000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Apurba Hotel",
+    "location": "Mohammadpur, Dhaka",
+    "howToGo": "Townhall",
+    "bestItem": "Beef Chap",
+    "reviews": "Known for the best beef chap in Mohammadpur [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 696000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Kabab Inn",
+    "location": "Old Dhaka",
+    "howToGo": "Nazimuddin Road",
+    "bestItem": "Seekh Kabab",
+    "reviews": "Historic kabab shop with authentic spices [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 696000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Anondo Bekari",
+    "location": "Old Dhaka",
+    "howToGo": "Shat Rowja",
+    "bestItem": "Shuta Kabab",
+    "reviews": "Traditional preparation using unique binding methods [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 696000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "GSB Canteen",
+    "location": "Segun Bagicha, Dhaka",
+    "howToGo": "Near Shilpakala",
+    "bestItem": "Grilled Chicken",
+    "reviews": "Budget-friendly but high quality grilled chicken [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 696000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Manzar Kabab",
+    "location": "Mohammadpur, Dhaka",
+    "howToGo": "Zakir Hossain Road",
+    "bestItem": "Jhuragosh",
+    "reviews": "Over 40 years of business, considered best in town [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 696000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Miraz Hotel",
+    "location": "Mohammadpur, Dhaka",
+    "howToGo": "Near Manzar",
+    "bestItem": "Dalpuri",
+    "reviews": "Famous for crispy dalpuri and liver shingara [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 696000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Rokomari Kabab",
+    "location": "Mohammadpur, Dhaka",
+    "howToGo": "Salimullah Road",
+    "bestItem": "Beef Intestine Kabab",
+    "reviews": "Niche kabab specialist for traditional organ meats [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 696000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Buddhur Puri",
+    "location": "Sutrapur, Dhaka",
+    "howToGo": "Dalpotti",
+    "bestItem": "Dalpuri",
+    "reviews": "Legendary snack spot in Old Dhaka [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 696000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Canton Restaurant",
+    "location": "Moghbazar, Dhaka",
+    "howToGo": "Near Moghbazar Mor",
+    "bestItem": "Thai Soup",
+    "reviews": "Maintains old-school deshi-chinese taste [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 696000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Changpai",
+    "location": "Moghbazar, Dhaka",
+    "howToGo": "Near Wireless",
+    "bestItem": "Beef Sizzling",
+    "reviews": "Famous for authentic sizzlers and generous portions [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 696000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Hakka Dhaka",
+    "location": "Dhanmondi, Dhaka",
+    "howToGo": "Road 27",
+    "bestItem": "Fusion Chinese",
+    "reviews": "Popular modern Chinese fusion spot [8]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 696000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Latitude 23",
+    "location": "Nikunja, Dhaka",
+    "howToGo": "Le Meridien Hotel",
+    "bestItem": "International Buffet",
+    "reviews": "High-end luxury dining with massive variety [9]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 696000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Bunka",
+    "location": "Gulshan, Dhaka",
+    "howToGo": "Road 11",
+    "bestItem": "Japanese Teppanyaki",
+    "reviews": "Authentic Japanese experience with great sushi [9]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 696000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Seasonal Tastes",
+    "location": "Gulshan, Dhaka",
+    "howToGo": "Westin Hotel",
+    "bestItem": "Pan-Asian Buffet",
+    "reviews": "Elite buffet with diverse international options [9]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 696000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Bar B Q Tonight",
+    "location": "Dhanmondi, Dhaka",
+    "howToGo": "Road 27",
+    "bestItem": "Reshmi Kabab",
+    "reviews": "The gold standard for outdoor grilling atmosphere [9, 13]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 696000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Fish & Co",
+    "location": "Gulshan, Dhaka",
+    "howToGo": "Road 11 circle",
+    "bestItem": "Fish and Chips",
+    "reviews": "Seafood specialist with global brand recognition [9]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 696000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Nirob Hotel",
+    "location": "Old Dhaka",
+    "howToGo": "Nazimuddin Road",
+    "bestItem": "Vorta Platter",
+    "reviews": "The ultimate bhorta destination for foodies [9, 13]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 696000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Bella Italia",
+    "location": "Gulshan, Dhaka",
+    "howToGo": "Road 11",
+    "bestItem": "Wood-fired Pizza",
+    "reviews": "Authentic Italian taste in the heart of Dhaka [9]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 697000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Goong The Castle",
+    "location": "Gulshan, Dhaka",
+    "howToGo": "Road 50",
+    "bestItem": "Korean BBQ",
+    "reviews": "Authentic Korean palace food in a unique setting [13]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 697000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Istanbul Restaurant",
+    "location": "Gulshan, Dhaka",
+    "howToGo": "Road 118",
+    "bestItem": "Turkish Platter",
+    "reviews": "Turkish flavors with authentic ingredients [13, 14]",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803847,
+      "nanoseconds": 697000000
+    },
+    "lastUpdated": "Feb 2026"
+  }
+]

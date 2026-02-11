@@ -1,0 +1,2013 @@
+[
+  {
+    "name": "InterContinental Dhaka",
+    "location": "Ramna, Dhaka",
+    "howToGo": "Near Moghbazar, rickshaw from Shahbag",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID",
+      "Passport"
+    ],
+    "facebookPage": "fb.com/intercondhaka",
+    "reviews": "9.4/10 Exceptional hospitality",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 363000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Crowne Plaza Dhaka",
+    "location": "Gulshan 1, Dhaka",
+    "howToGo": "Near Gulshan 1 Circle",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID",
+      "Passport"
+    ],
+    "facebookPage": "fb.com/crowneplazadhaka",
+    "reviews": "9.4/10 Clean rooms and great staff",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 391000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Renaissance Dhaka",
+    "location": "Gulshan, Dhaka",
+    "howToGo": "Near Gulshan 2 circle",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID",
+      "Passport"
+    ],
+    "facebookPage": "fb.com/renaissancedhaka",
+    "reviews": "9.2/10 Wonderful rooftop pool [16, 17]",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 391000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "The Westin Dhaka",
+    "location": "Gulshan 2, Dhaka",
+    "howToGo": "Gulshan Avenue",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID",
+      "Passport"
+    ],
+    "facebookPage": "fb.com/thewestindhaka",
+    "reviews": "8.8/10 Excellent full-service spa [16, 17]",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 391000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Le Meridien Dhaka",
+    "location": "Airport Road, Dhaka",
+    "howToGo": "Near Nikunja 2",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/lemeridiendhaka",
+    "reviews": "8.6/10 Excellent family-friendly options [16, 21]",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 391000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Emerald Dhaka",
+    "location": "Uttara, Dhaka",
+    "howToGo": "Sector 1",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/emeralddhaka",
+    "reviews": "10/10 Welcoming staff, western standard [16, 21]",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 391000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Best Western Plus",
+    "location": "Uttara, Dhaka",
+    "howToGo": "Near Airport Terminal",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/bwplusmapleleaf",
+    "reviews": "8.6/10 Great staff and location [16, 21]",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 391000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Holiday Inn Dhaka",
+    "location": "Central Dhaka",
+    "howToGo": "Tejgaon area",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID",
+      "Passport"
+    ],
+    "facebookPage": "fb.com/holidayinndhaka",
+    "reviews": "9.2/10 Wonderful modern design",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 391000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Amari Dhaka",
+    "location": "Gulshan 2, Dhaka",
+    "howToGo": "Near Gulshan Lake",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/amaridhaka",
+    "reviews": "8.4/10 Very Good rooftop bar [16, 17]",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 391000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Pan Pacific Sonargaon",
+    "location": "Karwan Bazar, Dhaka",
+    "howToGo": "Beside Metro station",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/panpacificdhaka",
+    "reviews": "8/10 Iconic business hotel",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 392000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Blossom Hotel",
+    "location": "Baridhara, Dhaka",
+    "howToGo": "Diplomatic Zone",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/blossomdhaka",
+    "reviews": "8.4/10 Safe and quiet",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 392000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "The Midori",
+    "location": "Gulshan, Dhaka",
+    "howToGo": "Near Gulshan 2",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/themidori",
+    "reviews": "8/10 Very Good service",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 392000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Hyatt Place",
+    "location": "Uttara, Dhaka",
+    "howToGo": "Sector 6",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/hyattplacedhaka",
+    "reviews": "10/10 Exceptional rooftop view [16, 21]",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 392000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Platinum Grand",
+    "location": "Banani, Dhaka",
+    "howToGo": "Near Banani 11",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/platinumgrand",
+    "reviews": "8.6/10 Excellent boutique experience",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 392000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Empyrean Hotel",
+    "location": "Tejgaon, Dhaka",
+    "howToGo": "Near Nabisco",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/empyrean",
+    "reviews": "8.2/10 Very Good for business",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 392000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Hotel White Stone",
+    "location": "Central Dhaka",
+    "howToGo": "Near Panthapath",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/whitestone",
+    "reviews": "9.6/10 Exceptional cleanliness",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 392000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Sel Nibash",
+    "location": "Dhanmondi, Dhaka",
+    "howToGo": "Near Green Road",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/selnibash",
+    "reviews": "9.6/10 Great for long stays",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 392000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Ascott Palace",
+    "location": "Baridhara, Dhaka",
+    "howToGo": "Diplomatic Zone",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID",
+      "Passport"
+    ],
+    "facebookPage": "fb.com/ascottpalace",
+    "reviews": "8/10 Very Good security",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 392000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Hotel Givenci",
+    "location": "Tejgaon, Dhaka",
+    "howToGo": "Near Farmgate",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/hotelgivenci",
+    "reviews": "8/10 Very Good central location",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 392000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Radisson Blu Dhaka",
+    "location": "Airport Road, Dhaka",
+    "howToGo": "Opposite Kurmitola Hospital",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID",
+      "Passport"
+    ],
+    "facebookPage": "fb.com/radissonbludhaka",
+    "reviews": "7.6/10 Good garden views",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 392000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Hotel Sarina",
+    "location": "Banani, Dhaka",
+    "howToGo": "Banani Circle",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/hotelsarina",
+    "reviews": "7.6/10 Good for banquets",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 392000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Hotel Afford Inn",
+    "location": "Uttara, Dhaka",
+    "howToGo": "Near Airport",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/affordinn",
+    "reviews": "7.6/10 Convenient for transit",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 392000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "The Ambassador",
+    "location": "Dhanmondi, Dhaka",
+    "howToGo": "Road 2",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/ambassador",
+    "reviews": "7.8/10 Good location",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 392000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Dhaka Regency",
+    "location": "Airport Road, Dhaka",
+    "howToGo": "Nikunja 2",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/dhakaregency",
+    "reviews": "6.8/10 Rooftop dining is good",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 392000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Studio23",
+    "location": "Central Dhaka",
+    "howToGo": "Near Moghbazar",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/studio23",
+    "reviews": "9.4/10 Exceptional design",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 392000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Hotel Omni Residency",
+    "location": "Baridhara, Dhaka",
+    "howToGo": "Upscale area",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/omniresidency",
+    "reviews": "9.6/10 Rejuvenating spa",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 392000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Asia Hotel",
+    "location": "Central Dhaka",
+    "howToGo": "Near Press Club",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/asiahotel",
+    "reviews": "8.6/10 Swedish massage available",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 392000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "THE WAY Dhaka",
+    "location": "Gulshan, Dhaka",
+    "howToGo": "Gulshan 2",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/thewaydhaka",
+    "reviews": "8.8/10 Indoor pool is great",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 392000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Hotel Noorjahan Grand",
+    "location": "Sylhet City",
+    "howToGo": "Near Dargah Gate",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/noorjahangrand",
+    "reviews": "7.8/10 Good city views",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 393000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Hotel Metro Intl",
+    "location": "Sylhet City",
+    "howToGo": "Bandar Bazar",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/metrointl",
+    "reviews": "8.8/10 Complimentary valet",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 393000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Holy Inn",
+    "location": "Sylhet City",
+    "howToGo": "Near Airport Road",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/holyinn",
+    "reviews": "10/10 Exceptional service",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 393000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Grand Sylhet",
+    "location": "Sylhet City",
+    "howToGo": "Near Airport",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/grandsylhet",
+    "reviews": "9/10 Wonderful hot spring",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 393000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Rose View Hotel",
+    "location": "Sylhet City",
+    "howToGo": "Upashahar",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/roseview",
+    "reviews": "5.8/10 Luxury option",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 393000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Windsor Hotel",
+    "location": "Sylhet City",
+    "howToGo": "Beside Osmani Museum",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/windsor",
+    "reviews": "8/10 Very Good location",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 393000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Hotel Star Pacific",
+    "location": "Sylhet City",
+    "howToGo": "Dargah Gate",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/starpacific",
+    "reviews": "7.2/10 Good budget luxury",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 393000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Nirvana Inn",
+    "location": "Sylhet City",
+    "howToGo": "Near Stadium",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/nirvanainn",
+    "reviews": "8/10 Tranquil retreat",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 393000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "La Vista Hotel",
+    "location": "Sylhet City",
+    "howToGo": "Zinda Bazar",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/lavista",
+    "reviews": "7.5/10 Central location",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 393000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Hotel Supreme",
+    "location": "Sylhet City",
+    "howToGo": "Near Bus Stand",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/supreme",
+    "reviews": "7/10 Basic amenities",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 393000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Sayeman Heritage",
+    "location": "Cox's Bazar",
+    "howToGo": "Near Baharchara",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/sayemanheritage",
+    "reviews": "8/10 Historic charm [16, 17]",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 393000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Long Beach Hotel",
+    "location": "Cox's Bazar",
+    "howToGo": "Kolatoli Circle",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/longbeach",
+    "reviews": "8.2/10 Egyptian cotton sheets [18, 19]",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 393000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "White Orchid",
+    "location": "Cox's Bazar",
+    "howToGo": "Near Beach",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/whiteorchid",
+    "reviews": "8.2/10 Clean and well-staffed [18]",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 393000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Hotel Sea Crown",
+    "location": "Cox's Bazar",
+    "howToGo": "Beside Beach",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/seacrown",
+    "reviews": "8/10 Nice budget hotel [18]",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 393000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Prime Park Hotel",
+    "location": "Cox's Bazar",
+    "howToGo": "Near Jawtala",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/primepark",
+    "reviews": "8.2/10 Welcoming staff [16, 22]",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 393000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Hotel Kollol",
+    "location": "Cox's Bazar",
+    "howToGo": "Near Laboni Point",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/kollol",
+    "reviews": "7.2/10 Good for families [16, 17]",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 393000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Best Western Heritage",
+    "location": "Cox's Bazar",
+    "howToGo": "Kolatoli Road",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/bwheritage",
+    "reviews": "8/10 Excellent facilities",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 393000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Ramada by Wyndham",
+    "location": "Cox's Bazar",
+    "howToGo": "Kolatoli Beach",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/ramadacox",
+    "reviews": "8/10 Stunning beach access [22]",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 393000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Royal Pearl Suites",
+    "location": "Cox's Bazar",
+    "howToGo": "Near Beach",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/royalpearl",
+    "reviews": "7.4/10 modern interiors [22]",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 393000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Hotel Mishuk",
+    "location": "Cox's Bazar",
+    "howToGo": "Laboni Point",
+    "coupleFriendly": false,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/mishuk",
+    "reviews": "5.5/10 Management issues [18]",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 393000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Praasad Paradise",
+    "location": "Cox's Bazar",
+    "howToGo": "Near Beach",
+    "coupleFriendly": false,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/praasad",
+    "reviews": "5.9/10 BBQ area is loud [18]",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 393000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Ocean Paradise",
+    "location": "Cox's Bazar",
+    "howToGo": "Kolatoli",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/oceanparadise",
+    "reviews": "8.6/10 Great breakfasts [22]",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 394000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Sayeman Beach Resort",
+    "location": "Cox's Bazar",
+    "howToGo": "Beside Marine Drive",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/sayemanbeach",
+    "reviews": "8/10 Good basic services",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 394000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Sea Pearl Beach Resort",
+    "location": "Inani, Cox's Bazar",
+    "howToGo": "Inani Beach via Marine Drive",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID",
+      "Passport"
+    ],
+    "facebookPage": "fb.com/seapearl",
+    "reviews": "7.8/10 Away from crowd [18]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 394000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Mermaid Beach Resort",
+    "location": "Pechardwip, Cox's Bazar",
+    "howToGo": "Near Himchari",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID",
+      "Passport"
+    ],
+    "facebookPage": "fb.com/mermaidbeach",
+    "reviews": "6.8/10 peaceful quiet around",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 394000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Neeshorgo Hotel & Resort",
+    "location": "Marine Drive, Cox's Bazar",
+    "howToGo": "Rickshaw from Kolatoli",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/neeshorgo",
+    "reviews": "7.4/10 All good location",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 394000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Mermaid Eco Resort",
+    "location": "Cox's Bazar",
+    "howToGo": "Marine Drive",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/mermaideco",
+    "reviews": "7.6/10 Serene environment [16, 17]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 394000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Sampan Resort",
+    "location": "Cox's Bazar",
+    "howToGo": "Beside Marine Drive",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/sampan",
+    "reviews": "6.5/10 Traditional feel [16, 17]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 394000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Anchor Eco Resort",
+    "location": "Cox's Bazar",
+    "howToGo": "Near Beach",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/anchor",
+    "reviews": "7/10 Eco-friendly [16, 17]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 394000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Grand Sultan Tea Resort",
+    "location": "Sreemangal",
+    "howToGo": "Near Lawachara Forest",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID",
+      "Passport"
+    ],
+    "facebookPage": "fb.com/grandsultan",
+    "reviews": "7.2/10 Good golf course [16, 17]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 394000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Balishira Resort",
+    "location": "Sreemangal",
+    "howToGo": "Near Tea Gardens",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/balishira",
+    "reviews": "7.6/10 Excellent nature [16, 17]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 394000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Paragon Hotel & Resort",
+    "location": "Sreemangal",
+    "howToGo": "Near Town",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/paragon",
+    "reviews": "8/10 Very Good service [16, 17]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 394000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Nazimgarh Garden Resort",
+    "location": "Sylhet",
+    "howToGo": "Near Khadimnagar",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/nazimgarh",
+    "reviews": "8.5/10 Lush green [17]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 394000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Excelsior Sylhet",
+    "location": "Sylhet",
+    "howToGo": "Near City",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/excelsior",
+    "reviews": "7.5/10 Family resort [16, 17]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 394000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Dream Square Resort",
+    "location": "Gazipur",
+    "howToGo": "Near Sreepur",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/dreamsquare",
+    "reviews": "3.5/5 Natural retreat [20, 23]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 394000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Rain Forest Eco Resort",
+    "location": "Gazipur",
+    "howToGo": "Near Sreepur",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/rainforest",
+    "reviews": "3/5 Eco-conscious [20]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 394000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "RASS RESORT",
+    "location": "Gazipur",
+    "howToGo": "Sreepur area",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/rassresort",
+    "reviews": "3/5 Basic amenities [20]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 394000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Sarah Resort",
+    "location": "Gazipur",
+    "howToGo": "Sreepur",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID",
+      "Passport"
+    ],
+    "facebookPage": "fb.com/sarahresort",
+    "reviews": "4.5/5 Top-tier luxury [20, 23]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 394000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Kokomo Sunset Resort",
+    "location": "Gazipur",
+    "howToGo": "Beside Lake",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/kokomo",
+    "reviews": "3/5 Sunset views [20, 24]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 394000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Joleswori Resort",
+    "location": "Gazipur",
+    "howToGo": "Near Sreepur",
+    "coupleFriendly": false,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/joleswori",
+    "reviews": "2/5 Service issues [20]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 394000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Shalban Green Resort",
+    "location": "Gazipur",
+    "howToGo": "Near Sal Forest",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/shalban",
+    "reviews": "2/5 Basic stay [20]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 394000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Saheb Bari Resort",
+    "location": "Gazipur",
+    "howToGo": "Near City",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/sahebbari",
+    "reviews": "3/5 Family friendly [20, 24]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 395000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "BCDM Rajendrapur",
+    "location": "Gazipur",
+    "howToGo": "Rajendrapur",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/bcdm",
+    "reviews": "4.5/5 Corporate retreat [20]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 395000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Sabrina Dream Resort",
+    "location": "Gazipur",
+    "howToGo": "Near Pubail",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/sabrina",
+    "reviews": "3/5 Business focus [20, 23]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 395000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Reverie Resort",
+    "location": "Gazipur",
+    "howToGo": "Near City",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/reverie",
+    "reviews": "3/5 Good for picnics [20, 24]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 395000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Rajendra Eco Resort",
+    "location": "Gazipur",
+    "howToGo": "Rajendrapur",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/rajendraeco",
+    "reviews": "3/5 Forest vibes [20]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 395000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Chuti Aronnobash",
+    "location": "Gazipur",
+    "howToGo": "Near Pubail",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/chuti",
+    "reviews": "2/5 Nature stay [20]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 395000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Garden Centre Resort",
+    "location": "Gazipur",
+    "howToGo": "Kaliganj",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/gardencentre",
+    "reviews": "2/5 Basic [20]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 395000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "CCULB Resort",
+    "location": "Gazipur",
+    "howToGo": "Ulukhola",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/cculb",
+    "reviews": "3/5 Convention hall [20, 21]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 395000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Chuti Resort Purbachal",
+    "location": "Gazipur",
+    "howToGo": "Purbachal",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/chutipurbachal",
+    "reviews": "2/5 New development [20]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 395000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Sukh Sagar Resort",
+    "location": "Gazipur",
+    "howToGo": "Kaliganj",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/sukhsagar",
+    "reviews": "2/5 Lake view [20]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 395000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Aristocrat Resort",
+    "location": "Gazipur",
+    "howToGo": "Purbachal",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/aristocrat",
+    "reviews": "2/5 Basic [20]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 395000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Bhawal Resort & Spa",
+    "location": "Gazipur",
+    "howToGo": "Noljahni Village",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/bhawalresort",
+    "reviews": "Villas with forest views",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 395000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Pubail Resort Club",
+    "location": "Gazipur",
+    "howToGo": "Vadun area",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/pubailresort",
+    "reviews": "Swimming pool focus [23]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 395000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Greentech Resort",
+    "location": "Gazipur",
+    "howToGo": "Dhaka-Mymensingh Hwy",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/greentech",
+    "reviews": "3.8/10 Countryside retreat [23, 24]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 395000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Nirvana Resort",
+    "location": "Gazipur",
+    "howToGo": "Joydebpur",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/nirvanaresort",
+    "reviews": "24-hour service [23]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 395000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Megher Chaya",
+    "location": "Gazipur",
+    "howToGo": "Konabari",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/megherchaya",
+    "reviews": "Picnic spot specialized [23]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 395000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "PSCC Resort",
+    "location": "Gazipur",
+    "howToGo": "Pubail College Road",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/pscc",
+    "reviews": "Cultural center vibes [23, 24]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 395000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Green Heaven",
+    "location": "Gazipur",
+    "howToGo": "Jaydevpur Road",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/greenheaven",
+    "reviews": "Non-smoking rooms [23]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 395000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Insignia Hotels & Resorts",
+    "location": "Gazipur",
+    "howToGo": "Tongi",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/insignia",
+    "reviews": "3.5/5 Sauna and tennis [20, 23]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 395000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Eden Garden Resort",
+    "location": "Savar",
+    "howToGo": "Near City",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/edengarden",
+    "reviews": "3/5 Good for weekend [21]",
+    "category": "hotel",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 395000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Resort Atlantis",
+    "location": "Savar",
+    "howToGo": "Fantasy Kingdom",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/atlantis",
+    "reviews": "4.1/5 Theme park access [24]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 396000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Namir Green Resort",
+    "location": "Gazipur",
+    "howToGo": "Near City",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/namir",
+    "reviews": "4.1/5 Informal stay [24]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 396000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Nokkhottrobari",
+    "location": "Gazipur",
+    "howToGo": "Near Dhaka",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/nokkhottrobari",
+    "reviews": "3.7/10 Lake and pool [24]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 396000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Maya by Xpressmall",
+    "location": "Uttara, Dhaka",
+    "howToGo": "Sector 1",
+    "coupleFriendly": false,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/maya",
+    "reviews": "2/10 Poor service [21]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 396000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Shaira Garden Resort",
+    "location": "Bandar, Narayanganj",
+    "howToGo": "Near City",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/shaira",
+    "reviews": "8/10 Wonderful stay",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 396000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Secret Paradise",
+    "location": "Sylhet",
+    "howToGo": "Near City",
+    "coupleFriendly": false,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/secret",
+    "reviews": "2/10 Service complaints [16, 17]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 396000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Nirjon Nature's Hideout",
+    "location": "Kamalganj",
+    "howToGo": "Near Forest",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/nirjon",
+    "reviews": "3/5 Quiet stay",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 396000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Bonsai Eco Village",
+    "location": "Kamalganj",
+    "howToGo": "Near Town",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/bonsai",
+    "reviews": "2/5 Basic",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 396000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Backyard Retreat",
+    "location": "Sreemangal",
+    "howToGo": "Near Town",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/backyard",
+    "reviews": "2/5 Simple",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 396000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Himachol Resort",
+    "location": "Sreemangal",
+    "howToGo": "Near Town",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/himachol",
+    "reviews": "2/5 Nature focused",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 396000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Lawachara Eco Cottage",
+    "location": "Sreemangal",
+    "howToGo": "Near Forest",
+    "coupleFriendly": true,
+    "documentsNeeded": [
+      "NID"
+    ],
+    "facebookPage": "fb.com/lawachara",
+    "reviews": "3/5 Good access to trails [16, 17]",
+    "category": "resort",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770802512,
+      "nanoseconds": 396000000
+    },
+    "lastUpdated": "Feb 2026"
+  }
+]

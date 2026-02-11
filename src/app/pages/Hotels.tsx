@@ -451,6 +451,7 @@ export function Hotels() {
                       type="button"
                       onClick={() => handleRemoveDocument(index)}
                       className="ml-1 hover:text-destructive"
+                      aria-label="Remove document"
                     >
                       <X className="w-3 h-3" />
                     </button>

@@ -1,0 +1,710 @@
+[
+  {
+    "name": "Achim Paribahan",
+    "fromStation": "Gabtoli",
+    "toStation": "Demra Staff Qtr",
+    "route": [
+      "Gabtoli",
+      "Mirpur 10",
+      "ECB Square",
+      "Kuril",
+      "Badda",
+      "Rampura",
+      "Banasree"
+    ],
+    "hours": "6:00 AM–10:00 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Active Paribahan",
+    "fromStation": "Shia Masjid",
+    "toStation": "Abdullahpur",
+    "route": [
+      "Adabor",
+      "Shyamoli",
+      "Technical",
+      "Mirpur 10",
+      "ECB Square",
+      "Airport",
+      "Uttara"
+    ],
+    "hours": "6:00 AM–11:00 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Agradut Bus",
+    "fromStation": "Savar",
+    "toStation": "Notun Bazar",
+    "route": [
+      "Hemayetpur",
+      "Gabtoli",
+      "Agargaon",
+      "Mohakhali",
+      "Gulshan 1",
+      "Badda"
+    ],
+    "hours": "6:30 AM–10:30 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Airport Bangabandhu Ave",
+    "fromStation": "Fulbaria",
+    "toStation": "Abdullahpur",
+    "route": [
+      "Shahbag",
+      "Farmgate",
+      "Mohakhali",
+      "Banani",
+      "Airport",
+      "Uttara"
+    ],
+    "hours": "6:00 AM–10:00 PM",
+    "type": "Seating"
+  },
+  {
+    "name": "Azmeri Glory",
+    "fromStation": "Sadarghat",
+    "toStation": "Chandra",
+    "route": [
+      "Paltan",
+      "Mouchak",
+      "Mohakhali",
+      "Airport",
+      "Uttara",
+      "Gazipur Bypass",
+      "Konabari"
+    ],
+    "hours": "5:30 AM–11:30 PM",
+    "type": "Seating"
+  },
+  {
+    "name": "Ajmi Bus",
+    "fromStation": "Dhamrai",
+    "toStation": "Chittagong Road",
+    "route": [
+      "Savar",
+      "Gabtoli",
+      "Asadgate",
+      "Dhanmondi",
+      "New Market",
+      "Gulistan"
+    ],
+    "hours": "6:00 AM–10:00 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Akash Bus",
+    "fromStation": "Kadamtali",
+    "toStation": "Tongi",
+    "route": [
+      "Babubazar",
+      "Paltan",
+      "Rampura Bridge",
+      "Badda",
+      "Airport",
+      "Uttara"
+    ],
+    "hours": "6:00 AM–10:30 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Akik Bus",
+    "fromStation": "Ansar Camp",
+    "toStation": "Uttar Badda",
+    "route": [
+      "Mirpur 1",
+      "Mirpur 10",
+      "ECB Square",
+      "Kuril",
+      "Bashundhara",
+      "Badda"
+    ],
+    "hours": "6:30 AM–10:00 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Al Makka Bus",
+    "fromStation": "Motijheel",
+    "toStation": "Mirpur 1",
+    "route": [
+      "Gulistan",
+      "Paltan",
+      "Mouchak",
+      "Mohakhali",
+      "Banani",
+      "ECB Square",
+      "Mirpur 10"
+    ],
+    "hours": "6:00 AM–10:00 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Al Madina Plus One",
+    "fromStation": "Nandan Park",
+    "toStation": "Kamalapur",
+    "route": [
+      "Savar",
+      "Gabtoli",
+      "Farmgate",
+      "Shahbag",
+      "Gulistan",
+      "Motijheel"
+    ],
+    "hours": "6:00 AM–11:00 PM",
+    "type": "Seating"
+  },
+  {
+    "name": "Alif Bus (Route 1)",
+    "fromStation": "Mirpur 14",
+    "toStation": "Dhaka EPZ",
+    "route": [
+      "Mirpur 10",
+      "Mirpur 1",
+      "Mazar Road",
+      "Beribadh",
+      "Ashulia",
+      "Fantasy Kingdom"
+    ],
+    "hours": "6:00 AM–10:00 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Alif Bus (Route 2)",
+    "fromStation": "Shia Mosque",
+    "toStation": "Banasree",
+    "route": [
+      "Adabor",
+      "Agargaon",
+      "Mohakhali",
+      "Gulshan 1",
+      "Badda",
+      "Rampura Bridge"
+    ],
+    "hours": "6:30 AM–10:30 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Alif Bus (Route 4)",
+    "fromStation": "Japan Garden",
+    "toStation": "Abdullahpur",
+    "route": [
+      "Agargaon",
+      "Mohakhali",
+      "Banani",
+      "Airport",
+      "Uttara",
+      "House Building"
+    ],
+    "hours": "6:00 AM–11:00 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Anabil Super",
+    "fromStation": "Sign Board",
+    "toStation": "Gazipur Chourasta",
+    "route": [
+      "Sayedabad",
+      "Khilgaon",
+      "Badda",
+      "Airport",
+      "Uttara",
+      "Tongi",
+      "Board Bazar"
+    ],
+    "hours": "6:00 AM–12:00 PM",
+    "type": "Seating"
+  },
+  {
+    "name": "Arnob Bus",
+    "fromStation": "Hemayetpur",
+    "toStation": "Demra Staff Qtr",
+    "route": [
+      "Gabtoli",
+      "Mohakhali",
+      "Gulshan 1",
+      "Badda",
+      "Rampura Bridge",
+      "Banasree"
+    ],
+    "hours": "6:00 AM–10:30 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Ashirbad Pahibahan",
+    "fromStation": "Duaripara",
+    "toStation": "Azimpur",
+    "route": [
+      "Mirpur 2",
+      "Technical",
+      "Shyamoli",
+      "Dhanmondi 27",
+      "New Market"
+    ],
+    "hours": "6:30 AM–10:00 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Ashulia Classic",
+    "fromStation": "Nobinagar",
+    "toStation": "Sat rasta",
+    "route": [
+      "Airport",
+      "Uttara",
+      "Kuril",
+      "Mohakhali",
+      "Nabisco",
+      "Sat rasta"
+    ],
+    "hours": "6:00 AM–10:00 PM",
+    "type": "Seating"
+  },
+  {
+    "name": "Asmani Bus",
+    "fromStation": "Dhour",
+    "toStation": "Madanpur",
+    "route": [
+      "Abdullahpur",
+      "Airport",
+      "Kuril",
+      "Badda",
+      "Banasree",
+      "Demra",
+      "Tarabo"
+    ],
+    "hours": "6:00 AM–11:00 PM",
+    "type": "Seating"
+  },
+  {
+    "name": "Ayat Bus",
+    "fromStation": "Chiriyakhana",
+    "toStation": "Kamalapur",
+    "route": [
+      "Mirpur 10",
+      "Agargaon",
+      "Farmgate",
+      "Moghbazar",
+      "Rajarbag"
+    ],
+    "hours": "6:00 AM–10:30 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Bahon Bus",
+    "fromStation": "Mirpur 14",
+    "toStation": "Khilgaon",
+    "route": [
+      "Technical",
+      "Shyamoli",
+      "Dhanmondi 32",
+      "Shahbag",
+      "Motijheel",
+      "Mugdapara"
+    ],
+    "hours": "6:00 AM–11:00 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Baishakhi Bus",
+    "fromStation": "Savar",
+    "toStation": "Notun Bazar",
+    "route": [
+      "Gabtoli",
+      "Agargaon",
+      "Mohakhali",
+      "Gulshan 1",
+      "Badda"
+    ],
+    "hours": "6:30 AM–10:30 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Balaka Bus",
+    "fromStation": "Sayedabad",
+    "toStation": "Gazipur Chourasta",
+    "route": [
+      "Kamalapur",
+      "Moghbazar",
+      "Mohakhali",
+      "Airport",
+      "Uttara",
+      "Tongi"
+    ],
+    "hours": "6:00 AM–11:00 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Basumati Bus",
+    "fromStation": "Gabtoli",
+    "toStation": "Maowa",
+    "route": [
+      "Farmgate",
+      "Shahbag",
+      "GPO",
+      "Babubazar",
+      "Keraniganj"
+    ],
+    "hours": "6:00 AM–10:00 PM",
+    "type": "Seating"
+  },
+  {
+    "name": "Best Satabdi",
+    "fromStation": "Azimpur",
+    "toStation": "Diabari",
+    "route": [
+      "Dhanmondi 27",
+      "Farmgate",
+      "Mohakhali",
+      "Airport",
+      "Uttara"
+    ],
+    "hours": "7:00 AM–10:00 PM",
+    "type": "Seating"
+  },
+  {
+    "name": "Bihanga Bus",
+    "fromStation": "Mirpur 12",
+    "toStation": "Notun Bazar",
+    "route": [
+      "Mirpur 10",
+      "Agargaon",
+      "Mohakhali",
+      "Gulshan 1",
+      "Badda"
+    ],
+    "hours": "6:00 AM–11:00 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Bikalpa Auto",
+    "fromStation": "Mirpur 12",
+    "toStation": "Motijheel",
+    "route": [
+      "Agargaon",
+      "Farmgate",
+      "Shahbag",
+      "GPO",
+      "Gulistan"
+    ],
+    "hours": "6:00 AM–11:00 PM",
+    "type": "Seating"
+  },
+  {
+    "name": "City Super Service",
+    "fromStation": "Mirpur 12",
+    "toStation": "Azimpur",
+    "route": [
+      "Shyamoli",
+      "Dhanmondi 27",
+      "New Market",
+      "Nilkhet"
+    ],
+    "hours": "6:00 AM–10:30 PM",
+    "type": "Seating"
+  },
+  {
+    "name": "Dhaka Paribahan",
+    "fromStation": "Gulistan",
+    "toStation": "Shib Bari",
+    "route": [
+      "Shahbag",
+      "Farmgate",
+      "Banani",
+      "Uttara",
+      "Gazipur"
+    ],
+    "hours": "6:00 AM–10:00 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Rupa Paribahan",
+    "fromStation": "Gabtoli",
+    "toStation": "Vashantek",
+    "route": [
+      "Mirpur 1",
+      "Mirpur 10",
+      "Mirpur 14"
+    ],
+    "hours": "6:30 AM–9:30 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "7 No Bus",
+    "fromStation": "Gabtoli",
+    "toStation": "High Court",
+    "route": [
+      "Shyamoli",
+      "Dhanmondi 32",
+      "Shahbag",
+      "High Court"
+    ],
+    "hours": "6:00 AM–10:00 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "8 No Bus",
+    "fromStation": "Jatrabari",
+    "toStation": "Farmgate",
+    "route": [
+      "Motijheel",
+      "Paltan",
+      "Shahbag",
+      "Farmgate"
+    ],
+    "hours": "6:00 AM–11:00 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "9 No Bus",
+    "fromStation": "College Gate",
+    "toStation": "Mirpur 2",
+    "route": [
+      "Shyamoli",
+      "Gabtoli",
+      "Mirpur 1"
+    ],
+    "hours": "6:30 AM–10:30 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Falgun",
+    "fromStation": "Azimpur",
+    "toStation": "Uttara",
+    "route": [
+      "Panthapath",
+      "Satrashta",
+      "Mohakhali",
+      "Khilkhet",
+      "Airport"
+    ],
+    "hours": "6:00 AM–10:00 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Winer",
+    "fromStation": "Azimpur",
+    "toStation": "Kuril",
+    "route": [
+      "Kawranbazar",
+      "Nabisco",
+      "Mohakhali",
+      "Airport"
+    ],
+    "hours": "6:00 AM–11:00 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Borak Transport",
+    "fromStation": "Azimpur",
+    "toStation": "Meghna",
+    "route": [
+      "Gulistan",
+      "Jatrabari",
+      "Chittagong Road",
+      "Kachpur",
+      "Madanpur"
+    ],
+    "hours": "5:30 AM–10:30 PM",
+    "type": "Seating"
+  },
+  {
+    "name": "Ababil",
+    "fromStation": "Motijheel",
+    "toStation": "Tongi Bridge",
+    "route": [
+      "Shahbag",
+      "Science Lab",
+      "Asadgate",
+      "Mohammadpur",
+      "Tongi"
+    ],
+    "hours": "6:00 AM–10:00 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Greenway",
+    "fromStation": "Motijheel",
+    "toStation": "Dhamrai",
+    "route": [
+      "Farmgate",
+      "Technical",
+      "Gabtoli",
+      "Savar",
+      "Nabinagar"
+    ],
+    "hours": "6:00 AM–11:00 PM",
+    "type": "Seating"
+  },
+  {
+    "name": "Hanif Metro",
+    "fromStation": "Motijheel",
+    "toStation": "Nandan Park",
+    "route": [
+      "Farmgate",
+      "Asadgate",
+      "Gabtoli",
+      "Savar",
+      "Jirani Bazar"
+    ],
+    "hours": "6:00 AM–10:30 PM",
+    "type": "Seating"
+  },
+  {
+    "name": "Panjeri",
+    "fromStation": "Motijheel",
+    "toStation": "Kamarpara",
+    "route": [
+      "Moghbazar",
+      "Nabisco",
+      "Mohakhali",
+      "Airport",
+      "Uttara"
+    ],
+    "hours": "6:00 AM–10:00 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Volvo",
+    "fromStation": "Motijheel",
+    "toStation": "Abdullahpur",
+    "route": [
+      "Shahbag",
+      "Farmgate",
+      "Mohakhali",
+      "Airport",
+      "Uttara"
+    ],
+    "hours": "6:30 AM–11:00 PM",
+    "type": "Seating"
+  },
+  {
+    "name": "Manjil",
+    "fromStation": "Motijheel",
+    "toStation": "Nandan Park",
+    "route": [
+      "Paltan",
+      "Moghbazar",
+      "Mohakhali",
+      "Airport",
+      "Uttara",
+      "Nandan"
+    ],
+    "hours": "6:00 AM–10:30 PM",
+    "type": "Seating"
+  },
+  {
+    "name": "Satabbdi",
+    "fromStation": "Motijheel",
+    "toStation": "Mirpur 14",
+    "route": [
+      "Shewrapara",
+      "Kazipara",
+      "Mirpur 10"
+    ],
+    "hours": "6:00 AM–10:00 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Ullash",
+    "fromStation": "Gulistan",
+    "toStation": "Narayanganj",
+    "route": [
+      "Jatrabari",
+      "Postagola",
+      "Pagla",
+      "Fatullah"
+    ],
+    "hours": "6:00 AM–11:00 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Kalmilata",
+    "fromStation": "Gulistan",
+    "toStation": "Abdullahpur",
+    "route": [
+      "Farmgate",
+      "Banani",
+      "Khilkhet",
+      "Airport",
+      "Uttara"
+    ],
+    "hours": "6:00 AM–10:00 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Sonargaon Express",
+    "fromStation": "Gulistan",
+    "toStation": "Megnaghat",
+    "route": [
+      "Jatrabari",
+      "Chittagong Road",
+      "Madanpur"
+    ],
+    "hours": "6:00 AM–10:00 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Shetu",
+    "fromStation": "Gulistan",
+    "toStation": "Narayanganj",
+    "route": [
+      "Direct via Link Road"
+    ],
+    "hours": "6:00 AM–11:00 PM",
+    "type": "Seating"
+  },
+  {
+    "name": "Borak Paribahan",
+    "fromStation": "Gulistan",
+    "toStation": "Panchabati",
+    "route": [
+      "Motijheel",
+      "Science Lab",
+      "Postagala",
+      "Fatullah"
+    ],
+    "hours": "6:00 AM–10:30 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Meghla",
+    "fromStation": "Kalabagan",
+    "toStation": "Gawchia",
+    "route": [
+      "Shahbag",
+      "Jatrabari",
+      "Chittagong Road",
+      "Rupashi"
+    ],
+    "hours": "6:00 AM–10:00 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Rajdhani Express",
+    "fromStation": "Kamlapur",
+    "toStation": "Mohammadpur",
+    "route": [
+      "Motijheel",
+      "Shahbag",
+      "Science Lab",
+      "Kalabagan",
+      "Shyamoli"
+    ],
+    "hours": "6:00 AM–10:30 PM",
+    "type": "Semi-Seating"
+  },
+  {
+    "name": "Achim Transport",
+    "fromStation": "Gabtoli",
+    "toStation": "Demra Staff Qtr",
+    "route": [
+      "Mirpur 1",
+      "Mirpur 10",
+      "ECB Square",
+      "Kuril",
+      "Badda",
+      "Banasree"
+    ],
+    "hours": "6:00 AM–10:00 PM",
+    "type": "Semi-Seating"
+  }
+]

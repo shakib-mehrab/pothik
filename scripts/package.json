@@ -1,0 +1,27 @@
+{
+  "name": "pothik-seed-scripts",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Data seeding scripts for Pothik application",
+  "scripts": {
+    "convert": "node --loader ts-node/esm convert-csv-to-json.ts",
+    "validate": "node --loader ts-node/esm validate-data.ts",
+    "seed": "node --loader ts-node/esm seed-firestore.ts",
+    "seed-all": "seed-all.bat",
+    "seed-all:unix": "chmod +x seed-all.sh && ./seed-all.sh"
+  },
+  "dependencies": {
+    "csv-parser": "^3.0.0",
+    "xlsx": "^0.18.5",
+    "firebase-admin": "^13.6.0",
+    "zod": "^3.23.0",
+    "commander": "^12.0.0",
+    "chalk": "^5.3.0",
+    "ora": "^8.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
+}

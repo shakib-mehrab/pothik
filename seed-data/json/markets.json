@@ -1,0 +1,951 @@
+[
+  {
+    "name": "Jamuna Future Park",
+    "location": "Kuril, Dhaka",
+    "howToGo": "Near Bashundhara Residential",
+    "specialty": [
+      "Global Brands",
+      "Cinemas",
+      "Theme Park"
+    ],
+    "reviews": "South Asia's largest mall with everything under one roof [5, 27]",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 16000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Bashundhara City",
+    "location": "Panthapath, Dhaka",
+    "howToGo": "Near Karwan Bazar",
+    "specialty": [
+      "Electronics",
+      "Gadgets",
+      "Clothing"
+    ],
+    "reviews": "21-story mall, pioneer of modern shopping in BD",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 41000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "New Market",
+    "location": "Azimpur, Dhaka",
+    "howToGo": "Near Dhaka University",
+    "specialty": [
+      "Books",
+      "Saree",
+      "Household Goods"
+    ],
+    "reviews": "Historical market popular with middle-class and students [26, 27]",
+    "category": "local",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 41000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Police Plaza Concord",
+    "location": "Gulshan 1, Dhaka",
+    "howToGo": "Beside Hatirjheel",
+    "specialty": [
+      "Boutique Fashion",
+      "Imports"
+    ],
+    "reviews": "Luxurious mall with corporate offices and food courts [26, 29]",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 41000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Eastern Plaza",
+    "location": "Elephant Road, Dhaka",
+    "howToGo": "Near Hatirpool",
+    "specialty": [
+      "Mobile Phones",
+      "Servicing"
+    ],
+    "reviews": "Well known for electrical products and mobile repair [26, 29]",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 41000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Shimanto Square",
+    "location": "Dhanmondi, Dhaka",
+    "howToGo": "Near BDR Gate",
+    "specialty": [
+      "Food Courts",
+      "Gifts"
+    ],
+    "reviews": "Popular chill spot for family and friends with great food [26, 29]",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 41000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Pink City",
+    "location": "Gulshan 2, Dhaka",
+    "howToGo": "Gulshan circle",
+    "specialty": [
+      "Jewelry",
+      "Premium Saree"
+    ],
+    "reviews": "Easy to find edge-of-city mall for high-end fashion [29, 30]",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 41000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Rapa Plaza",
+    "location": "Dhanmondi 27, Dhaka",
+    "howToGo": "Near Industrial Area",
+    "specialty": [
+      "Ladies Fashion",
+      "Boutiques"
+    ],
+    "reviews": "Older established mall with diverse services [29, 30]",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 41000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Mascot Plaza",
+    "location": "Uttara, Dhaka",
+    "howToGo": "Sector 7 circle",
+    "specialty": [
+      "Gold Jewelry",
+      "Clothing"
+    ],
+    "reviews": "Popular place for locals in Uttara to shop for gold [27, 29]",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 41000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Nilkhet Book Market",
+    "location": "Nilkhet, Dhaka",
+    "howToGo": "Next to New Market",
+    "specialty": [
+      "Old Books",
+      "Rare Editions"
+    ],
+    "reviews": "Best place for any book at a low price [27]",
+    "category": "local",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 42000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Shankhari Bazar",
+    "location": "Old Dhaka",
+    "howToGo": "Near Sadarghat",
+    "specialty": [
+      "Traditional Crafts",
+      "Music Instruments"
+    ],
+    "reviews": "Narrow streets filled with historical cultural items [27]",
+    "category": "local",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 42000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Aarong",
+    "location": "Dhanmondi, Dhaka",
+    "howToGo": "Mirpur Road",
+    "specialty": [
+      "Handicrafts",
+      "Ethnic Wear"
+    ],
+    "reviews": "Premium deshi brand showcasing traditional art",
+    "category": "others",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 42000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Metro Shopping Mall",
+    "location": "Dhanmondi 32, Dhaka",
+    "howToGo": "Mirpur Road",
+    "specialty": [
+      "Computer Accessories",
+      "Mobiles"
+    ],
+    "reviews": "Well known for 4th-floor electronics and second-hand phones [5]",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 42000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Dhaka New Super Market",
+    "location": "Azimpur, Dhaka",
+    "howToGo": "Next to New Market",
+    "specialty": [
+      "Affordable Clothing",
+      "Bags"
+    ],
+    "reviews": "Vibrant market where bargaining is expected [5]",
+    "category": "local",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 42000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Baitul Mukarram",
+    "location": "Motijheel, Dhaka",
+    "howToGo": "National Mosque area",
+    "specialty": [
+      "Watches",
+      "Attar",
+      "Religious items"
+    ],
+    "reviews": "Thousands of daily shoppers and bargain hunters [5, 28]",
+    "category": "local",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 42000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Gulistan Hawkers Market",
+    "location": "Gulistan, Dhaka",
+    "howToGo": "Near Zero Point",
+    "specialty": [
+      "Cheap Garments",
+      "Surplus stock"
+    ],
+    "reviews": "Great place for low-cost everyday clothing",
+    "category": "budget",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 42000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Sundarban Square",
+    "location": "Gulistan, Dhaka",
+    "howToGo": "Beside stadium",
+    "specialty": [
+      "Electronics",
+      "Spares"
+    ],
+    "reviews": "Wholesale and retail for electrical parts",
+    "category": "budget",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 42000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Mouchak Market",
+    "location": "Malibagh, Dhaka",
+    "howToGo": "Mouchak Circle",
+    "specialty": [
+      "Jewelry",
+      "Ladies Wear"
+    ],
+    "reviews": "Traditional hub for family shopping",
+    "category": "budget",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 42000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Karnaphuli Garden City",
+    "location": "Kakrail, Dhaka",
+    "howToGo": "Beside Shantinagar",
+    "specialty": [
+      "Ladies Fashion",
+      "Office items"
+    ],
+    "reviews": "Aysha shopping complex nearby is also good",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 42000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "BCS Computer City",
+    "location": "Agargaon, Dhaka",
+    "howToGo": "Near IDB Bhaban",
+    "specialty": [
+      "Laptops",
+      "Printers",
+      "Software"
+    ],
+    "reviews": "The IT heart of Bangladesh for all tech needs",
+    "category": "budget",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 42000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Mirpur Benarasi Polli",
+    "location": "Mirpur 10, Dhaka",
+    "howToGo": "Near Benarasi Palli Gate",
+    "specialty": [
+      "Benarasi Sharees",
+      "Silk"
+    ],
+    "reviews": "Heritage area for authentic wedding sarees [28, 30]",
+    "category": "budget",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 42000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "DCC Market",
+    "location": "Gulshan 1, Dhaka",
+    "howToGo": "Gulshan 1 circle",
+    "specialty": [
+      "Imported Food",
+      "Cosmetics"
+    ],
+    "reviews": "Go-to place for foreign groceries and perfumes",
+    "category": "budget",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 42000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "North Tower",
+    "location": "Uttara, Dhaka",
+    "howToGo": "Sector 7",
+    "specialty": [
+      "International Brands",
+      "Footwear"
+    ],
+    "reviews": "Modern mall catering to the northern outskirts",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 42000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Elephant Road Market",
+    "location": "Elephant Road, Dhaka",
+    "howToGo": "Science Lab area",
+    "specialty": [
+      "Shoes",
+      "Suits",
+      "Bedsheets"
+    ],
+    "reviews": "Famous for footwear and specialized tailoring",
+    "category": "budget",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 42000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Bongo Bazar",
+    "location": "Gulistan, Dhaka",
+    "howToGo": "Near High Court",
+    "specialty": [
+      "Export Surplus",
+      "Jeans"
+    ],
+    "reviews": "Massive cluster for wholesale and bulk garments",
+    "category": "budget",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 42000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Fortune City",
+    "location": "Moghbazar, Dhaka",
+    "howToGo": "Moghbazar circle",
+    "specialty": [
+      "General Shopping"
+    ],
+    "reviews": "Convenient local mall for everyday needs",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 42000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Shoppers World",
+    "location": "Gulshan 1, Dhaka",
+    "howToGo": "Gulshan avenue",
+    "specialty": [
+      "Lifestyle",
+      "Imports"
+    ],
+    "reviews": "Elegant shopping environment",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 42000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Rajlaxmi Complex",
+    "location": "Uttara, Dhaka",
+    "howToGo": "Uttara sector 3",
+    "specialty": [
+      "General Retail"
+    ],
+    "reviews": "Core shopping point for Uttara residents [28, 30]",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 42000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Multiplan Center",
+    "location": "Elephant Road, Dhaka",
+    "howToGo": "Near Science Lab",
+    "specialty": [
+      "Computer Hardware",
+      "Accessories"
+    ],
+    "reviews": "Multi-storied IT hub for wholesalers",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 43000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Nurjahan Market",
+    "location": "New Market, Dhaka",
+    "howToGo": "Opposite Dhaka College",
+    "specialty": [
+      "Ready-made Garments",
+      "T-shirts"
+    ],
+    "reviews": "Best for students looking for cheap exports",
+    "category": "budget",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 43000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "A.R.A. Center",
+    "location": "Dhanmondi, Dhaka",
+    "howToGo": "Near Mirpur Road",
+    "specialty": [
+      "Boutique Fashion"
+    ],
+    "reviews": "Quiet mall for specific brands",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 43000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Alta Plaza",
+    "location": "Dhanmondi, Dhaka",
+    "howToGo": "Near Road 27",
+    "specialty": [
+      "Clothing",
+      "Accessories"
+    ],
+    "reviews": "Neighborhood mall with good variety",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 43000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Sheltech Sierra",
+    "location": "Dhanmondi, Dhaka",
+    "howToGo": "Near Green Road",
+    "specialty": [
+      "Electronics",
+      "General"
+    ],
+    "reviews": "Convenient for local residents",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 43000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Police Plaza Concord",
+    "location": "Gulshan, Dhaka",
+    "howToGo": "Near Hatirjheel",
+    "specialty": [
+      "Fashion",
+      "Dinning"
+    ],
+    "reviews": "Modern architecture and secure shopping",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 43000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Jabbar Tower",
+    "location": "Gulshan 1, Dhaka",
+    "howToGo": "Gulshan 1 circle circle",
+    "specialty": [
+      "Ladies Wear",
+      "Jewelry"
+    ],
+    "reviews": "Popular boutique destination [28, 30]",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 43000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Navana Tower",
+    "location": "Gulshan 1, Dhaka",
+    "howToGo": "Gulshan circle",
+    "specialty": [
+      "Lifestyle",
+      "Imports"
+    ],
+    "reviews": "High-end retail outlets",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 43000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Khaja Tower",
+    "location": "Gulshan, Dhaka",
+    "howToGo": "Near City",
+    "specialty": [
+      "Telecom",
+      "Electronics"
+    ],
+    "reviews": "Specialized for modern gadgets",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 43000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Plaza A.R.",
+    "location": "Dhanmondi, Dhaka",
+    "howToGo": "Near Mirpur Road",
+    "specialty": [
+      "Boutiques",
+      "Tailors"
+    ],
+    "reviews": "Traditional and modern clothing",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 43000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Anam Rangs Plaza",
+    "location": "Dhanmondi, Dhaka",
+    "howToGo": "Near Satmasjid Road",
+    "specialty": [
+      "High-end Lifestyle"
+    ],
+    "reviews": "Exclusive and modern",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 43000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "KB Square",
+    "location": "Dhanmondi, Dhaka",
+    "howToGo": "Near Road 15",
+    "specialty": [
+      "Food",
+      "Retail"
+    ],
+    "reviews": "Popular with the younger crowd",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 43000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Rupayan ZR Plaza",
+    "location": "Dhanmondi, Dhaka",
+    "howToGo": "Satmasjid Road",
+    "specialty": [
+      "Lifestyle",
+      "Boutiques"
+    ],
+    "reviews": "Modern and well organized",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 43000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Nizam Shopping",
+    "location": "Dhanmondi, Dhaka",
+    "howToGo": "Road 27",
+    "specialty": [
+      "General Shopping"
+    ],
+    "reviews": "Local neighborhood center",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 43000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Grand Plaza",
+    "location": "Dhanmondi, Dhaka",
+    "howToGo": "Near City",
+    "specialty": [
+      "General Shopping"
+    ],
+    "reviews": "Convenient retail",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 43000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Mowchak Tower",
+    "location": "Malibagh, Dhaka",
+    "howToGo": "Beside Mouchak Market",
+    "specialty": [
+      "Gold Jewelry",
+      "Fashion"
+    ],
+    "reviews": "Extension of the traditional hub",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 43000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Tropical Rajiha",
+    "location": "Shantinagar, Dhaka",
+    "howToGo": "Near Circle",
+    "specialty": [
+      "General Shopping"
+    ],
+    "reviews": "Local convenience",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 43000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Century Arcade",
+    "location": "Moghbazar, Dhaka",
+    "howToGo": "Near City",
+    "specialty": [
+      "Electronics",
+      "Clothing"
+    ],
+    "reviews": "Diverse and affordable",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 43000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Kornofulli Garden City",
+    "location": "Shantinagar, Dhaka",
+    "howToGo": "Beside City Heart",
+    "specialty": [
+      "Imports",
+      "Boutiques"
+    ],
+    "reviews": "High-traffic regional center",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 43000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Mirpur Shopping Center",
+    "location": "Mirpur 2, Dhaka",
+    "howToGo": "Near Stadium",
+    "specialty": [
+      "Garments",
+      "Household"
+    ],
+    "reviews": "Primary mall for Mirpur residents",
+    "category": "brands",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 44000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Farm View Super Market",
+    "location": "Farmgate, Dhaka",
+    "howToGo": "Near Bus stand",
+    "specialty": [
+      "Clothing",
+      "Daily Needs"
+    ],
+    "reviews": "Busiest transit-based market",
+    "category": "budget",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 44000000
+    },
+    "lastUpdated": "Feb 2026"
+  },
+  {
+    "name": "Biponi Bitan",
+    "location": "Chattogram",
+    "howToGo": "Near Station Road",
+    "specialty": [
+      "Traditional Saree",
+      "Crafts"
+    ],
+    "reviews": "Historical market of the port city [31]",
+    "category": "budget",
+    "status": "approved",
+    "submittedBy": "admin",
+    "submittedByName": "Admin",
+    "submittedAt": {
+      "seconds": 1770803528,
+      "nanoseconds": 44000000
+    },
+    "lastUpdated": "Feb 2026"
+  }
+]

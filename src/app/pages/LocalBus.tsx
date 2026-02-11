@@ -1,136 +1,32 @@
 import { Card } from "../components/ui/card";
-import { Bus, Clock, MapPin, Search } from "lucide-react";
+import { Bus, Clock, MapPin, Search, Navigation } from "lucide-react";
 import { Input } from "../components/ui/input";
-import { useState } from "react";
-
-interface BusRoute {
-  id: string;
-  name: string;
-  route: {
-    from: string;
-    to: string;
-  };
-  hours: string;
-  type: "Semi-Seating" | "Seating";
-}
+import { useState, useEffect } from "react";
+import { getLocalBuses } from "../../services/firestoreService";
+import type { LocalBus } from "../../types";
 
 export function LocalBus() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [busRoutes, setBusRoutes] = useState<LocalBus[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const busRoutes: BusRoute[] = [
-    {
-      id: "1",
-      name: "Achim Paribahan",
-      route: { from: "Gabtoli", to: "Demra Staff Quarter" },
-      hours: "6:00 AM–11:00 PM",
-      type: "Semi-Seating"
-    },
-    {
-      id: "2",
-      name: "Active Paribahan",
-      route: { from: "Shia Masjid", to: "Abdullahpur" },
-      hours: "6:00 AM–10:30 PM",
-      type: "Semi-Seating"
-    },
-    {
-      id: "3",
-      name: "Agradut",
-      route: { from: "Savar", to: "Notun Bazar" },
-      hours: "5:30 AM–10:30 PM",
-      type: "Semi-Seating"
-    },
-    {
-      id: "4",
-      name: "BRTC Route 1",
-      route: { from: "Madanpur", to: "Savar" },
-      hours: "6:00 AM–10:00 PM",
-      type: "Semi-Seating"
-    },
-    {
-      id: "5",
-      name: "BRTC Route 2",
-      route: { from: "Motijheel", to: "Tongi" },
-      hours: "6:00 AM–10:00 PM",
-      type: "Semi-Seating"
-    },
-    {
-      id: "6",
-      name: "Balaka",
-      route: { from: "Sayapabad", to: "Gazipur Chourasta" },
-      hours: "6:00 AM–10:00 PM",
-      type: "Seating"
-    },
-    {
-      id: "7",
-      name: "Best Satabdi",
-      route: { from: "Azimpur", to: "Dia Bari" },
-      hours: "6:00 AM–10:00 PM",
-      type: "Semi-Seating"
-    },
-    {
-      id: "8",
-      name: "Dhakar Chaka",
-      route: { from: "Banani", to: "Notun Bazar" },
-      hours: "6:00 AM–10:00 PM",
-      type: "Seating"
-    },
-    {
-      id: "9",
-      name: "Green Dhaka",
-      route: { from: "Motijheel", to: "Kuril Bishwa Road" },
-      hours: "6:00 AM–10:00 PM",
-      type: "Seating"
-    },
-    {
-      id: "10",
-      name: "Mirpur Metro Services",
-      route: { from: "Azimpur", to: "Mirpur 1" },
-      hours: "6:00 AM–10:00 PM",
-      type: "Semi-Seating"
-    },
-    {
-      id: "11",
-      name: "Nur E Makka",
-      route: { from: "Chiriyakhana", to: "Malibagh Railgate" },
-      hours: "5:30 AM–10:30 PM",
-      type: "Seating"
-    },
-    {
-      id: "12",
-      name: "Trust Transport AC",
-      route: { from: "Mirpur DOHS", to: "Kawran Bazar" },
-      hours: "6:00 AM–10:00 PM",
-      type: "Semi-Seating"
-    },
-    {
-      id: "13",
-      name: "Welcome",
-      route: { from: "Nandan Park", to: "Motijheel" },
-      hours: "5:30 AM–10:30 PM",
-      type: "Semi-Seating"
-    },
-    {
-      id: "14",
-      name: "6 No. (Motijheel-Banani)",
-      route: { from: "Kamalapur", to: "Notun Bazar" },
-      hours: "6:00 AM–10:00 PM",
-      type: "Semi-Seating"
-    },
-    {
-      id: "15",
-      name: "8 No.",
-      route: { from: "Jatrabari", to: "Gabtoli" },
-      hours: "6:00 AM–10:00 PM",
-      type: "Semi-Seating"
+  useEffect(() => {
+    async function fetchBuses() {
+      setLoading(true);
+      const buses = await getLocalBuses();
+      setBusRoutes(buses as LocalBus[]);
+      setLoading(false);
     }
-  ];
+    fetchBuses();
+  }, []);
 
   const filteredRoutes = busRoutes.filter((route) => {
     const query = searchQuery.toLowerCase();
     return (
       route.name.toLowerCase().includes(query) ||
-      route.route.from.toLowerCase().includes(query) ||
-      route.route.to.toLowerCase().includes(query)
+      route.fromStation.toLowerCase().includes(query) ||
+      route.toStation.toLowerCase().includes(query) ||
+      route.route.some((stop) => stop.toLowerCase().includes(query))
     );
   });
 
@@ -181,9 +77,9 @@ export function LocalBus() {
               <Bus className="w-4 h-4 text-transport" />
             </div>
             <div>
-              <h3 className="font-semibold text-sm mb-1">200+ Bus Services</h3>
+              <h3 className="font-semibold text-sm mb-1">{busRoutes.length}+ Bus Services</h3>
               <p className="text-xs text-muted-foreground">
-                Data sourced from dhakabusservice.com - Operating hours may vary by situation and route
+                Complete route information with all stops - Operating hours may vary
               </p>
             </div>
           </div>
@@ -193,12 +89,18 @@ export function LocalBus() {
       {/* Bus Routes List */}
       <div className="px-6 mb-8">
         <h2 className="text-lg font-semibold mb-4 text-foreground">
-          {filteredRoutes.length === busRoutes.length
+          {loading
+            ? "Loading..."
+            : filteredRoutes.length === busRoutes.length
             ? "All Bus Services"
             : `${filteredRoutes.length} Service${filteredRoutes.length !== 1 ? "s" : ""} Found`}
         </h2>
         <div className="space-y-3">
-          {filteredRoutes.length === 0 ? (
+          {loading ? (
+            <Card className="p-8 text-center">
+              <p className="text-muted-foreground">Loading bus routes...</p>
+            </Card>
+          ) : filteredRoutes.length === 0 ? (
             <Card className="p-8 text-center">
               <p className="text-muted-foreground">No bus routes found matching your search.</p>
             </Card>
@@ -212,13 +114,23 @@ export function LocalBus() {
                   <div className="flex-1 min-w-0">
                     <h3 className="font-semibold text-base mb-1">{route.name}</h3>
 
-                    {/* Route */}
+                    {/* From-To Route */}
                     <div className="flex items-center gap-2 mb-2">
                       <MapPin className="w-4 h-4 text-muted-foreground flex-shrink-0" />
                       <p className="text-sm text-foreground">
-                        {route.route.from} → {route.route.to}
+                        {route.fromStation} → {route.toStation}
                       </p>
                     </div>
+
+                    {/* Full Route Stops */}
+                    {route.route && route.route.length > 0 && (
+                      <div className="flex items-start gap-2 mb-2">
+                        <Navigation className="w-4 h-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+                        <p className="text-xs text-muted-foreground">
+                          {route.route.join(' → ')}
+                        </p>
+                      </div>
+                    )}
 
                     {/* Operating Hours & Type */}
                     <div className="flex items-center gap-4 flex-wrap">
@@ -247,15 +159,7 @@ export function LocalBus() {
       {/* Footer Note */}
       <div className="px-6 pb-8">
         <p className="text-xs text-center text-muted-foreground">
-          Want to add more routes?{" "}
-          <a
-            href="https://dhakabusservice.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-transport hover:underline"
-          >
-            Visit dhakabusservice.com
-          </a>
+          Routes are updated regularly from various sources
         </p>
       </div>
     </div>

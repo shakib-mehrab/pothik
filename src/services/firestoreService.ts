@@ -415,7 +415,7 @@ export async function deleteTour(tourId: string): Promise<void> {
 
 // ==================== Submissions (for admin) ====================
 
-export async function getPendingSubmissions(type?: 'restaurant' | 'hotel' | 'market') {
+export async function getPendingSubmissions(type?: 'restaurant' | 'hotel' | 'market'): Promise<any[]> {
   try {
     let q;
     if (type === 'restaurant') {
@@ -438,11 +438,9 @@ export async function getPendingSubmissions(type?: 'restaurant' | 'hotel' | 'mar
       );
     } else {
       // Get all pending submissions
-      const [restaurants, hotels, markets] = await Promise.all([
-        getPendingSubmissions('restaurant'),
-        getPendingSubmissions('hotel'),
-        getPendingSubmissions('market'),
-      ]);
+      const restaurants = await getPendingSubmissions('restaurant');
+      const hotels = await getPendingSubmissions('hotel');
+      const markets = await getPendingSubmissions('market');
       return [...restaurants, ...hotels, ...markets];
     }
 
@@ -453,3 +451,39 @@ export async function getPendingSubmissions(type?: 'restaurant' | 'hotel' | 'mar
     return [];
   }
 }
+
+// ==================== Transport Services ====================
+
+export async function getLocalBuses() {
+  try {
+    const q = query(collection(db, 'localBuses'));
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    console.error('Error fetching local buses:', error);
+    return [];
+  }
+}
+
+export async function getLongDistanceBuses() {
+  try {
+    const q = query(collection(db, 'longDistanceBuses'));
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    console.error('Error fetching long distance buses:', error);
+    return [];
+  }
+}
+
+export async function getTrainSchedules() {
+  try {
+    const q = query(collection(db, 'trainSchedules'));
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    console.error('Error fetching train schedules:', error);
+    return [];
+  }
+}
+
