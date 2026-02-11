@@ -87,6 +87,12 @@ export function Home() {
     <div className="min-h-screen bg-background">
       {/* Header with Rickshaw Art Pattern */}
       <div className="bg-gradient-to-br from-primary to-primary/80 px-6 pt-6 pb-12 relative overflow-hidden">
+        {/* Header Image - Full Cover */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-60"
+          style={{ backgroundImage: 'url(/header.svg)' }}
+        />
+
         {/* Decorative Pattern */}
         <div className="absolute inset-0 opacity-10">
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">

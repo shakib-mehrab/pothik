@@ -199,8 +199,26 @@ export function Restaurants() {
   return (
     <div className="min-h-screen bg-background pb-8">
       {/* Header */}
-      <div className="bg-gradient-to-br from-food to-food/80 px-6 pt-6 pb-6 sticky top-0 z-10 shadow-sm">
-        <div className="flex items-center justify-between mb-2">
+      <div className="bg-gradient-to-br from-food to-food/80 px-6 pt-6 pb-6 sticky top-0 z-10 shadow-sm relative overflow-hidden">
+        {/* Decorative Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="header-pattern-restaurants" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                <circle cx="10" cy="10" r="2" fill="white" />
+                <circle cx="30" cy="30" r="2" fill="white" />
+                <path d="M10 10 L30 30 M30 10 L10 30" stroke="white" strokeWidth="0.5" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#header-pattern-restaurants)" />
+          </svg>
+        </div>
+        {/* Header Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-30"
+          style={{ backgroundImage: 'url(/header1.svg)' }}
+        />
+        <div className="relative flex items-center justify-between mb-2">
           <div>
             <h1 className="text-2xl font-bold text-white mb-1">খাই দাই</h1>
             <p className="text-white/90 text-sm">Restaurants Directory</p>

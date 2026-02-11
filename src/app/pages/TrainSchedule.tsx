@@ -77,6 +77,11 @@ export function TrainSchedule() {
             <rect width="100%" height="100%" fill="url(#train-pattern)" />
           </svg>
         </div>
+        {/* Header Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-30"
+          style={{ backgroundImage: 'url(/header1.svg)' }}
+        />
 
         <div className="relative flex items-center justify-between mb-8">
           <div>
