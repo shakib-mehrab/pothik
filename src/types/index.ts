@@ -39,6 +39,7 @@ export interface Hotel {
   id: string;
   name: string;
   location: string;
+  minimumBudget: string;
   howToGo: string;
   coupleFriendly: boolean;
   documentsNeeded: string[];
@@ -219,6 +220,7 @@ export interface RestaurantFormData {
 export interface HotelFormData {
   name: string;
   location: string;
+  minimumBudget: string;
   howToGo: string;
   coupleFriendly: boolean;
   facebookPage: string;
@@ -239,4 +241,41 @@ export interface TravelGuideFormData {
   mustVisitPlaces: string[];
   recommendedHotels: string[];
   howToGo: string;
+}
+
+// ==================== Engagement Types ====================
+export interface EngagementSummary {
+  likesCount: number;
+  dislikesCount: number;
+  commentsCount: number;
+}
+
+export interface LikeDislike {
+  userId: string;
+  displayName: string;
+  createdAt: Date;
+}
+
+export interface Comment {
+  id: string;
+  userId: string;
+  displayName: string;
+  photoURL?: string;
+  contentType: 'restaurant' | 'hotel' | 'market';
+  contentId: string;
+  text: string;
+  createdAt: Date;
+  updatedAt: Date;
+  isEdited: boolean;
+  editHistory?: CommentEdit[];
+}
+
+export interface CommentEdit {
+  text: string;
+  editedAt: Date;
+}
+
+export interface UserEngagement {
+  hasLiked: boolean;
+  hasDisliked: boolean;
 }

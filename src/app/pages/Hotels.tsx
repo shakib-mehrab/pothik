@@ -18,7 +18,7 @@ import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Textarea } from "../components/ui/textarea";
 import { Checkbox } from "../components/ui/checkbox";
-import { MapPin, Star, Navigation, Plus, X, ChevronDown, Facebook, Heart, FileText, Loader2, Edit2, Trash2, LogIn, User, LogOut, Shield, Search } from "lucide-react";
+import { MapPin, Star, Navigation, Plus, X, Facebook, Heart, FileText, Loader2, Edit2, Trash2, LogIn, User, LogOut, Shield, Search, ChevronDown } from "lucide-react";
 import { Link, useNavigate } from "react-router";
 import { useAuth } from "../../contexts/AuthContext";
 import { signOut as firebaseSignOut } from "../../services/authService";
@@ -30,6 +30,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../components/ui/dropdown-menu";
+import { EngagementSection } from "../components/EngagementSection";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { getHotels, submitHotel, updateHotel, deleteHotel } from "../../services/firestoreService";
 import { Hotel } from "../../types";
@@ -55,7 +56,6 @@ export function Hotels() {
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [expandedCard, setExpandedCard] = useState<string | null>(null);
   const [documentInput, setDocumentInput] = useState("");
   const [documents, setDocuments] = useState<string[]>(["এনআইডি"]);
   const [hotels, setHotels] = useState<Hotel[]>([]);
@@ -64,10 +64,16 @@ export function Hotels() {
   const [editingHotel, setEditingHotel] = useState<Hotel | null>(null);
   const [deletingHotel, setDeletingHotel] = useState<Hotel | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [expandedCard, setExpandedCard] = useState<string | null>(null);
+
+  const toggleCard = (id: string) => {
+    setExpandedCard(expandedCard === id ? null : id);
+  };
 
   const [formData, setFormData] = useState({
     name: "",
     location: "",
+    minimumBudget: "",
     howToGo: "",
     coupleFriendly: false,
     facebookPage: "",
@@ -95,10 +101,6 @@ export function Hotels() {
     { value: "hotel" as const, label: "হোটেল" },
     { value: "resort" as const, label: "রিসোর্ট" },
   ];
-
-  const toggleCard = (id: string) => {
-    setExpandedCard(expandedCard === id ? null : id);
-  };
 
   const handleAddDocument = () => {
     if (documentInput.trim() && !documents.includes(documentInput.trim())) {
@@ -132,6 +134,7 @@ export function Hotels() {
       setFormData({
         name: "",
         location: "",
+        minimumBudget: "",
         howToGo: "",
         coupleFriendly: false,
         facebookPage: "",
@@ -155,6 +158,7 @@ export function Hotels() {
     setFormData({
       name: hotel.name,
       location: hotel.location,
+      minimumBudget: hotel.minimumBudget || "",
       howToGo: hotel.howToGo,
       coupleFriendly: hotel.coupleFriendly || false,
       facebookPage: hotel.facebookPage || "",
@@ -181,6 +185,7 @@ export function Hotels() {
       setFormData({
         name: "",
         location: "",
+        minimumBudget: "",
         howToGo: "",
         coupleFriendly: false,
         facebookPage: "",
@@ -368,6 +373,17 @@ export function Hotels() {
               </div>
 
               <div>
+                <Label className="text-xs font-medium">মিনিমাম বাজেট *</Label>
+                <Input
+                  required
+                  placeholder="যেমন: ৳১৫০০/রাত বা ৳২০০০-৩০০০"
+                  value={formData.minimumBudget}
+                  onChange={(e) => setFormData({ ...formData, minimumBudget: e.target.value })}
+                  className="mt-1 h-9 text-sm"
+                />
+              </div>
+
+              <div>
                 <Label className="text-xs font-medium">যেভাবে যাবেন</Label>
                 <Textarea
                   placeholder="যেমন: মেট্রো: উত্তরা সেন্টার স্টেশন, হেঁটে ৫ মিনিট"
@@ -490,6 +506,17 @@ export function Hotels() {
                 required
                 value={formData.location}
                 onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                className="mt-1 h-9 text-sm"
+              />
+            </div>
+
+            <div>
+              <Label className="text-xs font-medium">মিনিমাম বাজেট *</Label>
+              <Input
+                required
+                placeholder="যেমন: ৳১৫০০/রাত বা ৳২০০০-৩০০০"
+                value={formData.minimumBudget}
+                onChange={(e) => setFormData({ ...formData, minimumBudget: e.target.value })}
                 className="mt-1 h-9 text-sm"
               />
             </div>
@@ -640,65 +667,52 @@ export function Hotels() {
                   );
                 })
                 .map((hotel) => {
-            const isExpanded = expandedCard === hotel.id;
-
             return (
               <Card
                 key={hotel.id}
-                className="p-2.5 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
-                onClick={() => toggleCard(hotel.id)}
+                className="p-2 shadow-sm hover:shadow-md transition-shadow"
               >
-                {/* Always Visible - Header */}
-                <div className="mb-2">
-                  <h3 className="font-semibold text-sm line-clamp-1">{hotel.name}</h3>
-                  {hotel.coupleFriendly && (
-                    <div className="flex items-center gap-1 mt-1">
-                      <Heart className="w-3 h-3 text-red-500 fill-red-500" />
-                      <span className="text-[10px] text-muted-foreground">কাপল ফ্রেন্ডলি</span>
+                {/* Header - Always Visible */}
+                <div className="flex items-start justify-between gap-2 mb-1">
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-sm line-clamp-1">{hotel.name}</h3>
+                    {hotel.coupleFriendly && (
+                      <div className="flex items-center gap-0.5 bg-red-50 px-1 py-0.5 rounded mt-0.5 w-fit">
+                        <Heart className="w-2.5 h-2.5 text-red-500 fill-red-500 flex-shrink-0" />
+                        <span className="text-[9px] text-red-600">Couple Friendly</span>
+                      </div>
+                    )}
+                    <div className="flex items-start gap-1 mt-1">
+                      <MapPin className="w-3 h-3 text-muted-foreground flex-shrink-0 mt-0.5" />
+                      <p className="text-[11px] text-muted-foreground line-clamp-1">{hotel.location}</p>
                     </div>
-                  )}
-                </div>
-
-                {/* Always Visible - Location */}
-                <div className="flex items-start gap-1 mb-2">
-                  <MapPin className="w-3 h-3 text-muted-foreground flex-shrink-0 mt-0.5" />
-                  <p className="text-[11px] text-muted-foreground line-clamp-1">{hotel.location}</p>
-                </div>
-
-                {/* Always Visible - Documents */}
-                <div className="mb-2">
-                  <div className="flex flex-wrap gap-1">
-                    {hotel.documentsNeeded.slice(0, 2).map((doc, idx) => (
-                      <Badge key={idx} variant="outline" className="text-[9px] px-1.5 py-0 leading-4 bg-blue-50 text-blue-700 border-blue-200">
-                        <FileText className="w-2.5 h-2.5 mr-0.5" />
-                        {doc}
-                      </Badge>
-                    ))}
-                    {hotel.documentsNeeded.length > 2 && (
-                      <Badge variant="outline" className="text-[9px] px-1.5 py-0 leading-4">
-                        +{hotel.documentsNeeded.length - 2}
-                      </Badge>
+                    {hotel.minimumBudget && (
+                      <div className="flex items-center gap-1 mt-0.5">
+                        <span className="text-[10px] text-primary font-medium">মিনিমাম বাজেটঃ {hotel.minimumBudget} ৳</span>
+                      </div>
                     )}
                   </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-6 w-6 p-0 flex-shrink-0"
+                    onClick={() => toggleCard(hotel.id)}
+                  >
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform ${expandedCard === hotel.id ? 'rotate-180' : ''}`}
+                    />
+                  </Button>
                 </div>
 
                 {/* Expandable Content */}
-                {isExpanded && (
-                  <div className="space-y-2 mt-2 pt-2 border-t border-border/50">
-                    {/* How to Go */}
-                    {hotel.howToGo && (
-                      <div className="flex items-start gap-1">
-                        <Navigation className="w-3 h-3 text-hotels flex-shrink-0 mt-0.5" />
-                        <p className="text-[11px] text-foreground">{hotel.howToGo}</p>
-                      </div>
-                    )}
-
-                    {/* All Documents when expanded */}
-                    {hotel.documentsNeeded.length > 2 && (
+                {expandedCard === hotel.id && (
+                  <>
+                    {/* Documents */}
+                    {hotel.documentsNeeded.length > 0 && (
                       <div>
-                        <p className="text-[10px] text-muted-foreground mb-1">সকল কাগজপত্র:</p>
-                        <div className="flex flex-wrap gap-1">
-                          {hotel.documentsNeeded.slice(2).map((doc, idx) => (
+                        <p className="text-[10px] text-muted-foreground mb-0.5">প্রয়োজনীয় কাগজপত্র:</p>
+                        <div className="flex flex-wrap gap-1 mb-1">
+                          {hotel.documentsNeeded.map((doc, idx) => (
                             <Badge key={idx} variant="outline" className="text-[9px] px-1.5 py-0 leading-4 bg-blue-50 text-blue-700 border-blue-200">
                               <FileText className="w-2.5 h-2.5 mr-0.5" />
                               {doc}
@@ -708,9 +722,17 @@ export function Hotels() {
                       </div>
                     )}
 
+                    {/* How to Go */}
+                    {hotel.howToGo && (
+                      <div className="flex items-start gap-1 mb-1">
+                        <Navigation className="w-3 h-3 text-hotels flex-shrink-0 mt-0.5" />
+                        <p className="text-[11px] text-foreground line-clamp-2">{hotel.howToGo}</p>
+                      </div>
+                    )}
+
                     {/* Facebook Page */}
                     {hotel.facebookPage && (
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-center gap-1 mb-1">
                         <Facebook className="w-3 h-3 text-blue-600 flex-shrink-0" />
                         <a
                           href={`https://${hotel.facebookPage}`}
@@ -726,52 +748,56 @@ export function Hotels() {
 
                     {/* Reviews */}
                     {hotel.reviews && (
-                      <div className="bg-muted/50 rounded p-2">
-                        <p className="text-[10px] text-muted-foreground mb-1">রিভিউ:</p>
-                        <p className="text-[11px] text-foreground/80">{hotel.reviews}</p>
+                      <div className="bg-muted/50 rounded p-1 mb-1">
+                        <p className="text-[10px] text-muted-foreground mb-0.5">রিভিউ:</p>
+                        <p className="text-[11px] text-foreground/80 line-clamp-2">{hotel.reviews}</p>
                       </div>
                     )}
 
+                    {/* Engagement Section */}
+                    <div className="mb-0.5">
+                      <EngagementSection contentType="hotels" contentId={hotel.id} />
+                    </div>
+
                     {/* Admin Actions */}
                     {userData?.role === 'admin' && (
-                      <div className="flex gap-2 pt-2 border-t border-border/50">
+                      <div className="flex gap-2 mb-1 pb-1 border-b border-border/50">
                         <Button
                           size="sm"
                           variant="outline"
-                          className="h-7 text-xs flex-1"
-                          onClick={(e) => handleEdit(hotel, e)}
+                          className="h-6 text-[10px] flex-1 px-1"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleEdit(hotel, e);
+                          }}
                         >
-                          <Edit2 className="w-3 h-3 mr-1" />
+                          <Edit2 className="w-3 h-3 mr-0.5" />
                           Edit
                         </Button>
                         <Button
                           size="sm"
                           variant="destructive"
-                          className="h-7 text-xs flex-1"
-                          onClick={(e) => handleDelete(hotel, e)}
+                          className="h-6 text-[10px] flex-1 px-1"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDelete(hotel, e);
+                          }}
                         >
-                          <Trash2 className="w-3 h-3 mr-1" />
+                          <Trash2 className="w-3 h-3 mr-0.5" />
                           Delete
                         </Button>
                       </div>
                     )}
-                  </div>
-                )}
 
-                {/* Footer */}
-                <div className="flex items-center justify-between pt-2 mt-2 border-t border-border/50">
-                  <span className="text-[9px] bg-hotels/10 text-hotels px-1.5 py-0.5 rounded font-medium">
-                    ✓ Verified
-                  </span>
-                  <div className="flex items-center gap-1">
-                    <span className="text-[9px] text-muted-foreground">{hotel.lastUpdated}</span>
-                    <ChevronDown
-                      className={`w-3 h-3 text-muted-foreground transition-transform ${
-                        isExpanded ? 'rotate-180' : ''
-                      }`}
-                    />
-                  </div>
-                </div>
+                    {/* Footer */}
+                    <div className="flex items-center justify-between">
+                      <span className="text-[9px] bg-hotels/10 text-hotels px-1.5 py-0.5 rounded font-medium">
+                        ✓ Verified
+                      </span>
+                      <span className="text-[9px] text-muted-foreground">{hotel.lastUpdated}</span>
+                    </div>
+                  </>
+                )}
               </Card>
             );
           })}

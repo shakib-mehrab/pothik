@@ -17,7 +17,7 @@ import {
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Textarea } from "../components/ui/textarea";
-import { MapPin, Clock, Star, Navigation, Plus, X, ChevronDown, Loader2, Edit2, Trash2, LogIn, User, LogOut, Shield, Search } from "lucide-react";
+import { MapPin, Clock, Star, Navigation, Plus, X, Loader2, Edit2, Trash2, LogIn, User, LogOut, Shield, Search, ChevronDown } from "lucide-react";
 import { Link, useNavigate } from "react-router";
 import { useAuth } from "../../contexts/AuthContext";
 import { signOut as firebaseSignOut } from "../../services/authService";
@@ -29,6 +29,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../components/ui/dropdown-menu";
+import { EngagementSection } from "../components/EngagementSection";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { getMarkets, submitMarket, updateMarket, deleteMarket } from "../../services/firestoreService";
 import { Market } from "../../types";
@@ -56,13 +57,26 @@ export function Markets() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [specialtyInput, setSpecialtyInput] = useState("");
   const [specialties, setSpecialties] = useState<string[]>([]);
-  const [expandedCard, setExpandedCard] = useState<string | null>(null);
   const [markets, setMarkets] = useState<Market[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [editingMarket, setEditingMarket] = useState<Market | null>(null);
   const [deletingMarket, setDeletingMarket] = useState<Market | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [expandedCard, setExpandedCard] = useState<string | null>(null);
+  const [expandedSpecialties, setExpandedSpecialties] = useState<string[]>([]);
+
+  const toggleCard = (id: string) => {
+    setExpandedCard(expandedCard === id ? null : id);
+  };
+
+  const toggleSpecialties = (marketId: string) => {
+    setExpandedSpecialties(prev =>
+      prev.includes(marketId)
+        ? prev.filter(id => id !== marketId)
+        : [...prev, marketId]
+    );
+  };
 
   const [formData, setFormData] = useState({
     name: "",
@@ -94,10 +108,6 @@ export function Markets() {
     { value: "budget" as const, label: "সাশ্রয়ী" },
     { value: "others" as const, label: "অন্যান্য" },
   ];
-
-  const toggleCard = (id: string) => {
-    setExpandedCard(expandedCard === id ? null : id);
-  };
 
   const handleAddSpecialty = () => {
     if (specialtyInput.trim()) {
@@ -586,103 +596,122 @@ export function Markets() {
                   );
                 })
                 .map((market) => {
-            const isExpanded = expandedCard === market.id;
-
             return (
               <Card
                 key={market.id}
-                className="p-2.5 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
-                onClick={() => toggleCard(market.id)}
+                className="p-2 shadow-sm hover:shadow-md transition-shadow"
               >
-                {/* Always Visible - Header */}
-                <div className="mb-2">
-                  <h3 className="font-semibold text-sm line-clamp-1">{market.name}</h3>
-                </div>
-
-                {/* Always Visible - Location */}
-                <div className="flex items-start gap-1 mb-2">
-                  <MapPin className="w-3 h-3 text-muted-foreground flex-shrink-0 mt-0.5" />
-                  <p className="text-[11px] text-muted-foreground line-clamp-1">{market.location}</p>
-                </div>
-
-                {/* Always Visible - Specialties (compact) */}
-                <div className="mb-2">
-                  <div className="flex flex-wrap gap-1">
-                    {market.specialty.slice(0, 2).map((item, idx) => (
-                      <Badge key={idx} variant="secondary" className="text-[9px] px-1.5 py-0 leading-4">
-                        {item}
-                      </Badge>
-                    ))}
-                    {market.specialty.length > 2 && (
-                      <Badge variant="secondary" className="text-[9px] px-1.5 py-0 leading-4">
-                        +{market.specialty.length - 2}
-                      </Badge>
+                {/* Header - Always Visible */}
+                <div className="flex items-start justify-between gap-2 mb-1">
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-sm line-clamp-1">{market.name}</h3>
+                    {/* Specialties */}
+                    {market.specialty.length > 0 && (
+                      <div className="mt-0.5">
+                        <div className="flex flex-wrap gap-1">
+                          {(expandedSpecialties.includes(market.id)
+                            ? market.specialty
+                            : market.specialty.slice(0, 3)
+                          ).map((item, idx) => (
+                            <Badge key={idx} variant="secondary" className="text-[9px] px-1.5 py-0 leading-4">
+                              {item}
+                            </Badge>
+                          ))}
+                          {market.specialty.length > 3 && !expandedSpecialties.includes(market.id) && (
+                            <Badge
+                              variant="secondary"
+                              className="text-[9px] px-1.5 py-0 leading-4 cursor-pointer bg-primary/10 hover:bg-primary/20"
+                              onClick={() => toggleSpecialties(market.id)}
+                            >
+                              +{market.specialty.length - 3} more
+                            </Badge>
+                          )}
+                          {expandedSpecialties.includes(market.id) && market.specialty.length > 3 && (
+                            <Badge
+                              variant="secondary"
+                              className="text-[9px] px-1.5 py-0 leading-4 cursor-pointer bg-primary/10 hover:bg-primary/20"
+                              onClick={() => toggleSpecialties(market.id)}
+                            >
+                              show less
+                            </Badge>
+                          )}
+                        </div>
+                      </div>
                     )}
+                    <div className="flex items-start gap-1 mt-1">
+                      <MapPin className="w-3 h-3 text-muted-foreground flex-shrink-0 mt-0.5" />
+                      <p className="text-[11px] text-muted-foreground line-clamp-1">{market.location}</p>
+                    </div>
                   </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-6 w-6 p-0 flex-shrink-0"
+                    onClick={() => toggleCard(market.id)}
+                  >
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform ${expandedCard === market.id ? 'rotate-180' : ''}`}
+                    />
+                  </Button>
                 </div>
 
                 {/* Expandable Content */}
-                {isExpanded && (
-                  <div className="space-y-2 mt-2 pt-2 border-t border-border/50">
+                {expandedCard === market.id && (
+                  <>
                     {/* How to Go */}
-                    <div className="flex items-start gap-1">
-                      <Navigation className="w-3 h-3 text-primary flex-shrink-0 mt-0.5" />
-                      <p className="text-[11px] text-foreground">{market.howToGo}</p>
-                    </div>
-
-                    {/* Specialties Preview */}
-
-                    {/* All Specialties when expanded */}
-                    {market.specialty.length > 2 && (
-                      <div className="flex flex-wrap gap-1">
-                        {market.specialty.slice(2).map((item, idx) => (
-                          <Badge key={idx} variant="secondary" className="text-[9px] px-1.5 py-0 leading-4">
-                            {item}
-                          </Badge>
-                        ))}
+                    {market.howToGo && (
+                      <div className="mb-0.5">
+                        <div className="flex items-start gap-1">
+                          <Navigation className="w-3 h-3 text-primary flex-shrink-0 mt-0.5" />
+                          <p className="text-[11px] text-foreground line-clamp-2">{market.howToGo}</p>
+                        </div>
                       </div>
                     )}
 
+                    {/* Engagement Section */}
+                    <div className="mb-0.5">
+                      <EngagementSection contentType="markets" contentId={market.id} />
+                    </div>
+
                     {/* Admin Actions */}
                     {userData?.role === 'admin' && (
-                      <div className="flex gap-2 pt-2 border-t border-border/50">
+                      <div className="flex gap-2 mb-1 pb-1 border-b border-border/50">
                         <Button
                           size="sm"
                           variant="outline"
-                          className="h-7 text-xs flex-1"
-                          onClick={(e) => handleEdit(market, e)}
+                          className="h-6 text-[10px] flex-1 px-1"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleEdit(market, e);
+                          }}
                         >
-                          <Edit2 className="w-3 h-3 mr-1" />
+                          <Edit2 className="w-3 h-3 mr-0.5" />
                           Edit
                         </Button>
                         <Button
                           size="sm"
                           variant="destructive"
-                          className="h-7 text-xs flex-1"
-                          onClick={(e) => handleDelete(market, e)}
+                          className="h-6 text-[10px] flex-1 px-1"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDelete(market, e);
+                          }}
                         >
-                          <Trash2 className="w-3 h-3 mr-1" />
+                          <Trash2 className="w-3 h-3 mr-0.5" />
                           Delete
                         </Button>
                       </div>
                     )}
-                  </div>
-                )}
 
-                {/* Footer */}
-                <div className="flex items-center justify-between pt-2 mt-2 border-t border-border/50">
-                  <span className="text-[9px] bg-primary/10 text-primary px-1.5 py-0.5 rounded font-medium">
-                    ✓ Verified
-                  </span>
-                  <div className="flex items-center gap-1">
-                    <span className="text-[9px] text-muted-foreground">{market.lastUpdated}</span>
-                    <ChevronDown
-                      className={`w-3 h-3 text-muted-foreground transition-transform ${
-                        isExpanded ? 'rotate-180' : ''
-                      }`}
-                    />
-                  </div>
-                </div>
+                    {/* Footer */}
+                    <div className="flex items-center justify-between">
+                      <span className="text-[9px] bg-primary/10 text-primary px-1.5 py-0.5 rounded font-medium">
+                        ✓ Verified
+                      </span>
+                      <span className="text-[9px] text-muted-foreground">{market.lastUpdated}</span>
+                    </div>
+                  </>
+                )}
               </Card>
             );
           })}

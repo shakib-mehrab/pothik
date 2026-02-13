@@ -41,8 +41,8 @@ service cloud.firestore {
     // ==================== Restaurants Collection ====================
     match /restaurants/{restaurantId} {
       // Public read for approved restaurants, or users can read their own submissions
-      allow read: if resource.data.status == 'approved' || 
-                    isAdmin() || 
+      allow read: if resource.data.status == 'approved' ||
+                    isAdmin() ||
                     isOwner(resource.data.submittedBy);
 
       // Authenticated users can create (status must be 'pending')
@@ -58,13 +58,50 @@ service cloud.firestore {
 
       // Only admins can delete
       allow delete: if isAdmin();
+
+      // ==================== Engagement Subcollections ====================
+      match /engagement/summary {
+        allow read: if true;
+        // Allow authenticated users to update counters via batch operations
+        allow create, update: if isAuthenticated();
+        allow delete: if false;
+      }
+
+      match /likes/{userId} {
+        allow read: if true;
+        allow create: if isAuthenticated() && request.auth.uid == userId;
+        allow delete: if isAuthenticated() && request.auth.uid == userId;
+        allow update: if false;
+      }
+
+      match /dislikes/{userId} {
+        allow read: if true;
+        allow create: if isAuthenticated() && request.auth.uid == userId;
+        allow delete: if isAuthenticated() && request.auth.uid == userId;
+        allow update: if false;
+      }
+
+      match /comments/{commentId} {
+        allow read: if true;
+        allow create: if isAuthenticated() &&
+                        request.resource.data.userId == request.auth.uid &&
+                        request.resource.data.text.size() > 0 &&
+                        request.resource.data.text.size() <= 1000;
+        allow update: if isAuthenticated() &&
+                        resource.data.userId == request.auth.uid &&
+                        request.resource.data.userId == resource.data.userId &&
+                        request.resource.data.text.size() > 0 &&
+                        request.resource.data.text.size() <= 1000;
+        allow delete: if isAuthenticated() &&
+                        (resource.data.userId == request.auth.uid || isAdmin());
+      }
     }
 
     // ==================== Hotels Collection ====================
     match /hotels/{hotelId} {
       // Public read for approved hotels, or users can read their own submissions
-      allow read: if resource.data.status == 'approved' || 
-                    isAdmin() || 
+      allow read: if resource.data.status == 'approved' ||
+                    isAdmin() ||
                     isOwner(resource.data.submittedBy);
 
       // Authenticated users can create (status must be 'pending')
@@ -80,13 +117,50 @@ service cloud.firestore {
 
       // Only admins can delete
       allow delete: if isAdmin();
+
+      // ==================== Engagement Subcollections ====================
+      match /engagement/summary {
+        allow read: if true;
+        // Allow authenticated users to update counters via batch operations
+        allow create, update: if isAuthenticated();
+        allow delete: if false;
+      }
+
+      match /likes/{userId} {
+        allow read: if true;
+        allow create: if isAuthenticated() && request.auth.uid == userId;
+        allow delete: if isAuthenticated() && request.auth.uid == userId;
+        allow update: if false;
+      }
+
+      match /dislikes/{userId} {
+        allow read: if true;
+        allow create: if isAuthenticated() && request.auth.uid == userId;
+        allow delete: if isAuthenticated() && request.auth.uid == userId;
+        allow update: if false;
+      }
+
+      match /comments/{commentId} {
+        allow read: if true;
+        allow create: if isAuthenticated() &&
+                        request.resource.data.userId == request.auth.uid &&
+                        request.resource.data.text.size() > 0 &&
+                        request.resource.data.text.size() <= 1000;
+        allow update: if isAuthenticated() &&
+                        resource.data.userId == request.auth.uid &&
+                        request.resource.data.userId == resource.data.userId &&
+                        request.resource.data.text.size() > 0 &&
+                        request.resource.data.text.size() <= 1000;
+        allow delete: if isAuthenticated() &&
+                        (resource.data.userId == request.auth.uid || isAdmin());
+      }
     }
 
     // ==================== Markets Collection ====================
     match /markets/{marketId} {
       // Public read for approved markets, or users can read their own submissions
-      allow read: if resource.data.status == 'approved' || 
-                    isAdmin() || 
+      allow read: if resource.data.status == 'approved' ||
+                    isAdmin() ||
                     isOwner(resource.data.submittedBy);
 
       // Authenticated users can create (status must be 'pending')
@@ -102,6 +176,43 @@ service cloud.firestore {
 
       // Only admins can delete
       allow delete: if isAdmin();
+
+      // ==================== Engagement Subcollections ====================
+      match /engagement/summary {
+        allow read: if true;
+        // Allow authenticated users to update counters via batch operations
+        allow create, update: if isAuthenticated();
+        allow delete: if false;
+      }
+
+      match /likes/{userId} {
+        allow read: if true;
+        allow create: if isAuthenticated() && request.auth.uid == userId;
+        allow delete: if isAuthenticated() && request.auth.uid == userId;
+        allow update: if false;
+      }
+
+      match /dislikes/{userId} {
+        allow read: if true;
+        allow create: if isAuthenticated() && request.auth.uid == userId;
+        allow delete: if isAuthenticated() && request.auth.uid == userId;
+        allow update: if false;
+      }
+
+      match /comments/{commentId} {
+        allow read: if true;
+        allow create: if isAuthenticated() &&
+                        request.resource.data.userId == request.auth.uid &&
+                        request.resource.data.text.size() > 0 &&
+                        request.resource.data.text.size() <= 1000;
+        allow update: if isAuthenticated() &&
+                        resource.data.userId == request.auth.uid &&
+                        request.resource.data.userId == resource.data.userId &&
+                        request.resource.data.text.size() > 0 &&
+                        request.resource.data.text.size() <= 1000;
+        allow delete: if isAuthenticated() &&
+                        (resource.data.userId == request.auth.uid || isAdmin());
+      }
     }
 
     // ==================== Travel Guides Collection ====================
