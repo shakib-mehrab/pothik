@@ -41,6 +41,15 @@ export function TourPlanner() {
   const getInitials = (name: string) => {
     return name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2);
   };
+
+  const handleAddTourClick = () => {
+    if (!currentUser) {
+      alert("ট্যুর তৈরি করতে আপনাকে লগইন করতে হবে!");
+      navigate("/auth");
+      return;
+    }
+    setIsCreatingTour(true);
+  };
   const [tours, setTours] = useState<TourType[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedTour, setSelectedTour] = useState<TourType | null>(null);
@@ -562,7 +571,13 @@ export function TourPlanner() {
             <div className="px-4 pt-6 pb-4">
           <Dialog open={isCreatingTour} onOpenChange={setIsCreatingTour}>
             <DialogTrigger asChild>
-              <Button className="w-full bg-travel text-travel-foreground">
+              <Button 
+                className="w-full bg-travel text-travel-foreground"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleAddTourClick();
+                }}
+              >
                 <Plus className="w-5 h-5 mr-2" />
                 নতুন ট্যুর তৈরি করুন
               </Button>

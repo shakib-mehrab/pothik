@@ -43,6 +43,14 @@ Thumbs.db
 plan.txt
 seedCommand.txt
 guidelines/
+ADMIN_DASHBOARD_SUMMARY.md
+ATTRIBUTIONS.md
+AUTHENTICATION_SUMMARY.md
+check-deploy.ps1
+CRUD_IMPLEMENTATION_PLAN.md
+deploy.ps1
+DEPLOYMENT_GUIDE.md
+FIREBASE_SETUP_INSTRACTIONS.md
 
 # IDE
 .vscode/

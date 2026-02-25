@@ -13,6 +13,7 @@ import { Hotels } from "./pages/Hotels";
 import { Restaurants } from "./pages/Restaurants";
 import { Auth } from "./pages/Auth";
 import { Profile } from "./pages/Profile";
+import { Leaderboard } from "./pages/Leaderboard";
 import { AdminDashboard } from "./pages/admin/Dashboard";
 import { ReviewQueue } from "./pages/admin/ReviewQueue";
 import { SeedData } from "./pages/admin/SeedData";
@@ -26,6 +27,7 @@ export const router = createBrowserRouter([
       { index: true, Component: Home },
       { path: "auth", Component: Auth },
       { path: "profile", Component: Profile },
+      { path: "leaderboard", Component: Leaderboard },
       { path: "transport", Component: Transport },
       { path: "metro", Component: Metro },
       { path: "local-bus", Component: LocalBus },

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router";
-import { Search, Train, ShoppingBag, MapPin, Building2, BookOpen, LogIn, User, LogOut, Shield } from "lucide-react";
+import { Search, Train, ShoppingBag, MapPin, Building2, BookOpen, LogIn, User, LogOut, Shield, Trophy, Crown, Medal, Utensils, Hotel } from "lucide-react";
 import { Input } from "../components/ui/input";
 import { Card } from "../components/ui/card";
+import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
 import {
   DropdownMenu,
@@ -15,10 +16,14 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { useAuth } from "../../contexts/AuthContext";
 import { signOut } from "../../services/authService";
+import { getTopContributorsExcludingAdmins } from "../../services/leaderboardService";
+import { LeaderboardEntry } from "../../types";
 
 export function Home() {
   const { currentUser, userData, loading, isAdmin } = useAuth();
   const navigate = useNavigate();
+  const [topContributors, setTopContributors] = useState<LeaderboardEntry[]>([]);
+  const [loadingLeaderboard, setLoadingLeaderboard] = useState(true);
 
   const handleSignOut = async () => {
     try {
@@ -36,6 +41,51 @@ export function Home() {
       .join("")
       .toUpperCase()
       .slice(0, 2);
+  };
+
+  // Fetch top contributors on mount
+  useEffect(() => {
+    const fetchTopContributors = async () => {
+      try {
+        setLoadingLeaderboard(true);
+        const contributors = await getTopContributorsExcludingAdmins(5);
+        setTopContributors(contributors);
+      } catch (error) {
+        console.error('Error fetching top contributors:', error);
+      } finally {
+        setLoadingLeaderboard(false);
+      }
+    };
+
+    fetchTopContributors();
+  }, []);
+
+  const getRankIcon = (rank: number) => {
+    switch (rank) {
+      case 1:
+        return <Crown className="w-6 h-6 text-yellow-500" />;
+      case 2:
+        return <Medal className="w-6 h-6 text-gray-400" />;
+      case 3:
+        return <Medal className="w-6 h-6 text-amber-600" />;
+      default:
+        return null;
+    }
+  };
+
+  const getRankBadge = (rank: number) => {
+    if (rank <= 3) {
+      return (
+        <div className="flex items-center justify-center w-8 h-8">
+          {getRankIcon(rank)}
+        </div>
+      );
+    }
+    return (
+      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-muted">
+        <span className="text-sm font-semibold text-muted-foreground">#{rank}</span>
+      </div>
+    );
   };
 
   const quickAccessTiles = [
@@ -217,30 +267,97 @@ export function Home() {
         </div>
       </div>
 
-      {/* Popular Routes */}
+      {/* Community Leaderboard */}
       <div className="px-6 mb-8">
-        <h2 className="text-lg font-semibold mb-4 text-foreground">Popular Metro Routes</h2>
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-base font-semibold text-foreground flex items-center gap-2">
+            <Trophy className="w-4 h-4 text-primary" />
+            Top Contributors
+          </h2>
+          <Link to="/leaderboard">
+            <span className="text-xs text-primary hover:underline cursor-pointer font-medium">View All</span>
+          </Link>
+        </div>
         <div className="space-y-3">
-          {[
-            { from: "Uttara North", to: "Motijheel", time: "32 min" },
-            { from: "Agargaon", to: "Kamalapur", time: "18 min" },
-            { from: "Farmgate", to: "Bangladesh Secretariat", time: "8 min" },
-          ].map((route, idx) => (
-            <Card key={idx} className="p-4 flex items-center justify-between hover:shadow-md transition-shadow cursor-pointer">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Train className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <p className="font-medium text-sm">{route.from} → {route.to}</p>
-                  <p className="text-xs text-muted-foreground">{route.time} journey</p>
-                </div>
-              </div>
-              <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-md font-medium">
-                View
-              </span>
+          {loadingLeaderboard ? (
+            <Card className="p-6 text-center">
+              <p className="text-xs text-muted-foreground">Loading...</p>
             </Card>
-          ))}
+          ) : topContributors.length === 0 ? (
+            <Card className="p-6 text-center">
+              <p className="text-xs text-muted-foreground">No contributors yet. Be the first!</p>
+            </Card>
+          ) : (
+            topContributors.map((contributor) => {
+              const isCurrentUser = currentUser?.uid === contributor.uid;
+              return (
+                <Card
+                  key={contributor.uid}
+                  className={`p-4 ${
+                    isCurrentUser ? 'bg-primary/5 border-primary/30 border-2' : ''
+                  } hover:shadow-md transition-shadow`}
+                >
+                  <div className="flex items-center gap-3">
+                    {/* Rank */}
+                    <div className="flex-shrink-0">
+                      {getRankBadge(contributor.rank)}
+                    </div>
+
+                    {/* Avatar & Name */}
+                    <Avatar className="h-12 w-12 border-2 border-primary/20">
+                      <AvatarImage src={contributor.photoURL || ""} alt={contributor.displayName} />
+                      <AvatarFallback className="bg-primary/10 text-primary text-sm">
+                        {getInitials(contributor.displayName)}
+                      </AvatarFallback>
+                    </Avatar>
+
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <p className="font-semibold text-sm truncate">{contributor.displayName}</p>
+                        {isCurrentUser && (
+                          <Badge variant="secondary" className="text-[10px] px-1.5 py-0">You</Badge>
+                        )}
+                      </div>
+                      
+                      {/* Contribution Breakdown */}
+                      <div className="flex items-center gap-2 mt-1 flex-wrap">
+                        {contributor.breakdown.restaurants > 0 && (
+                          <Badge variant="outline" className="text-[10px] px-1.5 py-0 bg-food/10 text-food border-food/30 flex items-center gap-1">
+                            <Utensils className="w-2.5 h-2.5" />
+                            {contributor.breakdown.restaurants}
+                          </Badge>
+                        )}
+                        {contributor.breakdown.hotels > 0 && (
+                          <Badge variant="outline" className="text-[10px] px-1.5 py-0 bg-hotels/10 text-hotels border-hotels/30 flex items-center gap-1">
+                            <Hotel className="w-2.5 h-2.5" />
+                            {contributor.breakdown.hotels}
+                          </Badge>
+                        )}
+                        {contributor.breakdown.markets > 0 && (
+                          <Badge variant="outline" className="text-[10px] px-1.5 py-0 bg-accent/10 text-accent border-accent/30 flex items-center gap-1">
+                            <ShoppingBag className="w-2.5 h-2.5" />
+                            {contributor.breakdown.markets}
+                          </Badge>
+                        )}
+                        {contributor.breakdown.travelGuides > 0 && (
+                          <Badge variant="outline" className="text-[10px] px-1.5 py-0 bg-travel/10 text-travel border-travel/30 flex items-center gap-1">
+                            <MapPin className="w-2.5 h-2.5" />
+                            {contributor.breakdown.travelGuides}
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Points */}
+                    <div className="flex flex-col items-end">
+                      <span className="text-lg font-bold text-primary">{contributor.totalPoints}</span>
+                      <span className="text-xs text-muted-foreground">points</span>
+                    </div>
+                  </div>
+                </Card>
+              );
+            })
+          )}
         </div>
       </div>
 

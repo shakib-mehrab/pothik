@@ -51,6 +51,20 @@ export function Markets() {
   const getInitials = (name: string) => {
     return name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2);
   };
+
+  const handleAddClick = () => {
+    if (!currentUser) {
+      toast.error("আপনাকে লগইন করতে হবে!", {
+        description: "নতুন বাজার যোগ করতে প্রথমে লগইন করুন।",
+        action: {
+          label: "লগইন করুন",
+          onClick: () => navigate("/auth"),
+        },
+      });
+      return;
+    }
+    setIsAddDialogOpen(true);
+  };
   const [activeTab, setActiveTab] = useState<"brands" | "local" | "budget" | "others">("brands");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -145,6 +159,9 @@ export function Markets() {
         reviews: "",
       });
       setSpecialties([]);
+      // Refresh markets list
+      const data = await getMarkets(activeTab);
+      setMarkets(data);
     } catch (error) {
       console.error("Error submitting market:", error);
       toast.error("বাজার জমা দিতে সমস্যা হয়েছে।", {
@@ -180,7 +197,7 @@ export function Markets() {
       setIsEditDialogOpen(false);
       setEditingMarket(null);
       // Refresh list
-      const data = await getMarkets();
+      const data = await getMarkets(activeTab);
       setMarkets(data);
       // Reset form
       setFormData({
@@ -216,7 +233,7 @@ export function Markets() {
       setIsDeleteDialogOpen(false);
       setDeletingMarket(null);
       // Refresh list
-      const data = await getMarkets();
+      const data = await getMarkets(activeTab);
       setMarkets(data);
     } catch (error) {
       console.error("Error deleting market:", error);
@@ -336,6 +353,10 @@ export function Markets() {
             <Button
               size="sm"
               className="w-full mt-3 bg-primary text-primary-foreground"
+              onClick={(e) => {
+                e.preventDefault();
+                handleAddClick();
+              }}
             >
               <Plus className="w-4 h-4 mr-2" />
               নতুন যোগ করুন

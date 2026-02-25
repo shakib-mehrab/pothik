@@ -52,6 +52,20 @@ export function Hotels() {
   const getInitials = (name: string) => {
     return name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2);
   };
+
+  const handleAddClick = () => {
+    if (!currentUser) {
+      toast.error("আপনাকে লগইন করতে হবে!", {
+        description: "নতুন হোটেল/রিসোর্ট যোগ করতে প্রথমে লগইন করুন।",
+        action: {
+          label: "লগইন করুন",
+          onClick: () => navigate("/auth"),
+        },
+      });
+      return;
+    }
+    setIsAddDialogOpen(true);
+  };
   const [activeTab, setActiveTab] = useState<Hotel["category"]>("hotel");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -141,6 +155,9 @@ export function Hotels() {
         reviews: "",
       });
       setDocuments(["এনআইডি"]);
+      // Refresh hotels list
+      const data = await getHotels(activeTab);
+      setHotels(data);
     } catch (error) {
       console.error("Error submitting hotel:", error);
       toast.error("হোটেল/রিসোর্ট জমা দিতে সমস্যা হয়েছে।", {
@@ -179,7 +196,7 @@ export function Hotels() {
       setIsEditDialogOpen(false);
       setEditingHotel(null);
       // Refresh list
-      const data = await getHotels();
+      const data = await getHotels(activeTab);
       setHotels(data);
       // Reset form
       setFormData({
@@ -218,7 +235,7 @@ export function Hotels() {
       setIsDeleteDialogOpen(false);
       setDeletingHotel(null);
       // Refresh list
-      const data = await getHotels();
+      const data = await getHotels(activeTab);
       setHotels(data);
     } catch (error) {
       console.error("Error deleting hotel:", error);
@@ -338,6 +355,10 @@ export function Hotels() {
             <Button
               size="sm"
               className="w-full mt-3 bg-hotels text-hotels-foreground"
+              onClick={(e) => {
+                e.preventDefault();
+                handleAddClick();
+              }}
             >
               <Plus className="w-4 h-4 mr-2" />
               নতুন যোগ করুন

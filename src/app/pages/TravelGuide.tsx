@@ -53,6 +53,7 @@ export function TravelGuide() {
   };
   const [expandedGuide, setExpandedGuide] = useState<string | null>(null);
   const [expandedBudget, setExpandedBudget] = useState<string | null>(null);
+  const [expandedDescriptions, setExpandedDescriptions] = useState<Set<string>>(new Set());
   const [guides, setGuides] = useState<TravelGuideType[]>([]);
   const [loading, setLoading] = useState(true);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
@@ -315,6 +316,22 @@ export function TravelGuide() {
     setExpandedBudget(expandedBudget === id ? null : id);
   };
 
+  const toggleDescription = (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const newExpanded = new Set(expandedDescriptions);
+    if (newExpanded.has(id)) {
+      newExpanded.delete(id);
+    } else {
+      newExpanded.add(id);
+    }
+    setExpandedDescriptions(newExpanded);
+  };
+
+  const truncateDescription = (text: string, maxLength: number = 150) => {
+    if (text.length <= maxLength) return text;
+    return text.slice(0, maxLength).trim() + '...';
+  };
+
   return (
     <div className="min-h-screen bg-background pb-8">
       {/* Header */}
@@ -444,9 +461,21 @@ export function TravelGuide() {
                     }`}
                   />
                 </div>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {guide.description}
-                </p>
+                <div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {expandedDescriptions.has(guide.id) 
+                      ? guide.description 
+                      : truncateDescription(guide.description)}
+                  </p>
+                  {guide.description.length > 150 && (
+                    <button
+                      onClick={(e) => toggleDescription(guide.id, e)}
+                      className="text-xs text-accent hover:underline mt-1 font-medium"
+                    >
+                      {expandedDescriptions.has(guide.id) ? 'Show Less' : 'Show More'}
+                    </button>
+                  )}
+                </div>
               </div>
 
               {/* Budget Preview */}
@@ -571,7 +600,7 @@ export function TravelGuide() {
         )}
 
         {/* Add Guide Button (floating) */}
-        {currentUser && (
+        {currentUser ? (
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
               <Button
@@ -721,6 +750,16 @@ export function TravelGuide() {
               </form>
             </DialogContent>
           </Dialog>
+        ) : (
+          <Button
+            asChild
+            className="fixed bottom-6 right-6 rounded-full w-14 h-14 shadow-xl z-20"
+            size="icon"
+          >
+            <Link to="/auth">
+              <Plus className="w-6 h-6" />
+            </Link>
+          </Button>
         )}
 
         {/* Edit Dialog */}

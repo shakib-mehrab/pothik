@@ -50,6 +50,20 @@ export function Restaurants() {
   const getInitials = (name: string) => {
     return name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2);
   };
+
+  const handleAddClick = () => {
+    if (!currentUser) {
+      toast.error("আপনাকে লগইন করতে হবে!", {
+        description: "নতুন রেস্টুরেন্ট যোগ করতে প্রথমে লোগইন করুন।",
+        action: {
+          label: "লগইন করুন",
+          onClick: () => navigate("/auth"),
+        },
+      });
+      return;
+    }
+    setIsAddDialogOpen(true);
+  };
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -115,6 +129,9 @@ export function Restaurants() {
         bestItem: "",
         reviews: "",
       });
+      // Refresh restaurants list
+      const data = await getRestaurants();
+      setRestaurants(data);
     } catch (error) {
       console.error("Error submitting restaurant:", error);
       toast.error("রেস্টুরেন্ট জমা দিতে সমস্যা হয়েছে", {
@@ -290,6 +307,10 @@ export function Restaurants() {
             <Button
               size="sm"
               className="w-full bg-food text-food-foreground"
+              onClick={(e) => {
+                e.preventDefault();
+                handleAddClick();
+              }}
             >
               <Plus className="w-4 h-4 mr-2" />
               নতুন রেস্টুরেন্ট যোগ করুন

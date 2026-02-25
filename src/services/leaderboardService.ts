@@ -179,3 +179,66 @@ export async function updateLeaderboardForApproval(
     throw error;
   }
 }
+
+/**
+ * Get top contributors excluding admins
+ */
+export async function getTopContributorsExcludingAdmins(limitCount: number = 10): Promise<LeaderboardEntry[]> {
+  try {
+    // Fetch leaderboard entries (fetch more than needed to account for admins)
+    const q = query(
+      collection(db, 'leaderboard'),
+      orderBy('totalPoints', 'desc'),
+      limit(limitCount * 3) // Fetch more than needed to ensure we have enough non-admin users
+    );
+    const snapshot = await getDocs(q);
+
+    // Fetch all user UIDs from leaderboard
+    const userIds = snapshot.docs.map(doc => doc.id);
+
+    // Fetch user data to check roles
+    const usersQuery = query(
+      collection(db, 'users'),
+      where('__name__', 'in', userIds.slice(0, 30)) // Firestore 'in' query limited to 30 items
+    );
+    const usersSnapshot = await getDocs(usersQuery);
+    
+    // Create a map of user roles
+    const userRoles = new Map<string, string>();
+    usersSnapshot.docs.forEach(doc => {
+      const data = doc.data();
+      userRoles.set(doc.id, data.role || 'user');
+    });
+
+    // Filter out admins and map to LeaderboardEntry
+    const nonAdminEntries: LeaderboardEntry[] = [];
+    let rank = 1;
+    
+    for (const doc of snapshot.docs) {
+      const role = userRoles.get(doc.id) || 'user';
+      if (role !== 'admin' && nonAdminEntries.length < limitCount) {
+        const data = doc.data();
+        nonAdminEntries.push({
+          uid: doc.id,
+          displayName: data.displayName || 'Anonymous',
+          photoURL: data.photoURL || '',
+          totalPoints: data.totalPoints || 0,
+          rank,
+          breakdown: data.breakdown || {
+            restaurants: 0,
+            hotels: 0,
+            markets: 0,
+            travelGuides: 0,
+          },
+          updatedAt: data.updatedAt?.toDate() || new Date(),
+        });
+        rank++;
+      }
+    }
+
+    return nonAdminEntries;
+  } catch (error) {
+    console.error('Error fetching top contributors excluding admins:', error);
+    return [];
+  }
+}
